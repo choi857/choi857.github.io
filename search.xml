@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>MySQL 索引</title>
-    <url>/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/</url>
+    <url>/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/</url>
     <content><![CDATA[<h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。</p>
 <p>简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。</p>
 <p>索引就像字典上的目录，能够帮助我们快速定位到需要的信息。</p>
