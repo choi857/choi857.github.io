@@ -6,7 +6,7 @@
   <link href="https://choi857.github.io/atom.xml" rel="self"/>
   
   <link href="https://choi857.github.io/"/>
-  <updated>2025-03-16T12:47:59.513Z</updated>
+  <updated>2025-04-17T15:45:22.371Z</updated>
   <id>https://choi857.github.io/</id>
   
   <author>
@@ -15,6 +15,86 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网络基础</title>
+    <link href="https://choi857.github.io/2025/04/17/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
+    <id>https://choi857.github.io/2025/04/17/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</id>
+    <published>2025-04-17T15:38:51.000Z</published>
+    <updated>2025-04-17T15:45:22.371Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;网络基础&quot;&gt;&lt;a href=&quot;#网络基础&quot; class=&quot;headerlink&quot; title=&quot;网络基础&quot;&gt;&lt;/a&gt;网络基础&lt;/h1&gt;&lt;h2 id=&quot;TCP-和-UDP-的区别&quot;&gt;&lt;a href=&quot;#TCP-和-UDP-的区别&quot; class=&quot;headerlink</summary>
+      
+    
+    
+    
+    
+    <category term="面经" scheme="https://choi857.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式</title>
+    <link href="https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2025-04-06T09:49:48.000Z</published>
+    <updated>2024-04-07T11:50:03.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;设计模式与原则&quot;&gt;&lt;a href=&quot;#设计模式与原则&quot; class=&quot;headerlink&quot; title=&quot;设计模式与原则&quot;&gt;&lt;/a&gt;设计模式与原则&lt;/h1&gt;&lt;h2 id=&quot;合成复用原则&quot;&gt;&lt;a href=&quot;#合成复用原则&quot; class=&quot;headerlink&quot; </summary>
+      
+    
+    
+    
+    
+    <category term="面经" scheme="https://choi857.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis分布式锁</title>
+    <link href="https://choi857.github.io/2025/03/17/Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
+    <id>https://choi857.github.io/2025/03/17/Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</id>
+    <published>2025-03-17T07:31:52.000Z</published>
+    <updated>2025-04-05T09:48:10.686Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;分布式锁实现与优化&quot;&gt;&lt;a href=&quot;#分布式锁实现与优化&quot; class=&quot;headerlink&quot; title=&quot;分布式锁实现与优化&quot;&gt;&lt;/a&gt;分布式锁实现与优化&lt;/h1&gt;&lt;h2 id=&quot;分布式锁的基本思路&quot;&gt;&lt;a href=&quot;#分布式锁的基本思路&quot; class</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="https://choi857.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis五种数据类型</title>
+    <link href="https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    <id>https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
+    <published>2025-03-16T14:46:02.000Z</published>
+    <updated>2025-03-17T07:27:02.553Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Redis-数据类型与常用命令&quot;&gt;&lt;a href=&quot;#Redis-数据类型与常用命令&quot; class=&quot;headerlink&quot; title=&quot;Redis 数据类型与常用命令&quot;&gt;&lt;/a&gt;Redis 数据类型与常用命令&lt;/h1&gt;&lt;p&gt;更多的命令参考官方文档：&lt;br&gt;&lt;a</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="https://choi857.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>SerializationUtils序列化和HTTP 工具类</title>
@@ -326,86 +406,6 @@
       
       
     <summary type="html">&lt;h1 id=&quot;记录一下当菜鸡遇上高并发&quot;&gt;&lt;a href=&quot;#记录一下当菜鸡遇上高并发&quot; class=&quot;headerlink&quot; title=&quot;记录一下当菜鸡遇上高并发&quot;&gt;&lt;/a&gt;记录一下当菜鸡遇上高并发&lt;/h1&gt;&lt;h2 id=&quot;一、从血泪史说起&quot;&gt;&lt;a href=&quot;#一、从血泪</summary>
-      
-    
-    
-    
-    
-    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka Streams 客户端</title>
-    <link href="https://choi857.github.io/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
-    <id>https://choi857.github.io/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/</id>
-    <published>2024-09-03T13:28:26.000Z</published>
-    <updated>2024-09-03T13:29:05.421Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Kafka-Streams-客户端&quot;&gt;&lt;a href=&quot;#Kafka-Streams-客户端&quot; class=&quot;headerlink&quot; title=&quot;Kafka Streams 客户端&quot;&gt;&lt;/a&gt;Kafka Streams 客户端&lt;/h3&gt;&lt;p&gt;Kafka Stre</summary>
-      
-    
-    
-    
-    
-    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka外存储偏移量</title>
-    <link href="https://choi857.github.io/2024/08/22/Kafka%E5%A4%96%E5%AD%98%E5%82%A8%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
-    <id>https://choi857.github.io/2024/08/22/Kafka%E5%A4%96%E5%AD%98%E5%82%A8%E5%81%8F%E7%A7%BB%E9%87%8F/</id>
-    <published>2024-08-22T11:26:15.000Z</published>
-    <updated>2024-08-23T14:23:24.823Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;在-Kafka-之外存储偏移量&quot;&gt;&lt;a href=&quot;#在-Kafka-之外存储偏移量&quot; class=&quot;headerlink&quot; title=&quot;在 Kafka 之外存储偏移量&quot;&gt;&lt;/a&gt;在 Kafka 之外存储偏移量&lt;/h3&gt;&lt;p&gt;参考大佬：&lt;a href=&quot;http</summary>
-      
-    
-    
-    
-    
-    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java面经刚启动就拿下offer</title>
-    <link href="https://choi857.github.io/2024/08/20/java%E9%9D%A2%E7%BB%8F%E5%88%9A%E5%90%AF%E5%8A%A8%E5%B0%B1%E6%8B%BF%E4%B8%8Boffer/"/>
-    <id>https://choi857.github.io/2024/08/20/java%E9%9D%A2%E7%BB%8F%E5%88%9A%E5%90%AF%E5%8A%A8%E5%B0%B1%E6%8B%BF%E4%B8%8Boffer/</id>
-    <published>2024-08-20T12:57:22.000Z</published>
-    <updated>2024-08-20T13:38:06.214Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Java基础：线程与并发&quot;&gt;&lt;a href=&quot;#Java基础：线程与并发&quot; class=&quot;headerlink&quot; title=&quot;Java基础：线程与并发&quot;&gt;&lt;/a&gt;Java基础：线程与并发&lt;/h1&gt;&lt;h4 id=&quot;刚刚秋招就拿下了第一个offer，公司规模不错，后</summary>
-      
-    
-    
-    
-    
-    <category term="面经" scheme="https://choi857.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka消费者java客户端</title>
-    <link href="https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
-    <id>https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/</id>
-    <published>2024-08-17T07:16:06.000Z</published>
-    <updated>2024-08-18T12:24:59.724Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Kafka-消费者-Java-客户端&quot;&gt;&lt;a href=&quot;#Kafka-消费者-Java-客户端&quot; class=&quot;headerlink&quot; title=&quot;Kafka 消费者 Java 客户端&quot;&gt;&lt;/a&gt;Kafka 消费者 Java 客户端&lt;/h3&gt;&lt;p&gt;Kafka </summary>
       
     
     

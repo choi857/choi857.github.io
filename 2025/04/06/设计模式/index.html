@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="设计模式与原则合成复用原则定义：尽量使用组合而不是继承来实现代码复用。尽量使用聚合或组合的方式，而不是使用继承。也就是把需要用到的类作为本类的参数、成员变量、局部变量。 优点：  灵活性更高：组合可以在运行时动态地选择不同的实现，而继承在编译时就已经确定。 避免继承层次过深：过度使用继承可能导致类层次结构过于复杂，难以维护。 代码复用性更好：组合可以将多个对象的功能组合在一起，实现更复杂的功能，而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Choi每天进步一点点">
+<meta property="og:description" content="设计模式与原则合成复用原则定义：尽量使用组合而不是继承来实现代码复用。尽量使用聚合或组合的方式，而不是使用继承。也就是把需要用到的类作为本类的参数、成员变量、局部变量。 优点：  灵活性更高：组合可以在运行时动态地选择不同的实现，而继承在编译时就已经确定。 避免继承层次过深：过度使用继承可能导致类层次结构过于复杂，难以维护。 代码复用性更好：组合可以将多个对象的功能组合在一起，实现更复杂的功能，而">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-06T09:49:48.000Z">
+<meta property="article:modified_time" content="2024-04-07T11:50:03.000Z">
+<meta property="article:author" content="choi">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/","path":"2025/04/06/设计模式/","title":"设计模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>设计模式 | Choi每天进步一点点</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Choi每天进步一点点" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Choi每天进步一点点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">设计模式与原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%88%90%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">合成复用原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">单例设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E6%B1%89%E6%A8%A1%E5%BC%8F%E5%92%8C%E9%A5%BF%E6%B1%89%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.1.</span> <span class="nav-text">懒汉模式和饿汉模式的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">模板设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">策略模式</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">choi</p>
+  <div class="site-description" itemprop="description">自强不息的猿</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="设计模式 | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-04-06 17:49:48" itemprop="dateCreated datePublished" datetime="2025-04-06T17:49:48+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-04-07 19:50:03" itemprop="dateModified" datetime="2024-04-07T19:50:03+08:00">2024-04-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="设计模式与原则"><a href="#设计模式与原则" class="headerlink" title="设计模式与原则"></a>设计模式与原则</h1><h2 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h2><p><strong>定义</strong>：尽量使用组合而不是继承来实现代码复用。尽量使用聚合或组合的方式，而不是使用继承。也就是把需要用到的类作为本类的参数、成员变量、局部变量。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li><strong>灵活性更高</strong>：组合可以在运行时动态地选择不同的实现，而继承在编译时就已经确定。</li>
+<li><strong>避免继承层次过深</strong>：过度使用继承可能导致类层次结构过于复杂，难以维护。</li>
+<li><strong>代码复用性更好</strong>：组合可以将多个对象的功能组合在一起，实现更复杂的功能，而继承只能继承单一父类的功能。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Engine</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Engine started&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Engine engine;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Car</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.engine = <span class="keyword">new</span> <span class="title class_">Engine</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">        engine.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>Car</code> 类通过组合 <code>Engine</code> 类来实现启动功能，而不是通过继承。</p>
+<h2 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h2><p><strong>概念</strong>：它确保一个类只有一个实例，并提供一个全局访问点。</p>
+<h3 id="懒汉模式和饿汉模式的区别"><a href="#懒汉模式和饿汉模式的区别" class="headerlink" title="懒汉模式和饿汉模式的区别"></a>懒汉模式和饿汉模式的区别</h3><ul>
+<li><strong>饿汉模式</strong>：<ul>
+<li>在类加载时就创建单例实例。</li>
+<li>线程安全，因为实例在类加载时就已经创建，不存在多线程并发问题。</li>
+<li>如果实例一直没有被使用，可能浪费资源。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Singleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>懒汉模式</strong>：<ul>
+<li>在第一次调用 <code>getInstance()</code> 方法时才创建单例实例。</li>
+<li>需要处理线程安全问题。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>推荐实现方式</strong>：</p>
+<ul>
+<li><strong>静态内部类</strong>：既能保证线程安全，又能实现延迟加载。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Singleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>双重检查锁</strong>：既能保证线程安全，又能实现延迟加载。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模板设计模式"><a href="#模板设计模式" class="headerlink" title="模板设计模式"></a>模板设计模式</h2><p><strong>概念</strong>：行为型模式，用于描述对象之间的通信和责任分配。</p>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>抽象类有一个模板方法和其他行为方法，模板方法按流程调用各行为方法（抽象或非抽象）。</li>
+<li>具体子类重写抽象的行为方法。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractClass</span> &#123;</span><br><span class="line">    <span class="comment">// 模板方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">templateMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        method1();</span><br><span class="line">        method2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 抽象方法，子类实现</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 抽象方法，子类实现</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteClassA</span> <span class="keyword">extends</span> <span class="title class_">AbstractClass</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ConcreteClassA method1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ConcreteClassA method2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteClassB</span> <span class="keyword">extends</span> <span class="title class_">AbstractClass</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ConcreteClassB method1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ConcreteClassB method2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p><strong>概念</strong>：定义一系列算法，将每个算法都封装起来，并且使它们之间可以相互替换。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>遵循了开闭原则，扩展性良好。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>随着策略的增加，对外暴露越来越多。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 策略接口</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Strategy</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体策略</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteStrategyA</span> <span class="keyword">implements</span> <span class="title class_">Strategy</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Executing strategy A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteStrategyB</span> <span class="keyword">implements</span> <span class="title class_">Strategy</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Executing strategy B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上下文</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Context</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Strategy strategy;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Context</span><span class="params">(Strategy strategy)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.strategy = strategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">executeStrategy</span><span class="params">()</span> &#123;</span><br><span class="line">        strategy.execute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StrategyPatternDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Context</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Context</span>(<span class="keyword">new</span> <span class="title class_">ConcreteStrategyA</span>());</span><br><span class="line">        context.executeStrategy();</span><br><span class="line"></span><br><span class="line">        context = <span class="keyword">new</span> <span class="title class_">Context</span>(<span class="keyword">new</span> <span class="title class_">ConcreteStrategyB</span>());</span><br><span class="line">        context.executeStrategy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>choi
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://choi857.github.io/2025/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">https://choi857.github.io/2025/04/06/设计模式/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag"># 面经</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/17/Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="prev" title="Redis分布式锁">
+                  <i class="fa fa-angle-left"></i> Redis分布式锁
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/04/17/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" rel="next" title="网络基础">
+                  网络基础 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">choi</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/choi857" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

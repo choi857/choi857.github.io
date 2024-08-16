@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Redis 数据类型与常用命令更多的命令参考官方文档：http:&#x2F;&#x2F;www.redis.cn&#x2F;commands.html# Redis 中的数据以 key&#x2F;value 的形式存储，五大数据类型主要指的是 value 的数据类型：  String List Hash Set Zset  1. StringString 是 Redis 最简单的一种数据结构。在 Redis 中，所有的 key">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis五种数据类型">
+<meta property="og:url" content="https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Choi每天进步一点点">
+<meta property="og:description" content="Redis 数据类型与常用命令更多的命令参考官方文档：http:&#x2F;&#x2F;www.redis.cn&#x2F;commands.html# Redis 中的数据以 key&#x2F;value 的形式存储，五大数据类型主要指的是 value 的数据类型：  String List Hash Set Zset  1. StringString 是 Redis 最简单的一种数据结构。在 Redis 中，所有的 key">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-16T14:46:02.000Z">
+<meta property="article:modified_time" content="2025-03-17T07:27:02.553Z">
+<meta property="article:author" content="choi">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/","path":"2025/03/16/Redis五种数据类型/","title":"Redis五种数据类型"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis五种数据类型 | Choi每天进步一点点</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Choi每天进步一点点" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Choi每天进步一点点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Redis 数据类型与常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-String"><span class="nav-number">1.1.</span> <span class="nav-text">1. String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.1.</span> <span class="nav-text">String 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BIT-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">BIT 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-List"><span class="nav-number">1.2.</span> <span class="nav-text">2. List</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.1.</span> <span class="nav-text">List 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Set"><span class="nav-number">1.3.</span> <span class="nav-text">3. Set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">Set 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Hash"><span class="nav-number">1.4.</span> <span class="nav-text">4. Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.1.</span> <span class="nav-text">Hash 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-ZSet"><span class="nav-number">1.5.</span> <span class="nav-text">5. ZSet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZSet-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.1.</span> <span class="nav-text">ZSet 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text">Key 相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DEL-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">DEL 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DUMP-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.2.</span> <span class="nav-text">DUMP 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXISTS-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.3.</span> <span class="nav-text">EXISTS 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TTL-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.4.</span> <span class="nav-text">TTL 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPIRE-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.5.</span> <span class="nav-text">EXPIRE 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PERSIST-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.6.</span> <span class="nav-text">PERSIST 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PEXPIRE-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.7.</span> <span class="nav-text">PEXPIRE 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTTL-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.8.</span> <span class="nav-text">PTTL 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KEYS-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.9.</span> <span class="nav-text">KEYS 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">1.7.</span> <span class="nav-text">补充</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">choi</p>
+  <div class="site-description" itemprop="description">自强不息的猿</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis五种数据类型 | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis五种数据类型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-16 22:46:02" itemprop="dateCreated datePublished" datetime="2025-03-16T22:46:02+08:00">2025-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-17 15:27:02" itemprop="dateModified" datetime="2025-03-17T15:27:02+08:00">2025-03-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Redis-数据类型与常用命令"><a href="#Redis-数据类型与常用命令" class="headerlink" title="Redis 数据类型与常用命令"></a>Redis 数据类型与常用命令</h1><p>更多的命令参考官方文档：<br><a target="_blank" rel="noopener" href="http://www.redis.cn/commands.html#">http://www.redis.cn/commands.html#</a></p>
+<p>Redis 中的数据以 <strong>key&#x2F;value</strong> 的形式存储，五大数据类型主要指的是 <strong>value</strong> 的数据类型：</p>
+<ul>
+<li><strong>String</strong></li>
+<li><strong>List</strong></li>
+<li><strong>Hash</strong></li>
+<li><strong>Set</strong></li>
+<li><strong>Zset</strong></li>
+</ul>
+<h2 id="1-String"><a href="#1-String" class="headerlink" title="1. String"></a>1. String</h2><p><strong>String</strong> 是 Redis 最简单的一种数据结构。在 Redis 中，所有的 <strong>key</strong> 都是字符串，但不同的 <strong>key</strong> 对应的 <strong>value</strong> 可以有不同的数据结构。我们所说的五种不同的数据类型，主要是指 <strong>value</strong> 的数据类型不同。</p>
+<p>Redis 中的字符串是动态字符串，内部是可以修改的，类似于 Java 中的 <code>StringBuilder</code>，它通过分配冗余空间来减少内存的频繁分配。在 Redis 内部结构中，实际分配的内存通常会大于所需的内存。当字符串小于 1MB 时，扩容操作是在现有空间基础上加倍；每次扩容增加 1MB 空间，最大可达 512MB。</p>
+<h3 id="String-命令"><a href="#String-命令" class="headerlink" title="String 命令"></a>String 命令</h3><ul>
+<li><strong>set</strong>：给一个 <strong>key</strong> 赋值。</li>
+<li><strong>append</strong>：如果 <strong>key</strong> 已存在，直接在对应的 <strong>value</strong> 后追加值；否则，创建新的键值对。</li>
+<li><strong>decr</strong>：对 <strong>value</strong> 执行减 1 操作（前提是 <strong>value</strong> 是数字）。如果 <strong>value</strong> 不是数字，会报错；如果 <strong>value</strong> 不存在，则默认值为 0，并在此基础上减一。</li>
+<li><strong>decrby</strong>：与 <strong>decr</strong> 类似，但可以自定义步长。</li>
+<li><strong>get</strong>：获取一个 <strong>key</strong> 的 <strong>value</strong>。</li>
+<li><strong>getrange</strong>：返回 <strong>key</strong> 对应 <strong>value</strong> 的子串，类似于 Java 中的 <code>substring</code>。第二个和第三个参数分别是截取的起始和终止位置，其中 -1 表示最后一个字符，-2 表示倒数第二个字符，依此类推。</li>
+<li><strong>getset</strong>：获取并更新某一个 <strong>key</strong>。</li>
+<li><strong>incr</strong>：给某一个 <strong>key</strong> 的 <strong>value</strong> 自增。</li>
+<li><strong>incrby</strong>：给某一个 <strong>key</strong> 的 <strong>value</strong> 自增，同时可以设置步长。</li>
+<li><strong>incrbyfloat</strong>：与 <strong>incrby</strong> 类似，但步长可以是浮点数。</li>
+<li><strong>mget</strong> 和 <strong>mset</strong>：批量获取和批量存储。</li>
+<li><strong>ttl</strong>：查看 <strong>key</strong> 的有效期。</li>
+<li><strong>setex</strong>：在给 <strong>key</strong> 设置 <strong>value</strong> 的同时，设置过期时间。</li>
+<li><strong>psetex</strong>：与 <strong>setex</strong> 类似，但时间单位是毫秒。</li>
+<li><strong>setnx</strong>：默认情况下，<strong>set</strong> 命令会覆盖已存在的 <strong>key</strong>，而 <strong>setnx</strong> 则不会。</li>
+<li><strong>msetnx</strong>：批量设置。</li>
+<li><strong>setrange</strong>：覆盖一个已存在的 <strong>key</strong> 的 <strong>value</strong>。</li>
+<li><strong>strlen</strong>：查看字符串长度。</li>
+</ul>
+<h3 id="BIT-命令"><a href="#BIT-命令" class="headerlink" title="BIT 命令"></a>BIT 命令</h3><p>Redis 中的字符串以二进制方式存储。例如，<code>set k1 a</code>，其中 <code>a</code> 对应的 ASCII 码是 97，97 转换为二进制是 <code>01100001</code>。BIT 相关的命令是对二进制进行操作的：</p>
+<ul>
+<li><strong>getbit</strong>：获取 <strong>key</strong> 对应 <strong>value</strong> 在 <strong>offset</strong> 处的 bit 值。</li>
+<li><strong>setbit</strong>：修改 <strong>key</strong> 对应 <strong>value</strong> 在 <strong>offset</strong> 处的 bit 值。</li>
+<li><strong>bitcount</strong>：统计二进制数据中 1 的个数。</li>
+</ul>
+<h2 id="2-List"><a href="#2-List" class="headerlink" title="2. List"></a>2. List</h2><p><strong>List</strong> 是一个简单的字符串列表，按照插入顺序排序。可以从 <strong>List</strong> 的头部（LEFT）或尾部（RIGHT）插入元素，也可以从头部或尾部弹出元素。</p>
+<h3 id="List-命令"><a href="#List-命令" class="headerlink" title="List 命令"></a>List 命令</h3><ul>
+<li><strong>lpush</strong>：将 <strong>value</strong> 的值从左到右依次插入表头位置。</li>
+<li><strong>lrange</strong>：返回列表指定区间内的元素。</li>
+<li><strong>rpush</strong>：与 <strong>lpush</strong> 功能类似，但插入方向是从右到左。</li>
+<li><strong>rpop</strong>：移除并返回列表的尾元素。</li>
+<li><strong>lpop</strong>：移除并返回列表的头元素。</li>
+<li><strong>lindex</strong>：返回列表中下标为 <strong>index</strong> 的元素。</li>
+<li><strong>ltrim</strong>：对列表进行修剪。</li>
+<li><strong>blpop</strong>：阻塞式的弹出，相当于 <strong>lpop</strong> 的阻塞版。</li>
+</ul>
+<h2 id="3-Set"><a href="#3-Set" class="headerlink" title="3. Set"></a>3. Set</h2><p><strong>Set</strong> 是 <strong>String</strong> 类型的无序集合，与 <strong>List</strong> 不同，<strong>Set</strong> 中的元素不能重复。</p>
+<h3 id="Set-命令"><a href="#Set-命令" class="headerlink" title="Set 命令"></a>Set 命令</h3><ul>
+<li><strong>sadd</strong>：添加元素到一个 <strong>key</strong> 中。</li>
+<li><strong>smembers</strong>：获取一个 <strong>key</strong> 下的所有元素。</li>
+<li><strong>srem</strong>：移除指定的元素。</li>
+<li><strong>sismember</strong>：返回某一个成员是否在集合中。</li>
+<li><strong>scard</strong>：返回集合的数量。</li>
+<li><strong>srandmember</strong>：随机返回一个元素。</li>
+<li><strong>spop</strong>：随机返回并且出栈一个元素。</li>
+<li><strong>smove</strong>：把一个元素从一个集合移到另一个集合中。</li>
+<li><strong>sdiff</strong>：返回两个集合的差集。</li>
+<li><strong>sinter</strong>：返回两个集合的交集。</li>
+<li><strong>sdiffstore</strong>：类似于 <strong>sdiff</strong>，但计算结果会保存在一个新的集合中。</li>
+<li><strong>sinterstore</strong>：类似于 <strong>sinter</strong>，但将交集保存到一个新的集合中。</li>
+<li><strong>sunion</strong>：求并集。</li>
+<li><strong>sunionstore</strong>：求并集并将结果保存到新的集合中。</li>
+</ul>
+<h2 id="4-Hash"><a href="#4-Hash" class="headerlink" title="4. Hash"></a>4. Hash</h2><p><strong>Hash</strong> 类似于 Java 中的 <strong>Map</strong>，是一个键值对集合，在 Redis 中可以用来存储对象。在 <strong>hash</strong> 结构中，<strong>key</strong> 是一个字符串，<strong>value</strong> 是一个键值对。</p>
+<h3 id="Hash-命令"><a href="#Hash-命令" class="headerlink" title="Hash 命令"></a>Hash 命令</h3><ul>
+<li><strong>hset</strong>：添加值。</li>
+<li><strong>hget</strong>：获取值。</li>
+<li><strong>hmset</strong>：批量设置。</li>
+<li><strong>hmget</strong>：批量获取。</li>
+<li><strong>hdel</strong>：删除一个指定的 <strong>field</strong>。</li>
+<li><strong>hsetnx</strong>：默认情况下，如果 <strong>key</strong> 和 <strong>field</strong> 相同，会覆盖已有的 <strong>value</strong>，而 <strong>hsetnx</strong> 则不会。</li>
+<li><strong>hvals</strong>：获取所有的 <strong>value</strong>。</li>
+<li><strong>hkeys</strong>：获取所有的 <strong>key</strong>。</li>
+<li><strong>hgetall</strong>：同时获取所有的 <strong>key</strong> 和 <strong>value</strong>。</li>
+<li><strong>hexists</strong>：返回 <strong>field</strong> 是否存在。</li>
+<li><strong>hincrby</strong>：给指定的 <strong>value</strong> 自增。</li>
+<li><strong>hincrbyfloat</strong>：可以自增一个浮点数。</li>
+<li><strong>hlen</strong>：返回某一个 <strong>key</strong> 中 <strong>value</strong> 的数量。</li>
+<li><strong>hstrlen</strong>：返回某一个 <strong>key</strong> 中的某一个 <strong>field</strong> 的字符串长度。</li>
+</ul>
+<h2 id="5-ZSet"><a href="#5-ZSet" class="headerlink" title="5. ZSet"></a>5. ZSet</h2><p><strong>ZSet</strong> 和 <strong>Set</strong> 类似，也是 <strong>String</strong> 类型元素的集合，但 <strong>ZSet</strong> 中的每个元素都会关联一个 <strong>double</strong> 类型的分数。<strong>ZSet</strong> 中的成员是唯一的，但所关联的分数可以重复。</p>
+<h3 id="ZSet-命令"><a href="#ZSet-命令" class="headerlink" title="ZSet 命令"></a>ZSet 命令</h3><ul>
+<li><strong>zadd</strong>：将指定的元素添加到有序集合中。</li>
+<li><strong>zscore</strong>：返回 <strong>member</strong> 的 <strong>score</strong> 值。</li>
+<li><strong>zrange</strong>：返回集合中的一组元素。</li>
+<li><strong>zrevrange</strong>：返回一组元素，但按倒序排列。</li>
+<li><strong>zcard</strong>：返回元素个数。</li>
+<li><strong>zcount</strong>：返回 <strong>score</strong> 在某一个区间内的元素数量。</li>
+<li><strong>zrangebyscore</strong>：按 <strong>score</strong> 的范围返回元素。</li>
+<li><strong>zrank</strong>：返回元素的排名（从小到大）。</li>
+<li><strong>zrevrank</strong>：返回元素的排名（从大到小）。</li>
+<li><strong>zincrby</strong>：<strong>score</strong> 自增。</li>
+<li><strong>zinterstore</strong>：给两个集合求交集。</li>
+<li><strong>zrem</strong>：弹出一个元素。</li>
+<li><strong>zlexcount</strong>：计算有序集合中成员数量。</li>
+<li><strong>zrangebylex</strong>：返回指定区间内的成员。</li>
+</ul>
+<h2 id="Key-相关命令"><a href="#Key-相关命令" class="headerlink" title="Key 相关命令"></a>Key 相关命令</h2><p>由于五大数据类型的数据结构本身有差异，因此对应的命令也会不同。但有一些命令对所有数据类型都适用，以下是一些特殊的命令：</p>
+<h3 id="DEL-命令"><a href="#DEL-命令" class="headerlink" title="DEL 命令"></a>DEL 命令</h3><p>通过 <strong>DEL</strong> 命令可以删除一个已存在的 <strong>key</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; DEL k1</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<p>看到 <code>(integer) 1</code> 表示数据已成功删除。</p>
+<h3 id="DUMP-命令"><a href="#DUMP-命令" class="headerlink" title="DUMP 命令"></a>DUMP 命令</h3><p><strong>DUMP</strong> 命令可以序列化给定的 <strong>key</strong>，并返回序列化后的值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; DUMP k1</span><br><span class="line">&quot;\x00\x02v1\b\x00\xe6\xc8\\\xe1bI\xf3c&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="EXISTS-命令"><a href="#EXISTS-命令" class="headerlink" title="EXISTS 命令"></a>EXISTS 命令</h3><p><strong>EXISTS</strong> 命令用来检测一个给定的 <strong>key</strong> 是否存在：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; EXISTS k1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; EXISTS k2</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<p>上面的运行结果表示 <strong>k1</strong> 存在，而 <strong>k2</strong> 不存在。</p>
+<h3 id="TTL-命令"><a href="#TTL-命令" class="headerlink" title="TTL 命令"></a>TTL 命令</h3><p><strong>TTL</strong> 命令可以查看一个给定 <strong>key</strong> 的有效时间：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; TTL k1</span><br><span class="line">(integer) -1</span><br><span class="line">127.0.0.1:6379&gt; TTL k2</span><br><span class="line">(integer) -2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-2</code> 表示 <strong>key</strong> 不存在或已过期。</li>
+<li><code>-1</code> 表示 <strong>key</strong> 存在且没有设置过期时间（永久有效）。</li>
+</ul>
+<p>可以通过以下命令给 <strong>key</strong> 设置过期时间：</p>
+<h3 id="EXPIRE-命令"><a href="#EXPIRE-命令" class="headerlink" title="EXPIRE 命令"></a>EXPIRE 命令</h3><p><strong>EXPIRE</strong> 命令可以给 <strong>key</strong> 设置有效期，有效期过后，<strong>key</strong> 会被销毁：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; EXPIRE k1 30</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; TTL k1</span><br><span class="line">(integer) 25</span><br></pre></td></tr></table></figure>
+
+<p><code>30</code> 表示 30 秒，<code>TTL k1</code> 返回 <code>25</code> 表示这个 <strong>key</strong> 的有效期还剩 25 秒。</p>
+<h3 id="PERSIST-命令"><a href="#PERSIST-命令" class="headerlink" title="PERSIST 命令"></a>PERSIST 命令</h3><p><strong>PERSIST</strong> 命令表示移除一个 <strong>key</strong> 的过期时间，这样该 <strong>key</strong> 就永远不会过期：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; EXPIRE k1 60</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; TTL k1</span><br><span class="line">(integer) 57</span><br><span class="line">127.0.0.1:6379&gt; PERSIST k1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; TTL k1</span><br><span class="line">(integer) -1</span><br></pre></td></tr></table></figure>
+
+<h3 id="PEXPIRE-命令"><a href="#PEXPIRE-命令" class="headerlink" title="PEXPIRE 命令"></a>PEXPIRE 命令</h3><p><strong>PEXPIRE</strong> 命令的功能与 <strong>EXPIRE</strong> 命令类似，但设置的参数是毫秒：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; PEXPIRE k1 60000</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="PTTL-命令"><a href="#PTTL-命令" class="headerlink" title="PTTL 命令"></a>PTTL 命令</h3><p><strong>PTTL</strong> 命令与 <strong>TTL</strong> 命令类似，但返回的是毫秒数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; PTTL k1</span><br><span class="line">(integer) 25421</span><br></pre></td></tr></table></figure>
+
+<h3 id="KEYS-命令"><a href="#KEYS-命令" class="headerlink" title="KEYS 命令"></a>KEYS 命令</h3><p><strong>KEYS</strong> 命令可以获取满足给定模式的所有 <strong>key</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; KEYS *</span><br><span class="line">1) “k3”</span><br><span class="line">2) “k2”</span><br><span class="line">3) “k1”</span><br></pre></td></tr></table></figure>
+
+<p><code>KEYS *</code> 表示获取所有的 <strong>KEY</strong>，<code>*</code> 也可以是一个正则表达式。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
+<li>四种数据类型（list&#x2F;set&#x2F;zset&#x2F;hash），在第一次使用时，如果容器不存在，Redis 会自动创建一个。</li>
+<li>四种数据类型（list&#x2F;set&#x2F;zset&#x2F;hash），如果容器中没有元素了，Redis 会立即删除容器，释放内存。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>choi
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://choi857.github.io/2025/03/16/Redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Redis五种数据类型">https://choi857.github.io/2025/03/16/Redis五种数据类型/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/16/SerializationUtils%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8CHTTP-%E5%B7%A5%E5%85%B7%E7%B1%BB/" rel="prev" title="SerializationUtils序列化和HTTP 工具类">
+                  <i class="fa fa-angle-left"></i> SerializationUtils序列化和HTTP 工具类
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/17/Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="next" title="Redis分布式锁">
+                  Redis分布式锁 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">choi</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/choi857" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -165,13 +165,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -196,6 +196,410 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/12/07/IOUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/07/IOUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="post-title-link" itemprop="url">IOUtils 工具类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-07 23:03:21 / 修改时间：23:04:51" itemprop="dateCreated datePublished" datetime="2024-12-07T23:03:21+08:00">2024-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">提升效率的轮子</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="IOUtils-工具类"><a href="#IOUtils-工具类" class="headerlink" title="IOUtils 工具类"></a>IOUtils 工具类</h3><p><code>IOUtils</code> 是 Apache Commons IO 包中提供的一个非常实用的工具类，它可以帮助我们高效地处理文件和流操作，节省大量的时间。以下是一些常用的用法：</p>
+<h4 id="1-1-读取文件"><a href="#1-1-读取文件" class="headerlink" title="1.1 读取文件"></a>1.1 读取文件</h4><p>如果你想将某个文件中的数据读取到字符串中，可以使用 <code>IOUtils</code> 的 <code>toString</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> IOUtils.toString(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;/temp/a.txt&quot;</span>), StandardCharsets.UTF_8);</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>toString</code> 方法可以将文件的内容读取为字符串。</li>
+<li>第一个参数是输入流，第二个参数是字符集编码（如 <code>StandardCharsets.UTF_8</code>）。</li>
+</ul>
+<h4 id="1-2-写入文件"><a href="#1-2-写入文件" class="headerlink" title="1.2 写入文件"></a>1.2 写入文件</h4><p>如果你想将某个字符串的内容写入到指定文件中，可以使用 <code>IOUtils</code> 的 <code>write</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;abcde&quot;</span>;</span><br><span class="line">IOUtils.write(str, <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;/temp/b.txt&quot;</span>), StandardCharsets.UTF_8);</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>write</code> 方法可以将字符串写入到文件中。</li>
+<li>第一个参数是字符串内容，第二个参数是输出流，第三个参数是字符集编码。</li>
+</ul>
+<h4 id="1-3-文件拷贝"><a href="#1-3-文件拷贝" class="headerlink" title="1.3 文件拷贝"></a>1.3 文件拷贝</h4><p>如果你想将某个文件中的所有内容拷贝到另一个文件中，可以使用 <code>IOUtils</code> 的 <code>copy</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IOUtils.copy(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;/temp/a.txt&quot;</span>), <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;/temp/b.txt&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>copy</code> 方法可以将一个输入流的内容拷贝到一个输出流中。</li>
+<li>第一个参数是输入流，第二个参数是输出流。</li>
+</ul>
+<h4 id="1-4-读取文件内容到字节数组"><a href="#1-4-读取文件内容到字节数组" class="headerlink" title="1.4 读取文件内容到字节数组"></a>1.4 读取文件内容到字节数组</h4><p>如果你想将某个文件中的内容读取到字节数组中，可以使用 <code>IOUtils</code> 的 <code>toByteArray</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] bytes = IOUtils.toByteArray(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;/temp/a.txt&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>toByteArray</code> 方法可以将文件的内容读取为字节数组。</li>
+<li>参数是输入流。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>IOUtils</code> 是一个非常强大的工具类，提供了许多方便的方法来处理文件和流操作。无论是读取文件内容、写入文件内容、拷贝文件，还是将文件内容读取到字节数组中，<code>IOUtils</code> 都能帮助我们更高效地完成任务，减少代码量，提高代码的可读性和可维护性。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/12/07/Assert-%E6%96%AD%E8%A8%80%E5%B7%A5%E5%85%B7%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/07/Assert-%E6%96%AD%E8%A8%80%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="post-title-link" itemprop="url">Assert 断言工具类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-07 20:55:55 / 修改时间：20:58:45" itemprop="dateCreated datePublished" datetime="2024-12-07T20:55:55+08:00">2024-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">提升效率的轮子</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Assert-断言工具类"><a href="#Assert-断言工具类" class="headerlink" title="Assert 断言工具类"></a>Assert 断言工具类</h3><p>在开发过程中，我们经常需要在代码中进行条件判断，如果不满足条件，则抛出异常。Spring 提供了 <code>Assert</code> 类，用于实现断言功能，这可以大大简化我们的代码逻辑。</p>
+<h4 id="11-断言参数是否为空"><a href="#11-断言参数是否为空" class="headerlink" title="11 断言参数是否为空"></a>11 断言参数是否为空</h4><p>断言参数是否为空，如果不满足条件，则直接抛出异常。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言 str 必须为空</span></span><br><span class="line">Assert.isNull(str, <span class="string">&quot;str必须为空&quot;</span>);</span><br><span class="line">Assert.isNull(str, () -&gt; <span class="string">&quot;str必须为空&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言 str 不能为空</span></span><br><span class="line">Assert.notNull(str, <span class="string">&quot;str不能为空&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果不满足条件，就会抛出 <code>IllegalArgumentException</code> 异常。</p>
+<h4 id="1-2-断言集合是否为空"><a href="#1-2-断言集合是否为空" class="headerlink" title="1.2 断言集合是否为空"></a>1.2 断言集合是否为空</h4><p>断言集合是否为空，如果不满足条件，则直接抛出异常。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="literal">null</span>;</span><br><span class="line">Map&lt;String, String&gt; map = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言 list 不能为空</span></span><br><span class="line">Assert.notEmpty(list, <span class="string">&quot;list不能为空&quot;</span>);</span><br><span class="line">Assert.notEmpty(list, () -&gt; <span class="string">&quot;list不能为空&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言 map 不能为空</span></span><br><span class="line">Assert.notEmpty(map, <span class="string">&quot;map不能为空&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果不满足条件，就会抛出 <code>IllegalArgumentException</code> 异常。</p>
+<h4 id="1-3-断言条件是否满足"><a href="#1-3-断言条件是否满足" class="headerlink" title="1.3 断言条件是否满足"></a>1.3 断言条件是否满足</h4><p>断言是否满足某个条件，如果不满足条件，则直接抛出异常。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言 list 不能为空</span></span><br><span class="line">Assert.isTrue(CollectionUtils.isNotEmpty(list), <span class="string">&quot;list不能为空&quot;</span>);</span><br><span class="line">Assert.isTrue(CollectionUtils.isNotEmpty(list), () -&gt; <span class="string">&quot;list不能为空&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果不满足条件，就会抛出 <code>IllegalArgumentException</code> 异常。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/11/30/StringUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/11/30/StringUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="post-title-link" itemprop="url">StringUtils 工具类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-11-30 15:57:52 / 修改时间：15:58:52" itemprop="dateCreated datePublished" datetime="2024-11-30T15:57:52+08:00">2024-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">提升效率的轮子</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="六-StringUtils-工具类"><a href="#六-StringUtils-工具类" class="headerlink" title="六. StringUtils 工具类"></a>六. StringUtils 工具类</h3><p><code>StringUtils</code> 是一个非常实用的字符串处理工具类，提供了许多方便的方法来操作字符串。以下是一些常用的用法：</p>
+<h4 id="6-3-判断是否纯数字"><a href="#6-3-判断是否纯数字" class="headerlink" title="6.3 判断是否纯数字"></a>6.3 判断是否纯数字</h4><p>给定一个字符串，判断它是否为纯数字，可以使用 <code>isNumeric</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="string">&quot;123q&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="string">&quot;0.33&quot;</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(StringUtils.isNumeric(str1)); <span class="comment">// 判断是否为纯数字</span></span><br><span class="line">System.out.println(StringUtils.isNumeric(str2)); <span class="comment">// 判断是否为纯数字</span></span><br><span class="line">System.out.println(StringUtils.isNumeric(str3)); <span class="comment">// 判断是否为纯数字</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>执行结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">false</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>isNumeric</code> 方法会检查字符串是否只包含数字字符（0-9）。如果字符串中包含任何非数字字符（如字母、小数点等），则返回 <code>false</code>。</li>
+</ul>
+<h4 id="6-4-将集合拼接成字符串"><a href="#6-4-将集合拼接成字符串" class="headerlink" title="6.4 将集合拼接成字符串"></a>6.4 将集合拼接成字符串</h4><p>有时候，我们需要将某个集合的内容拼接成一个字符串，然后输出，这时可以使用 <code>join</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Lists.newArrayList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>);</span><br><span class="line">List&lt;Integer&gt; list2 = Lists.newArrayList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(StringUtils.join(list, <span class="string">&quot;,&quot;</span>));  <span class="comment">// 使用逗号拼接字符串</span></span><br><span class="line">System.out.println(StringUtils.join(list2, <span class="string">&quot; &quot;</span>)); <span class="comment">// 使用空格拼接字符串</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>执行结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a,b,c</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>join</code> 方法可以将集合中的元素拼接成一个字符串，并且可以指定分隔符。分隔符可以是任意字符串，例如逗号（<code>,</code>）、空格（<code> </code>）等。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/11/28/BooleanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/11/28/BooleanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="post-title-link" itemprop="url">BooleanUtils工具类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-11-28 22:55:43 / 修改时间：22:56:50" itemprop="dateCreated datePublished" datetime="2024-11-28T22:55:43+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">提升效率的轮子</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="五-BooleanUtils工具类"><a href="#五-BooleanUtils工具类" class="headerlink" title="五. BooleanUtils工具类"></a>五. BooleanUtils工具类</h3><p>在 Java 中，布尔值随处可见。如果你使用了布尔的包装类 <code>Boolean</code>，总感觉有点麻烦，因为它有三种值：<code>null</code>、<code>true</code>、<code>false</code>。我们在处理 <code>Boolean</code> 对象时，需要经常判空。这确实让人头疼！</p>
+<p>但如果使用 <code>BooleanUtils</code> 类处理布尔值，心情一下子就愉悦起来了。</p>
+<h4 id="5-1-判断-true-或-false"><a href="#5-1-判断-true-或-false" class="headerlink" title="5.1 判断 true 或 false"></a>5.1 判断 true 或 false</h4><p>如果你想判断某个参数的值是 <code>true</code> 或 <code>false</code>，可以直接使用 <code>isTrue</code> 或 <code>isFalse</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="literal">true</span>);</span><br><span class="line">System.out.println(BooleanUtils.isTrue(aBoolean));   <span class="comment">// 判断是否为 true</span></span><br><span class="line">System.out.println(BooleanUtils.isFalse(aBoolean));  <span class="comment">// 判断是否为 false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-2-判断不为-true-或不为-false"><a href="#5-2-判断不为-true-或不为-false" class="headerlink" title="5.2 判断不为 true 或不为 false"></a>5.2 判断不为 true 或不为 false</h4><p>有时候，需要判断某个参数不为 <code>true</code>，即是 <code>null</code> 或者 <code>false</code>。或者判断不为 <code>false</code>，即是 <code>null</code> 或者 <code>true</code>。可以使用 <code>isNotTrue</code> 或 <code>isNotFalse</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean1</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(BooleanUtils.isNotTrue(aBoolean));    <span class="comment">// 判断不为 true</span></span><br><span class="line">System.out.println(BooleanUtils.isNotTrue(aBoolean1));   <span class="comment">// 判断不为 true</span></span><br><span class="line">System.out.println(BooleanUtils.isNotFalse(aBoolean));   <span class="comment">// 判断不为 false</span></span><br><span class="line">System.out.println(BooleanUtils.isNotFalse(aBoolean1));  <span class="comment">// 判断不为 false</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>执行结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-3-转换成数字"><a href="#5-3-转换成数字" class="headerlink" title="5.3 转换成数字"></a>5.3 转换成数字</h4><p>如果你想将 <code>true</code> 转换成数字 <code>1</code>，<code>false</code> 转换成数字 <code>0</code>，可以使用 <code>toInteger</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(BooleanUtils.toInteger(aBoolean));   <span class="comment">// true 转换为 1</span></span><br><span class="line">System.out.println(BooleanUtils.toInteger(aBoolean1));  <span class="comment">// false 转换为 0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>执行结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-4-Boolean-转换成布尔值"><a href="#5-4-Boolean-转换成布尔值" class="headerlink" title="5.4 Boolean 转换成布尔值"></a>5.4 Boolean 转换成布尔值</h4><p>我们有时候需要将包装类 <code>Boolean</code> 对象，转换成原始的 <code>boolean</code> 对象，可以使用 <code>toBoolean</code> 方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="type">Boolean</span> <span class="variable">aBoolean1</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(BooleanUtils.toBoolean(aBoolean));               <span class="comment">// 转换为原始布尔值</span></span><br><span class="line">System.out.println(BooleanUtils.toBoolean(aBoolean1));             <span class="comment">// 转换为原始布尔值</span></span><br><span class="line">System.out.println(BooleanUtils.toBooleanDefaultIfNull(aBoolean1, <span class="literal">false</span>));  <span class="comment">// 设置默认值</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>执行结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">false</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+
+<p>我们无需额外的判空了，而且还可以设置 <code>Boolean</code> 对象为空时返回的默认值。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1352,735 +1756,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/" class="post-title-link" itemprop="url">Kafka Streams 客户端</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-09-03 21:28:26 / 修改时间：21:29:05" itemprop="dateCreated datePublished" datetime="2024-09-03T21:28:26+08:00">2024-09-03</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="Kafka-Streams-客户端"><a href="#Kafka-Streams-客户端" class="headerlink" title="Kafka Streams 客户端"></a>Kafka Streams 客户端</h3><p>Kafka Streams 是一个用于构建和部署流处理应用程序的客户端库，它从一个或多个输入 topic 进行连续的计算，并输出到 0 或多个外部 topic 中。</p>
-<h4 id="流式计算与批量计算"><a href="#流式计算与批量计算" class="headerlink" title="流式计算与批量计算"></a>流式计算与批量计算</h4><ul>
-<li><strong>流式计算</strong>：输入是持续的，一般先定义目标计算，然后数据到来之后将计算逻辑应用于数据，往往用增量计算代替全量计算。</li>
-<li><strong>批量计算</strong>：一般先有全量数据集，然后定义计算逻辑，并将计算应用于全量数据。特点是全量计算，并且计算结果一次性全量输出。</li>
-</ul>
-<h4 id="KTable-和-KStream"><a href="#KTable-和-KStream" class="headerlink" title="KTable 和 KStream"></a>KTable 和 KStream</h4><p><strong>KStream</strong> 和 <strong>KTable</strong> 是 Kafka 中非常重要的概念，以下是它们的区别：</p>
-<ul>
-<li><strong>KStream</strong>：是一个数据流，可以认为所有的记录都通过 Insert only 的方式插入进这个数据流中。</li>
-<li><strong>KTable</strong>：代表一个完整的数据集，可以理解为数据库中的表。每条记录都是 KV 键值对，key 可以理解为数据库中的主键，是唯一的，而 value 代表一条记录。我们可以认为 KTable 中的数据是通过 Update only 的方式进入的。如果是相同的 key，会覆盖掉原来的那条记录。</li>
-</ul>
-<p><strong>总结</strong>：KStream 是数据流，来多少数据就插入多少数据，是 Insert only；KTable 是数据集，相同 key 只允许保留最新的记录，也就是 Update only。</p>
-<h4 id="Kafka-支持的三种时间"><a href="#Kafka-支持的三种时间" class="headerlink" title="Kafka 支持的三种时间"></a>Kafka 支持的三种时间</h4><ol>
-<li><strong>事件发生时间</strong>：事件发生的时间，包含在数据记录中。发生时间由 Producer 在构造 ProducerRecord 时指定。并且需要 Broker 或 Topic 将 <code>message.timestamp.type</code> 设置为 <code>CreateTime</code>（默认值）才能生效。</li>
-<li><strong>消息接收时间</strong>：也即消息存入 Broker 的时间。当 Broker 或 Topic 将 <code>message.timestamp.type</code> 设置为 <code>LogAppendTime</code> 时生效。此时 Broker 会在接收到消息后，存入磁盘前，将其 timestamp 属性值设置为当前机器时间。一般消息接收时间比较接近于事件发生时间，部分场景下可代替事件发生时间。</li>
-<li><strong>消息处理时间</strong>：也即 Kafka Stream 处理消息时的时间。</li>
-</ol>
-<h4 id="窗口的概念"><a href="#窗口的概念" class="headerlink" title="窗口的概念"></a>窗口的概念</h4><p>流式数据在时间上是无界的，但是聚合操作只能作用在特定（有界）的数据集上。因此，Kafka 引入了窗口的概念，在时间无界的数据流中定义一个边界来用于计算。</p>
-<p>Kafka 支持的窗口类型如下：</p>
-<ol>
-<li><strong>Hopping Time Window</strong>：每隔一段时间输出一次过去一段时间内的数据。例如，每隔 5 秒钟输出一次过去 1 小时内的网站 PV 或 UV。其中，1 小时指定了窗口的大小（Window size），5 秒钟定义了输出的时间间隔（Advance interval）。</li>
-<li><strong>Tumbling Time Window</strong>：可以认为是 Hopping Time Window 的一种特例，窗口大小 &#x3D; 输出时间间隔，它的特点是各个 Window 之间完全不相交。</li>
-<li><strong>Sliding Window</strong>：该窗口只用于 2 个 KStream 进行 Join 计算时。该窗口的大小定义了 Join 两侧 KStream 的数据记录被认为在同一个窗口的最大时间差。假设该窗口的大小为 5 秒，则参与 Join 的 2 个 KStream 中，记录时间差小于 5 秒的记录被认为在同一个窗口中，可以进行 Join 计算。</li>
-<li><strong>Session Window</strong>：该窗口用于对 Key 做 Group 后的聚合操作中。它需要对 Key 做分组，然后对组内的数据根据业务需求定义一个窗口的起始点和结束点。一个典型的案例是，希望通过 Session Window 计算某个用户访问网站的时间。对于一个特定的用户（用 Key 表示）而言，当发生登录操作时，该用户（Key）的窗口即开始，当发生退出操作或者超时时，该用户（Key）的窗口即结束。窗口结束时，可计算该用户的访问时间或者点击次数等。</li>
-</ol>
-<h3 id="Stream-示例"><a href="#Stream-示例" class="headerlink" title="Stream 示例"></a>Stream 示例</h3><h4 id="1-将-topicA-的数据写入到-topicB-中（纯复制）"><a href="#1-将-topicA-的数据写入到-topicB-中（纯复制）" class="headerlink" title="1. 将 topicA 的数据写入到 topicB 中（纯复制）"></a>1. 将 topicA 的数据写入到 topicB 中（纯复制）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serdes;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.KafkaStreams;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.StreamsBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.StreamsConfig;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.Topology;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyStream</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="string">&quot;mystream&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line"></span><br><span class="line">        <span class="type">StreamsBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamsBuilder</span>();</span><br><span class="line">        builder.stream(<span class="string">&quot;myStreamIn&quot;</span>).to(<span class="string">&quot;myStreamOut&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Topology</span> <span class="variable">topo</span> <span class="operator">=</span> builder.build();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">KafkaStreams</span> <span class="variable">streams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KafkaStreams</span>(topo, prop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="string">&quot;stream&quot;</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                streams.close();</span><br><span class="line">                latch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            streams.start();</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-将-TopicA-中的数据实现-wordcount-写入到-TopicB"><a href="#2-将-TopicA-中的数据实现-wordcount-写入到-TopicB" class="headerlink" title="2. 将 TopicA 中的数据实现 wordcount 写入到 TopicB"></a>2. 将 TopicA 中的数据实现 wordcount 写入到 TopicB</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serdes;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.kstream.KTable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCountStream</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="string">&quot;wordcountstream&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, <span class="number">2000</span>);</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line"></span><br><span class="line">        <span class="type">StreamsBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamsBuilder</span>();</span><br><span class="line">        KTable&lt;String, Long&gt; count = builder.stream(<span class="string">&quot;wordcount-input&quot;</span>)</span><br><span class="line">                .flatMapValues(value -&gt; &#123;</span><br><span class="line">                    String[] split = value.toString().split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">                    List&lt;String&gt; strings = Arrays.asList(split);</span><br><span class="line">                    <span class="keyword">return</span> strings;</span><br><span class="line">                &#125;)</span><br><span class="line">                .map((k, v) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(v, <span class="string">&quot;1&quot;</span>))</span><br><span class="line">                .groupByKey()</span><br><span class="line">                .count();</span><br><span class="line"></span><br><span class="line">        count.toStream().foreach((k, v) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;key: &quot;</span> + k + <span class="string">&quot;   value: &quot;</span> + v);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        count.toStream().map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(x, y.toString())).to(<span class="string">&quot;wordcount-output&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Topology</span> <span class="variable">topo</span> <span class="operator">=</span> builder.build();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">KafkaStreams</span> <span class="variable">streams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KafkaStreams</span>(topo, prop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="string">&quot;stream&quot;</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                streams.close();</span><br><span class="line">                latch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            streams.start();</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-在-TopicA-中每输入一个值求和并写入到-TopicB"><a href="#3-在-TopicA-中每输入一个值求和并写入到-TopicB" class="headerlink" title="3. 在 TopicA 中每输入一个值求和并写入到 TopicB"></a>3. 在 TopicA 中每输入一个值求和并写入到 TopicB</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serdes;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.kstream.KStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.kstream.KTable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SumStream</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="string">&quot;sumstream&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, <span class="number">2000</span>);</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line"></span><br><span class="line">        <span class="type">StreamsBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamsBuilder</span>();</span><br><span class="line">        KStream&lt;Object, Object&gt; source = builder.stream(<span class="string">&quot;suminput&quot;</span>);</span><br><span class="line">        KTable&lt;String, String&gt; sum1 = source.map((key, value) -&gt;</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(<span class="string">&quot;sum&quot;</span>, value.toString())</span><br><span class="line">        ).groupByKey().reduce((x, y) -&gt; &#123;</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">sum</span> <span class="operator">=</span> Integer.valueOf(x) + Integer.valueOf(y);</span><br><span class="line">            <span class="keyword">return</span> sum.toString();</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        sum1.toStream().to(<span class="string">&quot;sumout&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Topology</span> <span class="variable">topo</span> <span class="operator">=</span> builder.build();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">KafkaStreams</span> <span class="variable">streams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KafkaStreams</span>(topo, prop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="string">&quot;stream&quot;</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                streams.close();</span><br><span class="line">                latch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            streams.start();</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-1-每隔-2-秒钟输出一次过去-5-秒内-topicA-里的-wordcount，结果写入到-TopicB"><a href="#4-1-每隔-2-秒钟输出一次过去-5-秒内-topicA-里的-wordcount，结果写入到-TopicB" class="headerlink" title="4.1 每隔 2 秒钟输出一次过去 5 秒内 topicA 里的 wordcount，结果写入到 TopicB"></a>4.1 每隔 2 秒钟输出一次过去 5 秒内 topicA 里的 wordcount，结果写入到 TopicB</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serdes;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.kstream.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WindowStream</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="string">&quot;WindowStream&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, <span class="number">3000</span>);</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line"></span><br><span class="line">        <span class="type">StreamsBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamsBuilder</span>();</span><br><span class="line">        KStream&lt;Object, Object&gt; source = builder.stream(<span class="string">&quot;topicA&quot;</span>);</span><br><span class="line">        KTable&lt;Windowed&lt;String&gt;, Long&gt; countKtable = source.flatMapValues(value -&gt; Arrays.asList(value.toString().split(<span class="string">&quot;s+&quot;</span>)))</span><br><span class="line">                .map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(y, <span class="string">&quot;1&quot;</span>))</span><br><span class="line">                .groupByKey()</span><br><span class="line">                .windowedBy(TimeWindows.of(Duration.ofSeconds(<span class="number">5</span>)).advanceBy(Duration.ofSeconds(<span class="number">2</span>)))</span><br><span class="line">                .count();</span><br><span class="line"></span><br><span class="line">        countKtable.toStream().foreach((x, y) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;x: &quot;</span> + x + <span class="string">&quot;  y: &quot;</span> + y);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        countKtable.toStream().map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(x.toString(), y.toString())).to(<span class="string">&quot;topicB&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Topology</span> <span class="variable">topo</span> <span class="operator">=</span> builder.build();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">KafkaStreams</span> <span class="variable">streams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KafkaStreams</span>(topo, prop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="string">&quot;stream&quot;</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                streams.close();</span><br><span class="line">                latch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            streams.start();</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-2-每隔-5-秒钟输出一次过去-5-秒内-topicA-里的-wordcount，结果写入到-TopicB"><a href="#4-2-每隔-5-秒钟输出一次过去-5-秒内-topicA-里的-wordcount，结果写入到-TopicB" class="headerlink" title="4.2 每隔 5 秒钟输出一次过去 5 秒内 topicA 里的 wordcount，结果写入到 TopicB"></a>4.2 每隔 5 秒钟输出一次过去 5 秒内 topicA 里的 wordcount，结果写入到 TopicB</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serdes;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.kstream.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WindowStream2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="string">&quot;WindowStream&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, <span class="number">3000</span>);</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line"></span><br><span class="line">        <span class="type">StreamsBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamsBuilder</span>();</span><br><span class="line">        KStream&lt;Object, Object&gt; source = builder.stream(<span class="string">&quot;topicA&quot;</span>);</span><br><span class="line">        KTable&lt;Windowed&lt;String&gt;, Long&gt; countKtable = source.flatMapValues(value -&gt; Arrays.asList(value.toString().split(<span class="string">&quot;s+&quot;</span>)))</span><br><span class="line">                .map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(y, <span class="string">&quot;1&quot;</span>))</span><br><span class="line">                .groupByKey()</span><br><span class="line">                .windowedBy(TimeWindows.of(Duration.ofSeconds(<span class="number">5</span>)))</span><br><span class="line">                .count();</span><br><span class="line"></span><br><span class="line">        countKtable.toStream().foreach((x, y) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;x: &quot;</span> + x + <span class="string">&quot;  y: &quot;</span> + y);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        countKtable.toStream().map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(x.toString(), y.toString())).to(<span class="string">&quot;topicB&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Topology</span> <span class="variable">topo</span> <span class="operator">=</span> builder.build();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">KafkaStreams</span> <span class="variable">streams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KafkaStreams</span>(topo, prop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="string">&quot;stream&quot;</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                streams.close();</span><br><span class="line">                latch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            streams.start();</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-3-TopicA-15-秒内的-wordcount，结果写入-TopicB"><a href="#4-3-TopicA-15-秒内的-wordcount，结果写入-TopicB" class="headerlink" title="4.3 TopicA 15 秒内的 wordcount，结果写入 TopicB"></a>4.3 TopicA 15 秒内的 wordcount，结果写入 TopicB</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serdes;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.streams.kstream.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WindowStream3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, <span class="string">&quot;WindowStream&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        prop.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, <span class="number">3000</span>);</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line">        prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());</span><br><span class="line"></span><br><span class="line">        <span class="type">StreamsBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamsBuilder</span>();</span><br><span class="line">        KStream&lt;Object, Object&gt; source = builder.stream(<span class="string">&quot;topicA&quot;</span>);</span><br><span class="line">        KTable&lt;Windowed&lt;String&gt;, Long&gt; countKtable = source.flatMapValues(value -&gt; Arrays.asList(value.toString().split(<span class="string">&quot;s+&quot;</span>)))</span><br><span class="line">                .map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(y, <span class="string">&quot;1&quot;</span>))</span><br><span class="line">                .groupByKey()</span><br><span class="line">                .windowedBy(SessionWindows.with(Duration.ofSeconds(<span class="number">15</span>)))</span><br><span class="line">                .count();</span><br><span class="line"></span><br><span class="line">        countKtable.toStream().foreach((x, y) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;x: &quot;</span> + x + <span class="string">&quot;  y: &quot;</span> + y);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        countKtable.toStream().map((x, y) -&gt; <span class="keyword">new</span> <span class="title class_">KeyValue</span>&lt;&gt;(x.toString(), y.toString())).to(<span class="string">&quot;topicB&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Topology</span> <span class="variable">topo</span> <span class="operator">=</span> builder.build();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">KafkaStreams</span> <span class="variable">streams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KafkaStreams</span>(topo, prop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">CountDownLatch</span> <span class="variable">latch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="string">&quot;stream&quot;</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                streams.close();</span><br><span class="line">                latch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            streams.start();</span><br><span class="line">            latch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Kafka Streams 提供了一个强大的流处理框架，支持从输入 topic 进行连续计算，并将结果输出到外部 topic。通过 KStream 和 KTable 的概念，可以灵活地处理数据流和数据集。此外，Kafka 提供了多种窗口类型，用于在无界的数据流中定义有界的计算边界。以上示例展示了如何使用 Kafka Streams 进行简单的数据处理和窗口计算。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/08/22/Kafka%E5%A4%96%E5%AD%98%E5%82%A8%E5%81%8F%E7%A7%BB%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/08/22/Kafka%E5%A4%96%E5%AD%98%E5%82%A8%E5%81%8F%E7%A7%BB%E9%87%8F/" class="post-title-link" itemprop="url">Kafka外存储偏移量</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-08-22 19:26:15" itemprop="dateCreated datePublished" datetime="2024-08-22T19:26:15+08:00">2024-08-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-23 22:23:24" itemprop="dateModified" datetime="2024-08-23T22:23:24+08:00">2024-08-23</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="在-Kafka-之外存储偏移量"><a href="#在-Kafka-之外存储偏移量" class="headerlink" title="在 Kafka 之外存储偏移量"></a>在 Kafka 之外存储偏移量</h3><p>参考大佬：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Aeroever/article/details/130345016">https://blog.csdn.net/Aeroever/article/details/130345016</a></p>
-<p>消费者可以不使用 Kafka 内置的 offset 仓库，而是选择自己来存储 offset。这样做的好处是可以将消费的 offset 和结果存储在同一个系统中，用原子的方式存储结果和 offset，但这不能保证原子性。要想消费是完全原子的，并提供“正好一次”的消费保证，比 Kafka 默认的“至少一次”的语义要更高，你需要使用 Kafka 的 offset 提交功能。</p>
-<h4 id="自定义偏移量存储"><a href="#自定义偏移量存储" class="headerlink" title="自定义偏移量存储"></a>自定义偏移量存储</h4><p>如果消费的结果存储在关系数据库中，可以将 offset 也存储在数据库中，让提交结果和 offset 在单个事务中完成。这样，事务成功，则 offset 存储和更新；如果 offset 没有存储，那么偏移量也不会被更新。</p>
-<p>如果 offset 和消费结果存储在本地仓库，例如通过订阅一个指定的分区并将 offset 和索引数据一起存储来构建一个搜索索引。如果这是以原子的方式完成的，常见的可能是，即使崩溃引起未同步的数据丢失，索引程序也可以从它确保没有更新丢失的地方恢复，而仅仅丢失最近更新的消息。</p>
-<h4 id="手动管理偏移量"><a href="#手动管理偏移量" class="headerlink" title="手动管理偏移量"></a>手动管理偏移量</h4><p>要管理自己的偏移量，你需要做到以下几点：</p>
-<ul>
-<li>配置 <code>enable.auto.commit=false</code>。</li>
-<li>使用提供的 <code>ConsumerRecord</code> 来保存你的位置。</li>
-<li>在重启时用 <code>seek(TopicPartition, long)</code> 恢复消费者的位置。</li>
-</ul>
-<p>当分区分配也是手动完成的，这种类型的使用是最简单的。如果分区分配是自动完成的，需要特别小心处理分区分配变更的情况。可以通过调用 <code>subscribe(Collection, ConsumerRebalanceListener)</code> 和 <code>subscribe(Pattern, ConsumerRebalanceListener)</code> 中提供的 <code>ConsumerRebalanceListener</code> 实例来完成。例如，当分区向消费者获取时，消费者将通过实现 <code>ConsumerRebalanceListener.onPartitionsRevoked(Collection)</code> 来给这些分区提交它们的 offset。当分区分配给消费者时，消费者通过 <code>ConsumerRebalanceListener.onPartitionsAssigned(Collection)</code> 为新的分区正确地将消费者初始化到该位置。</p>
-<h4 id="控制消费的位置"><a href="#控制消费的位置" class="headerlink" title="控制消费的位置"></a>控制消费的位置</h4><p>Kafka 也支持消费者手动控制消费的位置，可以消费之前的消息也可以跳过最近的消息。有几种情况，手动控制消费者的位置可能是有用的。一种场景是对于时间敏感的消费者处理程序，对足够落后的消费者，直接跳过，从最近的消费开始消费。另一个使用场景是本地状态存储系统。在这样的系统中，消费者将要在启动时初始化它的位置（无论本地存储是否包含）。同样，如果本地状态已被破坏（假设因为磁盘丢失），则可以通过重新消费所有数据并重新创建状态（假设 Kafka 保留了足够的历史）在新的机器上重新创建。</p>
-<h4 id="消费者流量控制"><a href="#消费者流量控制" class="headerlink" title="消费者流量控制"></a>消费者流量控制</h4><p>如果消费者分配了多个分区，并同时消费所有的分区，这些分区具有相同的优先级。在一些情况下，消费者需要首先消费一些指定的分区，当指定的分区有少量或者已经没有可消费的数据时，则开始消费其他分区。例如流处理，当处理器从 2 个 topic 获取消息并把这两个 topic 的消息合并，当其中一个 topic 长时间落后另一个，则暂停消费，以便落后的赶上来。Kafka 支持动态控制消费流量，分别在未来的 <code>poll(long)</code> 中使用 <code>pause(Collection)</code> 和 <code>resume(Collection)</code> 来暂停消费指定分配的分区，重新开始消费指定暂停的分区。</p>
-<h4 id="读取事务性消息"><a href="#读取事务性消息" class="headerlink" title="读取事务性消息"></a>读取事务性消息</h4><p>应用程序可以原子地写入多个主题和分区。为了使之工作，从这些分区读取的消费者应该被配置为只读取已提交的数据。这可以通过在消费者的配置中设置 <code>isolation.level=read_committed</code> 来实现。</p>
-<p>在 <code>read_committed</code> 模式下，消费者将只读取那些已经成功提交的事务性消息（像读取非事务性消息一样）。在 <code>read_committed</code> 模式下，没有客户端缓冲。相反，<code>read_committed</code> 消费者的分区的结束偏移量是分区中属于一个事务的第一个消息的偏移量。这个偏移被称为 “Last Stable Offset 最后稳定偏移”（LSO）。</p>
-<p>一个 <code>read_committed</code> 消费者将只读到 LSO，并过滤掉任何已经中止的事务性消息。LSO 也会影响 <code>read_committed</code> 消费者的 <code>seekToEnd(Collection)</code> 和 <code>endOffsets(Collection)</code> 的行为。最后，对于 <code>read_committed</code> 消费者来说，取数 lag（滞后指标）也被调整为相对 LSO。</p>
-<p>带有事务性消息的分区将包括提交或中止标记，这些标记表示事务的结果。那里的标记不会返回给应用程序，但在 log 中却有一个偏移量。因此，应用程序从带有事务消息的主题中读取时，会在消耗的偏移量中看到空白。这些缺失的消息将是事务标记，它们在两个隔离级别中为消费者过滤掉。此外，使用 <code>read_committed</code> 消费者的应用程序也可能会看到由于中止的事务而产生的空隙，因为这些消息不会被消费者返回，但确实是有效的偏移量。</p>
-<h4 id="Kafka-中的术语"><a href="#Kafka-中的术语" class="headerlink" title="Kafka 中的术语"></a>Kafka 中的术语</h4><ul>
-<li><strong>ACKS（Acknowledgments）确认、回执</strong>：生产者向 Broker 发送消息时，可以配置等待确认 ACKS 的策略 0、1 和 -1。</li>
-<li><strong>LSO（Log start offset）起始偏移量</strong>：分区中第一个消息的偏移量。</li>
-<li><strong>LW（Low watermark）低水位</strong>：分区中最早的消息偏移量。</li>
-<li><strong>HW（High watermark）高水位</strong>：分区中最后一个已提交消息的偏移量。</li>
-<li><strong>LEO（Log end offset）日志末尾偏移量</strong>：分区中最后一个消息的偏移量。</li>
-<li><strong>AR（Assigned replica）分配的副本</strong>：分区中所有副本的集合。</li>
-<li><strong>ISR（In sync replica）正常同步的副本</strong>：与 Leader 保持同步的副本集合。</li>
-<li><strong>OSR（Out sync replica）非正常同步的副本</strong>：与 Leader 同步滞后的副本集合。</li>
-</ul>
-<h4 id="Replica，Leader，Follower-的关系"><a href="#Replica，Leader，Follower-的关系" class="headerlink" title="Replica，Leader，Follower 的关系"></a>Replica，Leader，Follower 的关系</h4><ul>
-<li><strong>Replica（包括 Leader 和 Follower）</strong>：同一分区的不同副本保存的是相同的消息，为保证集群中的某个节点发生故障时，该节点上的 partition 数据不丢失，且 Kafka 仍然能够继续工作，Kafka 提供了副本机制。</li>
-<li><strong>Leader（主副本）</strong>：每个分区的多个副本中的“主副本”，生产者以及消费者只与 Leader 交互。</li>
-<li><strong>Follower（从副本）</strong>：每个分区的多个副本中的“从副本”，负责实时从 Leader 中同步数据，保持和 Leader 数据的同步。Leader 发生故障时，从 Follower 副本中重新选举新的 Leader 副本对外提供服务。</li>
-</ul>
-<h4 id="ACKS-三种类型"><a href="#ACKS-三种类型" class="headerlink" title="ACKS 三种类型"></a>ACKS 三种类型</h4><p>生产者（Producer）向 Broker 发送消息时，可以配置等待确认 ACKS（Acknowledgments）的策略 0、1 和 -1。</p>
-<ul>
-<li><strong>0</strong>：不等待 Broker 确认，不能保证服务器已经收到了记录。</li>
-<li><strong>1</strong>：等待 Broker 将消息写入主（Leader）磁盘后返回确认，不用等待从（Follower）同步。</li>
-<li><strong>-1</strong>：等待所有正常同步的副本 ISR（In sync replica）写到消息日志（Log）后才会返回确认。</li>
-</ul>
-<h4 id="ISR-的最坏情况"><a href="#ISR-的最坏情况" class="headerlink" title="ISR 的最坏情况"></a>ISR 的最坏情况</h4><p>ISR 的最坏情况是 ISR 中只剩 Leader 自己一个了。这种情况下，退化成 <code>ack = 1</code> 的情况，甚至还不如 <code>ack=1</code>。因为 <code>ack=1</code> 的情况下，生产者不等服务端完全同步完 ISR，只要 Leader 写入成功就行了，但是可没说不进行同步。该有的同步过程还是会进行的，但凡能同步，Kafka 肯定会同步的。</p>
-<h4 id="AR、ISR、OSR"><a href="#AR、ISR、OSR" class="headerlink" title="AR、ISR、OSR"></a>AR、ISR、OSR</h4><ul>
-<li><strong>AR（Assigned Replicas）</strong>：分区中的所有副本统称为 AR（Assigned Replicas）。</li>
-<li><strong>ISR（In-Sync Replicas）</strong>：所有与 Leader 副本保持一定程度同步的副本（包括 Leader）组成 ISR（In-Sync Replicas），ISR 集合是 AR 集合中的一个子集。</li>
-<li><strong>OSR（Out-Sync Replicas）</strong>：与 Leader 副本同步滞后过多的副本（不包括 Leader）副本，组成 OSR（Out-Sync Replicas），由此可见：AR &#x3D; ISR + OSR。</li>
-</ul>
-<p>在正常情况下，所有的 Follower 副本都应该与 Leader 副本保持一定程度的同步，即 AR &#x3D; ISR，OSR 集合为空。</p>
-<p>Leader 副本负责维护和跟踪 ISR 集合中所有的 Follower 副本的滞后状态，当 Follower 副本落后太多或者失效时，Leader 副本会把它从 ISR 集合中剔除。如果 OSR 集合中的 Follower 副本“追上”了 Leader 副本，之后再 ISR 集合中的副本才有资格被选举为 Leader，而在 OSR 集合中的副本则没有机会（这个原则可以通过修改对应的参数配置来改变）。</p>
-<h4 id="ISR-机制"><a href="#ISR-机制" class="headerlink" title="ISR 机制"></a>ISR 机制</h4><p>ISR 的核心是动态调整。因为 ISR 的机制就保证了，处于 ISR 内部的 Follower 都是可以和 Leader 进行同步的，一旦出现故障或延迟，就会被踢出 ISR。</p>
-<p>Kafka 在启动的时候会开启两个与 ISR 相关的定时任务，名称分别为 “isr-expiration” 和 “isr-change-propagation”。<code>isr-expiration</code> 任务会周期性地检测每个分区是否需要缩减其 ISR 集合。这个周期和 <code>replica.lag.time.max.ms</code> 参数有关。当检测到 ISR 中有失效的副本时，就会缩减 ISR 集合。</p>
-<h4 id="replica-lag-time-max-ms-参数"><a href="#replica-lag-time-max-ms-参数" class="headerlink" title="replica.lag.time.max.ms 参数"></a>replica.lag.time.max.ms 参数</h4><p><code>replica.lag.time.max.ms</code> 参数不仅指自上次从副本获取请求以来经过的时间，还指自副本上次赶上以来的时间。仍在从领导者获取消息但未赶上 <code>replica.lag.time.max.ms</code> 中最新消息的副本将被视为不同步。</p>
-<p>假设我们设置 <code>replica.lag.time.max.ms</code> 为 5000 毫秒（即 5 秒）。这意味着副本必须在主节点生成消息后的 5 秒内获取到该消息，并且在这 5 秒内还要完成追赶主节点的操作，否则将被视为不同步。</p>
-<p>什么叫还要完成追赶主节点的操作？目前的理解是，并不是说只要在 <code>replica.lag.time.max.ms</code> 时间内 Follower 有同步消息，即认为该 Follower 处于 ISR 中。因为这里还涉及一个速率问题（你理解为蓄水池一个放水一个注水的问题）。</p>
-<p>如果 Leader 副本的消息流入速度大于 Follower 副本的拉取速度时，Follower 就是实时同步又有什么用？典型的出工不出力，消息只会越差越多，这种 Follower 肯定是要被踢出 ISR 的。</p>
-<p>当 Follower 副本将 Leader 副本的 LEO 之前的日志全部同步时，则认为该 Follower 副本已经追赶上 Leader 副本。此时更新该副本的 <code>lastCaughtUpTimeMs</code> 标识。</p>
-<p>Kafka 的副本管理器（ReplicaManager）启动时会启动一个副本过期检测的定时任务，会定时检查当前时间与副本的 <code>lastCaughtUpTimeMs</code> 差值是否大于参数 <code>replica.lag.time.max.ms</code> 指定的值。</p>
-<p>所以 <code>replica.lag.time.max.ms</code> 的正确理解是：Follower 在过去的 <code>replica.lag.time.max.ms</code> 时间内，已经追赶上 Leader 一次了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/08/20/java%E9%9D%A2%E7%BB%8F%E5%88%9A%E5%90%AF%E5%8A%A8%E5%B0%B1%E6%8B%BF%E4%B8%8Boffer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/08/20/java%E9%9D%A2%E7%BB%8F%E5%88%9A%E5%90%AF%E5%8A%A8%E5%B0%B1%E6%8B%BF%E4%B8%8Boffer/" class="post-title-link" itemprop="url">java面经刚启动就拿下offer</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-08-20 20:57:22 / 修改时间：21:38:06" itemprop="dateCreated datePublished" datetime="2024-08-20T20:57:22+08:00">2024-08-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java基础：线程与并发"><a href="#Java基础：线程与并发" class="headerlink" title="Java基础：线程与并发"></a>Java基础：线程与并发</h1><h4 id="刚刚秋招就拿下了第一个offer，公司规模不错，后续应该用语雀记录一下公司内部的依赖包使用和其他玩意。博客记录基础知识面经和开源提效小轮子的系列"><a href="#刚刚秋招就拿下了第一个offer，公司规模不错，后续应该用语雀记录一下公司内部的依赖包使用和其他玩意。博客记录基础知识面经和开源提效小轮子的系列" class="headerlink" title="刚刚秋招就拿下了第一个offer，公司规模不错，后续应该用语雀记录一下公司内部的依赖包使用和其他玩意。博客记录基础知识面经和开源提效小轮子的系列"></a>刚刚秋招就拿下了第一个offer，公司规模不错，后续应该用语雀记录一下公司内部的依赖包使用和其他玩意。博客记录基础知识面经和开源提效小轮子的系列</h4><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="HashMap-的-put-方法具体流程（JDK-1-8）"><a href="#HashMap-的-put-方法具体流程（JDK-1-8）" class="headerlink" title="HashMap 的 put 方法具体流程（JDK 1.8）"></a>HashMap 的 put 方法具体流程（JDK 1.8）</h3><ol>
-<li><strong>put 方法传入键值</strong>：调用 <code>put(K key, V value)</code> 方法，传入键值对。</li>
-<li><strong>检查 table 是否为空</strong>：如果 <code>table</code> 为空，则调用 <code>resize()</code> 方法进行初始化。</li>
-<li><strong>计算索引值</strong>：根据键的 <code>hash</code> 值，通过 <code>hash</code> 函数计算索引值 <code>index</code>。</li>
-<li><strong>检查索引位置是否为空</strong>：<ul>
-<li>如果 <code>table[index]</code> 为空，则直接插入新节点，并增加 <code>size</code>。</li>
-</ul>
-</li>
-<li><strong>检查链表中是否存在相等的键</strong>：<ul>
-<li>如果 <code>table[index]</code> 不为空，遍历链表，通过 <code>equals</code> 方法检查是否存在相等的键。</li>
-<li>如果找到相等的键，则覆盖对应的值。</li>
-</ul>
-</li>
-<li><strong>判断链表长度是否超过阈值</strong>：<ul>
-<li>如果链表长度超过 8，且 <code>table</code> 的长度大于 64，则将链表转换为红黑树。</li>
-<li>如果链表长度小于等于 6，且当前是红黑树，则将红黑树转换回链表。</li>
-</ul>
-</li>
-<li><strong>插入新节点</strong>：<ul>
-<li>如果链表长度未超过 8，直接将新节点插入链表尾部。</li>
-<li>如果链表长度超过 8，且 <code>table</code> 的长度大于 64，则将新节点插入红黑树。</li>
-</ul>
-</li>
-</ol>
-<h3 id="JDK-1-7-和-JDK-1-8-的区别"><a href="#JDK-1-7-和-JDK-1-8-的区别" class="headerlink" title="JDK 1.7 和 JDK 1.8 的区别"></a>JDK 1.7 和 JDK 1.8 的区别</h3><ul>
-<li><strong>存储结构</strong>：<ul>
-<li><strong>JDK 1.7</strong>：使用数组加链表的方式存储元素，发生哈希冲突时，多个元素以链表形式存储。</li>
-<li><strong>JDK 1.8</strong>：引入红黑树，当链表长度超过 8 时，链表会转换为红黑树，提高查询效率。</li>
-</ul>
-</li>
-<li><strong>扩容操作</strong>：<ul>
-<li><strong>JDK 1.7</strong>：扩容时，整个哈希表的容量加倍，所有键值对重新哈希并分配到新桶中。</li>
-<li><strong>JDK 1.8</strong>：引入红黑树优化，减少需要重新哈希的键值对数量，优化扩容性能。</li>
-</ul>
-</li>
-<li><strong>插入方法</strong>：<ul>
-<li><strong>JDK 1.7</strong>：使用头插法，新元素插入链表头部。</li>
-<li><strong>JDK 1.8</strong>：使用尾插法，新元素插入链表尾部，减少多线程并发写入时的竞争。</li>
-</ul>
-</li>
-<li><strong>对 null 键的处理</strong>：<ul>
-<li><strong>JDK 1.7</strong>：<code>null</code> 键放在数组的 <code>index 0</code> 位置。</li>
-<li><strong>JDK 1.8</strong>：<code>null</code> 键的处理与其他键相同，通过计算哈希值确定位置。</li>
-</ul>
-</li>
-</ul>
-<h3 id="HashMap-和-Hashtable-的区别"><a href="#HashMap-和-Hashtable-的区别" class="headerlink" title="HashMap 和 Hashtable 的区别"></a>HashMap 和 Hashtable 的区别</h3><ul>
-<li><strong>线程安全性</strong>：<ul>
-<li><strong>Hashtable</strong>：线程安全，方法同步，性能开销大。</li>
-<li><strong>HashMap</strong>：非线程安全，性能高，适合单线程环境。</li>
-</ul>
-</li>
-<li><strong>对 null 的支持</strong>：<ul>
-<li><strong>Hashtable</strong>：不允许键或值为 <code>null</code>。</li>
-<li><strong>HashMap</strong>：允许一个键为 <code>null</code>，多个值为 <code>null</code>。</li>
-</ul>
-</li>
-<li><strong>初始容量和负载因子</strong>：<ul>
-<li><strong>Hashtable</strong>：默认初始容量为 11，负载因子为 0.75。</li>
-<li><strong>HashMap</strong>：默认初始容量为 16，负载因子为 0.75。</li>
-</ul>
-</li>
-<li><strong>应用场景</strong>：<ul>
-<li><strong>Hashtable</strong>：适用于多线程环境，但性能较低。</li>
-<li><strong>HashMap</strong>：适用于单线程环境，性能高。</li>
-</ul>
-</li>
-</ul>
-<h3 id="HashMap-和-ConcurrentHashMap-的区别"><a href="#HashMap-和-ConcurrentHashMap-的区别" class="headerlink" title="HashMap 和 ConcurrentHashMap 的区别"></a>HashMap 和 ConcurrentHashMap 的区别</h3><ul>
-<li><strong>线程安全性</strong>：<ul>
-<li><strong>HashMap</strong>：非线程安全。</li>
-<li><strong>ConcurrentHashMap</strong>：线程安全，使用分段锁或 CAS 操作。</li>
-</ul>
-</li>
-<li><strong>性能</strong>：<ul>
-<li><strong>HashMap</strong>：单线程高性能。</li>
-<li><strong>ConcurrentHashMap</strong>：多线程高性能。</li>
-</ul>
-</li>
-<li><strong>扩容机制</strong>：<ul>
-<li><strong>HashMap</strong>：全表扩容。</li>
-<li><strong>ConcurrentHashMap</strong>：局部扩容。</li>
-</ul>
-</li>
-<li><strong>对 null 的支持</strong>：<ul>
-<li><strong>HashMap</strong>：支持 <code>null</code> 键和值。</li>
-<li><strong>ConcurrentHashMap</strong>：不允许 <code>null</code> 键和值。</li>
-</ul>
-</li>
-<li><strong>应用场景</strong>：<ul>
-<li><strong>HashMap</strong>：适用于单线程环境。</li>
-<li><strong>ConcurrentHashMap</strong>：适用于多线程环境。</li>
-</ul>
-</li>
-</ul>
-<h3 id="ConcurrentHashMap-和-Hashtable-的区别"><a href="#ConcurrentHashMap-和-Hashtable-的区别" class="headerlink" title="ConcurrentHashMap 和 Hashtable 的区别"></a>ConcurrentHashMap 和 Hashtable 的区别</h3><ul>
-<li><strong>线程安全机制</strong>：<ul>
-<li><strong>Hashtable</strong>：使用同步方法，锁粒度粗。</li>
-<li><strong>ConcurrentHashMap</strong>：使用分段锁或 CAS 操作，锁粒度细。</li>
-</ul>
-</li>
-<li><strong>性能</strong>：<ul>
-<li><strong>Hashtable</strong>：性能较低。</li>
-<li><strong>ConcurrentHashMap</strong>：性能高。</li>
-</ul>
-</li>
-<li><strong>对 null 的支持</strong>：<ul>
-<li><strong>Hashtable</strong>：不允许 <code>null</code> 键和值。</li>
-<li><strong>ConcurrentHashMap</strong>：不允许 <code>null</code> 键和值。</li>
-</ul>
-</li>
-<li><strong>迭代器</strong>：<ul>
-<li><strong>Hashtable</strong>：使用 <code>Enumeration</code>。</li>
-<li><strong>ConcurrentHashMap</strong>：使用弱一致性迭代器。</li>
-</ul>
-</li>
-<li><strong>扩容机制</strong>：<ul>
-<li><strong>Hashtable</strong>：全表扩容。</li>
-<li><strong>ConcurrentHashMap</strong>：局部扩容。</li>
-</ul>
-</li>
-<li><strong>应用场景</strong>：<ul>
-<li><strong>Hashtable</strong>：逐渐被替代。</li>
-<li><strong>ConcurrentHashMap</strong>：推荐用于多线程环境。</li>
-</ul>
-</li>
-</ul>
-<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="线程和进程的区别"><a href="#线程和进程的区别" class="headerlink" title="线程和进程的区别"></a>线程和进程的区别</h3><ul>
-<li><strong>线程</strong>：是进程的执行单元，一个进程可以包含多个线程。</li>
-<li><strong>进程</strong>：是操作系统分配资源的基本单位，线程共享进程的地址空间和系统资源。</li>
-</ul>
-<h3 id="线程池参数"><a href="#线程池参数" class="headerlink" title="线程池参数"></a>线程池参数</h3><ul>
-<li><strong>corePoolSize</strong>：线程池的基本大小。</li>
-<li><strong>maximumPoolSize</strong>：线程池能够容纳的最大线程数量。</li>
-<li><strong>keepAliveTime</strong>：多余的空闲线程能够存活的时间。</li>
-<li><strong>unit</strong>：<code>keepAliveTime</code> 参数的时间单位。</li>
-<li><strong>workQueue</strong>：一个阻塞队列，用于存放任务。</li>
-<li><strong>threadFactory</strong>：用于创建新线程的工厂。</li>
-<li><strong>handler</strong>：拒绝策略，当任务太多时，线程池会采取的策略。</li>
-</ul>
-<h3 id="Java-中创建线程的方式"><a href="#Java-中创建线程的方式" class="headerlink" title="Java 中创建线程的方式"></a>Java 中创建线程的方式</h3><ol>
-<li><strong>继承 Thread 类</strong>：创建一个类继承 <code>Thread</code> 类，并重写 <code>run()</code> 方法。</li>
-<li><strong>实现 Runnable 接口</strong>：创建一个类实现 <code>Runnable</code> 接口，并实现 <code>run()</code> 方法。</li>
-<li><strong>实现 Callable 接口和 Future</strong>：重写 <code>call()</code> 方法，通过 <code>Callable</code> 接口返回线程执行的结果，并通过 <code>Future</code> 获取结果。</li>
-<li><strong>使用 Executor 框架</strong>：通过 <code>Executor</code> 框架创建线程池，将任务提交给线程池执行。</li>
-</ol>
-<h3 id="Runnable-和-Callable-的区别"><a href="#Runnable-和-Callable-的区别" class="headerlink" title="Runnable 和 Callable 的区别"></a>Runnable 和 Callable 的区别</h3><ul>
-<li><strong>Runnable</strong>：没有返回值，不能抛出异常。</li>
-<li><strong>Callable</strong>：有返回值，可以抛出异常。</li>
-</ul>
-<h3 id="线程池的执行过程"><a href="#线程池的执行过程" class="headerlink" title="线程池的执行过程"></a>线程池的执行过程</h3><ol>
-<li>线程池接到任务后，判断核心线程是否满了，没满就执行任务，满了就放到等待队列。</li>
-<li>等待队列没满，存入队列，满了就去查看最大线程数。</li>
-<li>最大线程数没满，执行任务，满了执行拒绝策略。</li>
-</ol>
-<h3 id="线程池的拒绝策略"><a href="#线程池的拒绝策略" class="headerlink" title="线程池的拒绝策略"></a>线程池的拒绝策略</h3><ol>
-<li><strong>AbortPolicy</strong>：直接抛出 <code>RejectedExecutionException</code>。</li>
-<li><strong>DiscardPolicy</strong>：直接丢弃新任务。</li>
-<li><strong>DiscardOldestPolicy</strong>：丢弃队列最前面的任务，然后尝试重新提交新任务。</li>
-<li><strong>CallerRunsPolicy</strong>：由调用者所在的线程来执行任务。</li>
-</ol>
-<h3 id="Java-中如何实现线程安全"><a href="#Java-中如何实现线程安全" class="headerlink" title="Java 中如何实现线程安全"></a>Java 中如何实现线程安全</h3><ol>
-<li><strong>使用 synchronized 关键字</strong>：通过在方法或代码块中使用 <code>synchronized</code> 关键字来实现对共享资源的同步访问。</li>
-<li><strong>使用 Lock 接口</strong>：通过 <code>Lock</code> 接口以及实现类（如 <code>ReentrantLock</code>）来实现对共享资源的同步访问。</li>
-<li><strong>使用原子类</strong>：Java 提供了一些原子类（如 <code>AtomicInteger</code>、<code>AtomicLong</code> 等），提供线程安全的方式更新共享变量。</li>
-<li><strong>使用线程安全的集合</strong>：Java 提供了一些线程安全的集合类（如 <code>ConcurrentHashMap</code>、<code>CopyOnWriteArrayList</code> 等），在多线程环境下可以安全地操作集合。</li>
-</ol>
-<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p><strong>定义</strong>：两个或多个线程在执行过程中，由于竞争资源或通信造成的一种堵塞现象，若无外力作用，都将无法推进。</p>
-<p><strong>形成死锁的四个必要条件</strong>：</p>
-<ol>
-<li><strong>互斥条件</strong>：资源不能被多个线程同时占用。</li>
-<li><strong>请求与保持条件</strong>：线程已占用资源，还想申请新的资源。</li>
-<li><strong>不剥夺条件</strong>：线程已占用的资源不能被其他线程强行剥夺。</li>
-<li><strong>循环等待条件</strong>：线程之间形成环路，相互等待对方释放资源。</li>
-</ol>
-<p><strong>如何避免死锁</strong>：</p>
-<ol>
-<li>避免嵌套锁。</li>
-<li>统一获取锁的顺序。</li>
-<li>使用 <code>tryLock()</code> 方法。</li>
-<li>设置超时时间。</li>
-</ol>
-<h3 id="Java-中如何使用线程池"><a href="#Java-中如何使用线程池" class="headerlink" title="Java 中如何使用线程池"></a>Java 中如何使用线程池</h3><ol>
-<li><strong>创建线程池</strong>：通过 <code>Executors</code> 工厂类的静态方法创建不同类型的线程池。</li>
-<li><strong>提交任务</strong>：将任务（实现 <code>Runnable</code> 或 <code>Callable</code> 接口的类）提交给线程池。</li>
-<li><strong>关闭线程池</strong>：在线程池不再需要使用时，调用 <code>shutdown()</code> 方法关闭线程池。</li>
-</ol>
-<h3 id="Java-中线程的状态"><a href="#Java-中线程的状态" class="headerlink" title="Java 中线程的状态"></a>Java 中线程的状态</h3><ol>
-<li><strong>新建（New）</strong>：线程被创建后尚未启动。</li>
-<li><strong>运行（Runnable）</strong>：线程正在执行中或等待 CPU 的时间片。</li>
-<li><strong>阻塞（Blocked）</strong>：线程等待某个条件的释放，如等待输入输出、获取锁等。</li>
-<li><strong>等待（Waiting）</strong>：线程等待其他线程发出的通知，如调用了 <code>wait()</code> 方法。</li>
-<li><strong>超时等待（Timed Waiting）</strong>：线程等待一段时间后会自动唤醒，如调用了 <code>sleep()</code> 方法。</li>
-<li><strong>终止（Terminated）</strong>：线程执行完毕或出现异常而终止。</li>
-</ol>
-<h3 id="线程上下文切换"><a href="#线程上下文切换" class="headerlink" title="线程上下文切换"></a>线程上下文切换</h3><p><strong>定义</strong>：CPU 从一个线程切换到另一个线程的过程。</p>
-<p><strong>影响</strong>：线程上下文切换会带来一定的开销，包括保存当前线程的上下文信息、加载新线程的上下文信息等。当线程数量过多或频繁进行上下文切换时，会导致系统性能下降。</p>
-<h3 id="Java-中如何设置线程的优先级"><a href="#Java-中如何设置线程的优先级" class="headerlink" title="Java 中如何设置线程的优先级"></a>Java 中如何设置线程的优先级</h3><p>Java 中可以通过 <code>setPriority()</code> 方法来设置线程的优先级，优先级范围从 1（最低优先级）到 10（最高优先级）。线程优先级并不能完全控制线程的执行顺序，它只是给线程获取 CPU 资源的建议。</p>
-<h3 id="线程安全的集合"><a href="#线程安全的集合" class="headerlink" title="线程安全的集合"></a>线程安全的集合</h3><p><strong>定义</strong>：多线程环境下可以安全地进行读写操作的集合。</p>
-<p><strong>Java 中的线程安全集合</strong>：</p>
-<ol>
-<li><strong>ConcurrentHashMap</strong>：线程安全的哈希表。</li>
-<li><strong>CopyOnWriteArrayList</strong>：线程安全的动态数组。</li>
-<li><strong>CopyOnWriteArraySet</strong>：线程安全的集合。</li>
-<li><strong>ConcurrentLinkedQueue</strong>：线程安全的无界队列。</li>
-<li><strong>ConcurrentSkipListMap</strong>：线程安全的有序映射表。</li>
-<li><strong>ConcurrentSkipListSet</strong>：线程安全的有序集合。</li>
-</ol>
-<h3 id="Java-中的线程间通信方式"><a href="#Java-中的线程间通信方式" class="headerlink" title="Java 中的线程间通信方式"></a>Java 中的线程间通信方式</h3><ol>
-<li><strong>共享变量</strong>：多个线程共享同一个变量，在变量上加锁保证线程安全。</li>
-<li><strong>wait() 和 notify()</strong>：使用 <code>Object</code> 类的 <code>wait()</code> 方法使线程等待，使用 <code>notify()</code> 方法唤醒等待的线程。</li>
-<li><strong>Condition</strong>：使用 <code>Condition</code> 接口和 <code>Lock</code> 锁实现线程间通信，可以实现更细粒度的等待和唤醒操作。</li>
-<li><strong>生产者-消费者模式</strong>：通过一个共享的阻塞队列实现生产者线程和消费者线程的通信。</li>
-</ol>
-<h3 id="Java-中的-ThreadLocal"><a href="#Java-中的-ThreadLocal" class="headerlink" title="Java 中的 ThreadLocal"></a>Java 中的 ThreadLocal</h3><p><strong>定义</strong>：<code>ThreadLocal</code> 是 Java 中的一个线程局部变量，它可以保证每个线程都有自己的变量副本，线程之间互不干扰。</p>
-<p><strong>用途</strong>：通常用于保存线程私有的数据，以减少多线程之间的共享和竞争。</p>
-<h3 id="Java-中的-volatile-关键字"><a href="#Java-中的-volatile-关键字" class="headerlink" title="Java 中的 volatile 关键字"></a>Java 中的 volatile 关键字</h3><p><strong>作用</strong>：<code>volatile</code> 关键字用于修饰变量，保证变量在多线程环境下的可见性。当一个变量被 <code>volatile</code> 修饰时，任何线程对该变量的修改都会立即对其他线程可见。</p>
-<p><strong>volatile 和 synchronized 的区别</strong>：</p>
-<ul>
-<li><strong>volatile</strong>：保证变量的可见性，但不能保证原子性。</li>
-<li><strong>synchronized</strong>：保证代码块的原子性，可以用于同步方法或代码块。</li>
-</ul>
-<h3 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h3><ul>
-<li><strong>悲观锁</strong>：假设会发生并发冲突，所以在数据操作之前会将数据加锁。</li>
-<li><strong>乐观锁</strong>：假设不会发生并发冲突，所以在数据操作时不会加锁，而是在数据提交时检查是否发生冲突。</li>
-</ul>
-<h3 id="CAS（Compare-And-Swap）操作"><a href="#CAS（Compare-And-Swap）操作" class="headerlink" title="CAS（Compare And Swap）操作"></a>CAS（Compare And Swap）操作</h3><p><strong>定义</strong>：CAS 是一种乐观锁机制，用于实现线程安全的无锁算法。</p>
-<p><strong>操作过程</strong>：</p>
-<ol>
-<li>检查内存地址 V 的值是否等于预期值 A。</li>
-<li>如果相等，则将内存地址 V 的值更新为新值 B，否则操作失败。</li>
-</ol>
-<h3 id="乐观锁的实现方式"><a href="#乐观锁的实现方式" class="headerlink" title="乐观锁的实现方式"></a>乐观锁的实现方式</h3><p>通过版本号或时间戳来实现。当一个线程获取到数据后，会记录数据的版本号或时间戳，然后在更新数据时会检查数据的版本号或时间戳是否发生变化，如果没有变化则可以更新数据，否则说明数据已经被其他线程修改过，更新失败。</p>
-<h3 id="Java-中的-wait-、notify-和-notifyAll"><a href="#Java-中的-wait-、notify-和-notifyAll" class="headerlink" title="Java 中的 wait()、notify() 和 notifyAll()"></a>Java 中的 wait()、notify() 和 notifyAll()</h3><ul>
-<li><strong>wait() 方法</strong>：<ul>
-<li>使当前线程进入等待状态，并释放当前对象的锁。</li>
-<li>必须在同步代码块中调用。</li>
-<li>可能被虚假唤醒，需要使用 <code>while</code> 循环检查条件。</li>
-</ul>
-</li>
-<li><strong>notify() 方法</strong>：<ul>
-<li>唤醒一个正在等待该对象的线程。</li>
-<li>必须在同步代码块中调用。</li>
-<li>只会唤醒一个线程。</li>
-</ul>
-</li>
-<li><strong>notifyAll() 方法</strong>：<ul>
-<li>唤醒所有正在等待该对象的线程。</li>
-<li>必须在同步代码块中调用。</li>
-</ul>
-</li>
-</ul>
-<h3 id="Java-中的-sleep-方法和-yield-方法"><a href="#Java-中的-sleep-方法和-yield-方法" class="headerlink" title="Java 中的 sleep() 方法和 yield() 方法"></a>Java 中的 sleep() 方法和 yield() 方法</h3><ul>
-<li><strong>sleep() 方法</strong>：<ul>
-<li>使当前线程暂停执行一段时间，让出 CPU 的执行时间，但不会释放锁资源。</li>
-</ul>
-</li>
-<li><strong>yield() 方法</strong>：<ul>
-<li>让出一次 CPU 的执行时间，使得其他具有相同优先级的线程有机会执行，但不保证成功让出。</li>
-</ul>
-</li>
-</ul>
-<h3 id="Java-中的-ReentrantLock"><a href="#Java-中的-ReentrantLock" class="headerlink" title="Java 中的 ReentrantLock"></a>Java 中的 ReentrantLock</h3><p><strong>定义</strong>：<code>ReentrantLock</code> 是 Java 中的一种独占锁，可以替代 <code>synchronized</code> 关键字实现对共享资源的同步访问。</p>
-<p><strong>与 synchronized 的区别</strong>：</p>
-<ul>
-<li><strong>ReentrantLock</strong>：是显式锁，需要手动进行加锁和解锁操作，提供更灵活的锁操作。</li>
-<li><strong>synchronized</strong>：是隐式锁，由 JVM 自动管理锁的加锁和解锁。</li>
-</ul>
-<h3 id="Java-的并发问题和解决方法"><a href="#Java-的并发问题和解决方法" class="headerlink" title="Java 的并发问题和解决方法"></a>Java 的并发问题和解决方法</h3><p><strong>并发问题</strong>：</p>
-<ol>
-<li><strong>线程安全</strong>：多个线程同时访问同一个对象时，可能导致数据不一致。</li>
-<li><strong>死锁</strong>：两个或多个线程在等待对方释放资源，导致它们永远阻塞。</li>
-<li><strong>竞态条件</strong>：多个线程的执行顺序影响程序输出，导致结果不确定。</li>
-<li><strong>资源限制</strong>：线程过多可能导致系统资源耗尽。</li>
-<li><strong>可见性问题</strong>：一个线程对共享变量的修改对其他线程不可见。</li>
-<li><strong>原子性问题</strong>：操作被中断，导致操作结果不完整。</li>
-</ol>
-<p><strong>解决方法</strong>：</p>
-<ol>
-<li><strong>synchronized 关键字</strong>：确保同一时间只有一个线程可以执行该段代码。</li>
-<li><strong>volatile 关键字</strong>：保证变量的可见性。</li>
-<li><strong>Lock 接口和实现类</strong>：提供更灵活的锁定机制。</li>
-<li><strong>原子类</strong>：提供无锁的线程安全操作。</li>
-<li><strong>线程池</strong>：管理线程的创建和复用，减少线程创建和销毁的开销。</li>
-<li><strong>并发集合</strong>：提供线程安全的集合类。</li>
-<li><strong>显式锁</strong>：提供更复杂的锁定策略。</li>
-<li><strong>不可变对象</strong>：天然线程安全。</li>
-<li><strong>线程局部变量</strong>：每个线程都有独立的变量副本。</li>
-<li><strong>避免共享状态</strong>：设计无状态或纯函数式的并发策略。</li>
-<li><strong>设计模式</strong>：使用并发设计模式，如生产者-消费者模式、读者-写者模式等。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/" class="post-title-link" itemprop="url">Kafka消费者java客户端</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-08-17 15:16:06" itemprop="dateCreated datePublished" datetime="2024-08-17T15:16:06+08:00">2024-08-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-18 20:24:59" itemprop="dateModified" datetime="2024-08-18T20:24:59+08:00">2024-08-18</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="Kafka-消费者-Java-客户端"><a href="#Kafka-消费者-Java-客户端" class="headerlink" title="Kafka 消费者 Java 客户端"></a>Kafka 消费者 Java 客户端</h3><p>Kafka 客户端从 Kafka 集群中获取消息，并透明地处理 Kafka 集群中出现故障的 Broker，透明地调节适应集群中变化的数据分区。它也与 Broker 交互，实现负载平衡消费者。</p>
-<h4 id="Offset（偏移量）和消费者位置"><a href="#Offset（偏移量）和消费者位置" class="headerlink" title="Offset（偏移量）和消费者位置"></a>Offset（偏移量）和消费者位置</h4><p>Kafka 为分区中的每条消息保存一个偏移量（offset），这个的偏移量是该分区中一条消息的唯一标识，也表示消费者在分区的位置。例如，一个位置是 5 的消费者（说明已经消费了 0 到 4 的消息），下一个将接收的消息的偏移量为 5 的消息。实际上，这有两个与消费者相关的“位置”概念：</p>
-<ul>
-<li><strong>消费者的位置</strong>：给出了下一条消息的偏移量。它比消费者在该分区中看到的最大偏移量大一个。它在每次消费者调用 <code>poll(Duration)</code> 接收消息时自动增长。</li>
-<li><strong>已提交的位置</strong>：是已安全保存的最后偏移量，如果进程失败或重新启动时，消费者将恢复到这个偏移量。消费者可以选择定期自动提交偏移量，也可以选择通过调用 <code>commit</code> API 来手动控制（如：<code>commitSync</code> 和 <code>commitAsync</code>）。</li>
-</ul>
-<p>主要区别在于消费者控制一条消息什么时候被认为是已被消费的，控制权在消费者。</p>
-<h4 id="消费者组和主题订阅"><a href="#消费者组和主题订阅" class="headerlink" title="消费者组和主题订阅"></a>消费者组和主题订阅</h4><p>Kafka 的消费者组概念，通过进程池瓜分消息并处理消息。这些进程可以在同一台机器运行，也可分布到多台机器上，以增加可扩展性和容错性，相同 <code>group.id</code> 的消费者将视为同一个消费者组。</p>
-<p>组中的每个消费者都通过 <code>subscribe</code> API 动态订阅一个 topic 列表。Kafka 将已订阅 topic 的消息发送到每个消费者组中，并通过平衡分区在消费者分组中所有成员之间来达到平均。因此，每个分区恰好地分配 1 个消费者（一个消费者组中）。所以，如果一个 topic 有 4 个分区，并且一个消费者分组只有 2 个消费者，那么每个消费者将消费 2 个分区。</p>
-<p>消费者组的成员是动态维护的：如果一个消费者故障，分配给它的分区将重新分配给同一个分组中其他的消费者。同样，如果一个新的消费者加入到分组，将从现有消费者中移一个给它。这被称为重新平衡分组。当新分区添加到订阅的 topic 时，或者当创建与订阅的正则表达式匹配的新 topic 时，也将重新平衡。将通过定时刷新自动发现新的分区，并将其分配给分组的成员。</p>
-<p>从概念上讲，你可以将消费者分组看作是由多个进程组成的单一逻辑订阅者。作为一个多订阅系统，Kafka 支持对于给定 topic 任何数量的消费者组，而不重复。</p>
-<p>这是在消息系统中常见的功能的略微概括。所有进程都将是单个消费者分组的一部分（类似传统消息传递系统中的队列的语义），因此消息传递就像队列一样，在组中平衡。与传统的消息系统不同的是，虽然你可以有多个这样的组，但每个进程都有自己的消费者组（类似于传统消息系统中 pub-sub 的语义），因此每个进程都会订阅到该主题的所有消息。</p>
-<p>此外，当分组重新分配自动发生时，可以通过 <code>ConsumerRebalanceListener</code> 通知消费者，这允许他们完成必要的应用程序级逻辑，例如状态清除、手动偏移提交等。</p>
-<p>它也允许消费者通过使用 <code>assign(Collection)</code> 手动分配指定分区，如果使用手动指定分配分区，那么动态分区分配和协调消费者组将失效。</p>
-<h4 id="发现消费者故障"><a href="#发现消费者故障" class="headerlink" title="发现消费者故障"></a>发现消费者故障</h4><p>订阅一组 topic 后，当调用 <code>poll(long)</code> 时，消费者将自动加入到组中。只要持续调用 <code>poll</code>，消费者将一直保持可用，并继续从分配的分区中接收消息。此外，消费者向服务器定时发送心跳。如果消费者崩溃或无法在 <code>session.timeout.ms</code> 配置的时间内发送心跳，则消费者将被视为死亡，并且其分区将被重新分配。</p>
-<p>还有一种可能，消费者可能遇到“活锁”的情况，它持续发送心跳，但没有处理。为了预防消费者在这种情况下一直持有分区，我们使用 <code>max.poll.interval.ms</code> 活跃检测机制。在此基础上，如果你调用的 <code>poll</code> 的频率大于最大间隔，则客户端将主动离开组，以便其他消费者接管该分区。</p>
-<p>发生这种情况时，你会看到偏移量提交失败（调用 <code>commitSync()</code> 引发的 <code>CommitFailedException</code>）。这是一种安全机制，保障只有活动成员能够提交偏移量。所以要留在组中，你必须持续调用 <code>poll</code>。</p>
-<p>消费者提供两个配置设置来控制 <code>poll</code> 循环：</p>
-<ul>
-<li><strong>max.poll.interval.ms</strong>：增大 <code>poll</code> 的间隔，可以为消费者提供更多的时间去处理返回的消息（调用 <code>poll(long)</code> 返回的消息，通常返回的消息都是一批）。缺点是此值越大将会延迟组重新平衡。</li>
-<li><strong>max.poll.records</strong>：此设置限制每次调用 <code>poll</code> 返回的消息数，这样可以更容易地预测每次 <code>poll</code> 间隔要处理的最大值。通过调整此值，可以减少 <code>poll</code> 间隔，减少重新平衡分组的时间。</li>
-</ul>
-<p>对于消息处理时间不可预测的情况，这些选项是不够的。处理这种情况的推荐方法是将消息处理移到另一个线程中，让消费者继续调用 <code>poll</code>。但是必须注意确保已提交的偏移量不超过实际位置。另外，你必须禁用自动提交，并只有在线程完成处理后才为记录手动提交偏移量（取决于你）。还要注意，你需要暂停分区，不会从 <code>poll</code> 接收到新消息，让线程处理完之前返回的消息（如果你的处理能力比拉取消息的慢，那么创建新线程将导致你机器内存溢出）。</p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="自动提交偏移量（Automatic-Offset-Committing）"><a href="#自动提交偏移量（Automatic-Offset-Committing）" class="headerlink" title="自动提交偏移量（Automatic Offset Committing）"></a>自动提交偏移量（Automatic Offset Committing）</h4><p>这是一个简单的 Kafka 消费者 API 示例，使用自动提交偏移量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestConsumer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        props.setProperty(<span class="string">&quot;bootstrap.servers&quot;</span>, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;group.id&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;enable.auto.commit&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;auto.commit.interval.ms&quot;</span>, <span class="string">&quot;1000&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;key.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;value.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = <span class="keyword">new</span> <span class="title class_">KafkaConsumer</span>&lt;&gt;(props);</span><br><span class="line">        consumer.subscribe(List.of(<span class="string">&quot;my-topic&quot;</span>));</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">100</span>));</span><br><span class="line">            <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records)</span><br><span class="line">                System.out.printf(<span class="string">&quot;offset = %d, key = %s, value = %s%n&quot;</span>, record.offset(), record.key(), record.value());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>设置：</strong></p>
-<ul>
-<li><code>enable.auto.commit</code>：偏移量由 <code>auto.commit.interval.ms</code> 控制自动提交的频率。</li>
-<li><code>bootstrap.servers</code>：集群是通过配置 <code>bootstrap.servers</code> 指定一个或多个 Broker。不用指定全部的 Broker，它将自动发现集群中的其余的 Broker（最好指定多个，以防有服务器故障）。</li>
-<li><code>group.id</code>：在这个例子中，客户端订阅了主题 <code>my-topic</code>。消费者组叫 <code>test</code>。</li>
-<li><code>key.deserializer</code> 和 <code>value.deserializer</code>：设置如何把 byte 转成 object 类型。例子中，通过指定 string 解析器，我们告诉获取到的消息的 key 和 value 只是简单的 string 类型。</li>
-</ul>
-<h4 id="手动控制偏移量（Manual-Offset-Control）"><a href="#手动控制偏移量（Manual-Offset-Control）" class="headerlink" title="手动控制偏移量（Manual Offset Control）"></a>手动控制偏移量（Manual Offset Control）</h4><p>不需要定时提交 offset，可以自己控制 offset，当消息认为已消费过了，这个时候再去提交它们的偏移量。这很有用，当消费的消息结合了一些处理逻辑，这个消息就不应该认为是已经消费的，直到它完成了整个处理。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestConsumer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        props.setProperty(<span class="string">&quot;bootstrap.servers&quot;</span>, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;group.id&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;enable.auto.commit&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;auto.commit.interval.ms&quot;</span>, <span class="string">&quot;1000&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;key.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;value.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = <span class="keyword">new</span> <span class="title class_">KafkaConsumer</span>&lt;&gt;(props);</span><br><span class="line">        consumer.subscribe(List.of(<span class="string">&quot;my-topic&quot;</span>));</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">100</span>));</span><br><span class="line">            <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) &#123;</span><br><span class="line">                System.out.printf(<span class="string">&quot;offset = %d, key = %s, value = %s%n&quot;</span>, record.offset(), record.key(), record.value());</span><br><span class="line">                consumer.commitSync();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>设置：</strong></p>
-<ul>
-<li><code>enable.auto.commit</code> 设置为 <code>false</code>，在处理完数据后提交 <code>consumer.commitSync()</code>。</li>
-</ul>
-<p>使用自动提交也可以“至少一次”。但是要求你必须下次调用 <code>poll(Duration)</code> 之前或关闭消费者之前，处理完所有返回的数据。如果操作失败，这将会导致已提交的偏移量超过消费的位置，从而导致丢失消息。使用手动控制偏移量的优点是，你可以直接控制消息何时提交。</p>
-<h4 id="更精细的控制"><a href="#更精细的控制" class="headerlink" title="更精细的控制"></a>更精细的控制</h4><p>在某些情况下，你可以希望更精细的控制，通过指定一个明确消息的偏移量为“已提交”。在下面的例子中，我们处理完每个分区中的消息后，提交偏移量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestConsumer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        props.setProperty(<span class="string">&quot;bootstrap.servers&quot;</span>, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;group.id&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;enable.auto.commit&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;auto.commit.interval.ms&quot;</span>, <span class="string">&quot;1000&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;key.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;value.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = <span class="keyword">new</span> <span class="title class_">KafkaConsumer</span>&lt;&gt;(props);</span><br><span class="line">        consumer.subscribe(List.of(<span class="string">&quot;my-topic&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">                ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(Long.MAX_VALUE));</span><br><span class="line">                <span class="keyword">for</span> (TopicPartition partition : records.partitions()) &#123;</span><br><span class="line">                    List&lt;ConsumerRecord&lt;String, String&gt;&gt; partitionRecords = records.records(partition);</span><br><span class="line">                    <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : partitionRecords) &#123;</span><br><span class="line">                        System.out.println(record.offset() + <span class="string">&quot;: &quot;</span> + record.value());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="type">long</span> <span class="variable">lastOffset</span> <span class="operator">=</span> partitionRecords.get(partitionRecords.size() - <span class="number">1</span>).offset();</span><br><span class="line">                    System.out.println(<span class="string">&quot;偏移量&quot;</span> + lastOffset);</span><br><span class="line">                    consumer.commitSync(Collections.singletonMap(partition, <span class="keyword">new</span> <span class="title class_">OffsetAndMetadata</span>(lastOffset + <span class="number">1</span>)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            consumer.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：</strong> 已提交的 offset 应始终是你的程序将读取的下一条消息的 offset。因此，调用 <code>commitSync(offsets)</code> 时，你应该加 1 到最后处理的消息的 offset。</p>
-<h4 id="订阅指定的分区（Manual-Partition-Assignment）"><a href="#订阅指定的分区（Manual-Partition-Assignment）" class="headerlink" title="订阅指定的分区（Manual Partition Assignment）"></a>订阅指定的分区（Manual Partition Assignment）</h4><p>在前面的例子中，我们订阅我们感兴趣的 topic，让 Kafka 提供给我们平分后的 topic 分区。但是，在有些情况下，你可能需要自己来控制分配指定分区，例如：</p>
-<ul>
-<li>如果这个消费者进程与该分区保存了某种本地状态（如本地磁盘的键值存储），则它应该只能获取这个分区的消息。</li>
-<li>如果消费者进程本身具有高可用性，并且如果它失败，会自动重新启动（可能使用集群管理框架如 YARN，Mesos，或者 AWS 设施，或作为一个流处理框架的一部分）。在这种情况下，不需要 Kafka 检测故障，重新分配分区，因为消费者进程将在另一台机器上重新启动。</li>
-</ul>
-<p>要使用此模式，你只需调用 <code>assign(Collection)</code> 消费指定的分区即可：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestConsumer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        props.setProperty(<span class="string">&quot;bootstrap.servers&quot;</span>, <span class="string">&quot;10.4.3.41:29092,10.4.3.41:39092,10.4.3.41:49092&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;group.id&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;enable.auto.commit&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;key.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        props.setProperty(<span class="string">&quot;value.deserializer&quot;</span>, <span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>);</span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = <span class="keyword">new</span> <span class="title class_">KafkaConsumer</span>&lt;&gt;(props);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自定义分区</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">topic</span> <span class="operator">=</span> <span class="string">&quot;my-topic&quot;</span>;</span><br><span class="line">        <span class="type">TopicPartition</span> <span class="variable">partition0</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TopicPartition</span>(topic, <span class="number">0</span>);</span><br><span class="line">        <span class="type">TopicPartition</span> <span class="variable">partition1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TopicPartition</span>(topic, <span class="number">1</span>);</span><br><span class="line">        consumer.assign(Arrays.asList(partition0, partition1));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">                ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(Long.MAX_VALUE));</span><br><span class="line">                <span class="keyword">for</span> (TopicPartition partition : records.partitions()) &#123;</span><br><span class="line">                    List&lt;ConsumerRecord&lt;String, String&gt;&gt; partitionRecords = records.records(partition);</span><br><span class="line">                    <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : partitionRecords) &#123;</span><br><span class="line">                        System.out.println(record.offset() + <span class="string">&quot;: &quot;</span> + record.value());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="type">long</span> <span class="variable">lastOffset</span> <span class="operator">=</span> partitionRecords.get(partitionRecords.size() - <span class="number">1</span>).offset();</span><br><span class="line">                    System.out.println(<span class="string">&quot;偏移量&quot;</span> + lastOffset);</span><br><span class="line">                    consumer.commitSync(Collections.singletonMap(partition, <span class="keyword">new</span> <span class="title class_">OffsetAndMetadata</span>(lastOffset + <span class="number">1</span>)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            consumer.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：</strong></p>
-<ul>
-<li>一旦手动分配分区，你可以在循环中调用 <code>poll</code>（跟前面的例子一样）。消费者分组仍需要提交 offset，只是现在分区的设置只能通过调用 <code>assign</code> 修改，因为手动分配不会进行分组协调，因此消费者故障不会引发分区重新平衡。每一个消费者是独立工作的（即使和其他的消费者共享 <code>GroupId</code>）。为了避免 offset 提交冲突，通常你需要确认每一个 consumer 实例的 <code>groupId</code> 都是唯一的。</li>
-<li>手动分配分区（即，<code>assign</code>）和动态分区分配的订阅 topic 模式（即，<code>subscribe</code>）不能混合使用。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -2093,7 +1768,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
