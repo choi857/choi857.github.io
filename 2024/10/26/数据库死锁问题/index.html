@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="mysql数据库中的死锁问题：预防与解决在高并发的数据库应用场景下，死锁是一个常见的问题。死锁会导致事务处理速度减慢，甚至完全停止。官方在 8.0.18 版本对死锁检测进行了优化, 将原先的死锁检测机制MySQL 死锁检测源码分析 交给了 background thread 来处理, 具体的 Patch 链接: MySQL-8.0.18 死锁检测优化. 具体的思路是将当前事务系统的 lock 信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库死锁问题">
+<meta property="og:url" content="https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Choi每天进步一点点">
+<meta property="og:description" content="mysql数据库中的死锁问题：预防与解决在高并发的数据库应用场景下，死锁是一个常见的问题。死锁会导致事务处理速度减慢，甚至完全停止。官方在 8.0.18 版本对死锁检测进行了优化, 将原先的死锁检测机制MySQL 死锁检测源码分析 交给了 background thread 来处理, 具体的 Patch 链接: MySQL-8.0.18 死锁检测优化. 具体的思路是将当前事务系统的 lock 信息">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-26T13:55:17.000Z">
+<meta property="article:modified_time" content="2024-11-05T14:34:59.830Z">
+<meta property="article:author" content="choi">
+<meta property="article:tag" content="死锁处理">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/","path":"2024/10/26/数据库死锁问题/","title":"数据库死锁问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库死锁问题 | Choi每天进步一点点</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Choi每天进步一点点" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Choi每天进步一点点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%EF%BC%9A%E9%A2%84%E9%98%B2%E4%B8%8E%E8%A7%A3%E5%86%B3"><span class="nav-number">1.</span> <span class="nav-text">mysql数据库中的死锁问题：预防与解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">死锁的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是死锁？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-MySQL-%E4%B8%AD%E7%9A%84%E6%AD%BB%E9%94%81%E7%89%B9%E5%BE%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">理解 MySQL 中的死锁特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E9%A2%84%E9%98%B2%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.</span> <span class="nav-text">死锁预防策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E7%9A%84%E5%8A%A0%E9%94%81%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">保持一致的加锁顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E9%81%BF%E5%85%8D%E5%85%A8%E8%A1%A8%E6%89%AB%E6%8F%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用索引避免全表扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E4%BA%8B%E5%8A%A1%E5%A4%A7%E5%B0%8F%E5%92%8C%E6%8C%81%E7%BB%AD%E6%97%B6%E9%97%B4"><span class="nav-number">1.2.3.</span> <span class="nav-text">减少事务大小和持续时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%94%81%E8%B6%85%E6%97%B6%E5%92%8C%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用锁超时和重试机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF"><span class="nav-number">1.3.</span> <span class="nav-text">工具和技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.1.</span> <span class="nav-text">死锁检测工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7"><span class="nav-number">1.3.2.</span> <span class="nav-text">性能监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E5%A4%8D%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">死锁场景复现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81"><span class="nav-number">1.5.</span> <span class="nav-text">如何解决死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%87%AA%E5%8A%A8%E6%AD%BB%E9%94%81%E6%A3%80%E6%B5%8B%E5%92%8C%E5%A4%84%E7%90%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 自动死锁检测和处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A2%9E%E5%8A%A0%E9%94%81%E7%AD%89%E5%BE%85%E8%B6%85%E6%97%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 增加锁等待超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%98%BE%E7%A4%BA%E6%AD%BB%E9%94%81%E4%BF%A1%E6%81%AF"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 显示死锁信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BC%98%E5%8C%96%E4%BA%8B%E5%8A%A1%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.5.4.</span> <span class="nav-text">4. 优化事务设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%89%8B%E5%8A%A8%E5%B9%B2%E9%A2%84"><span class="nav-number">1.5.5.</span> <span class="nav-text">5. 手动干预</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%88%A9%E7%94%A8%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7"><span class="nav-number">1.5.6.</span> <span class="nav-text">6. 利用日志和监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF%EF%BC%9AOA-%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%B5%81%E7%A8%8B%E8%A1%A8"><span class="nav-number">1.6.</span> <span class="nav-text">业务场景：OA 系统中的流程表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%A8%A1%E6%8B%9F"><span class="nav-number">1.6.1.</span> <span class="nav-text">2. 死锁场景模拟</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%AD%BB%E9%94%81%E7%8E%B0%E5%9C%BA%E5%88%86%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">二、死锁现场分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9F%A5%E7%9C%8B%E6%AD%BB%E9%94%81%E6%97%A5%E5%BF%97"><span class="nav-number">1.7.1.</span> <span class="nav-text">1. 查看死锁日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%97%AE%E9%A2%98%E8%AF%8A%E6%96%AD"><span class="nav-number">1.7.2.</span> <span class="nav-text">2. 问题诊断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%AE%9E%E6%96%BD"><span class="nav-number">1.8.</span> <span class="nav-text">三、解决方案实施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%93%8D%E4%BD%9C%E9%A1%BA%E5%BA%8F%E6%A0%87%E5%87%86%E5%8C%96"><span class="nav-number">1.8.1.</span> <span class="nav-text">1. 操作顺序标准化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.2.</span> <span class="nav-text">2. 索引优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BA%8B%E5%8A%A1%E6%8B%86%E5%88%86"><span class="nav-number">1.8.3.</span> <span class="nav-text">3. 事务拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.8.4.</span> <span class="nav-text">4. 重试机制实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%A2%84%E9%98%B2%E6%8E%AA%E6%96%BD%E4%BD%93%E7%B3%BB"><span class="nav-number">1.9.</span> <span class="nav-text">四、预防措施体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%94%81%E7%9B%91%E6%8E%A7%E6%96%B9%E6%A1%88"><span class="nav-number">1.9.1.</span> <span class="nav-text">1. 锁监控方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%A1%E6%89%B9%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">1.9.2.</span> <span class="nav-text">2. 审批服务配置参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number">1.10.</span> <span class="nav-text">五、经验总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-OA%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81%E9%A2%84%E9%98%B2%E8%A6%81%E7%82%B9"><span class="nav-number">1.10.1.</span> <span class="nav-text">1. OA系统死锁预防要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AF%E6%89%A9%E5%B1%95"><span class="nav-number">1.10.2.</span> <span class="nav-text">3. 可扩展</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">choi</p>
+  <div class="site-description" itemprop="description">自强不息的猿</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库死锁问题 | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库死锁问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-26 21:55:17" itemprop="dateCreated datePublished" datetime="2024-10-26T21:55:17+08:00">2024-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-05 22:34:59" itemprop="dateModified" datetime="2024-11-05T22:34:59+08:00">2024-11-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="mysql数据库中的死锁问题：预防与解决"><a href="#mysql数据库中的死锁问题：预防与解决" class="headerlink" title="mysql数据库中的死锁问题：预防与解决"></a>mysql数据库中的死锁问题：预防与解决</h1><p>在高并发的数据库应用场景下，死锁是一个常见的问题。死锁会导致事务处理速度减慢，甚至完全停止。官方在 8.0.18 版本对死锁检测进行了优化, 将原先的死锁检测机制MySQL 死锁检测源码分析 交给了 background thread 来处理, 具体的 Patch 链接: MySQL-8.0.18 死锁检测优化. 具体的思路是将当前事务系统的 lock 信息打一份快照, 由这份快照判断是否存在回环, 假如存在死锁即唤醒等待事务.<br>而在 8.0.17 版本依然采用旧的死锁检测方法, 具体细节可以参考这篇文章: MySQL 死锁检测源码分析: 每次申请 lock 失败进入 wait 状态后触发一下死锁检测, 所以可以通过 gdb 调试的方法来梳理当时的锁依赖关系</p>
+<p>本文从概念到遇到的场景记录一下死锁。</p>
+<p>参考大神：<a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/aliyun-rds-core/5c190d6831b61c0a.md">https://www.bookstack.cn/read/aliyun-rds-core/5c190d6831b61c0a.md</a></p>
+<h2 id="死锁的基本概念"><a href="#死锁的基本概念" class="headerlink" title="死锁的基本概念"></a>死锁的基本概念</h2><h3 id="什么是死锁？"><a href="#什么是死锁？" class="headerlink" title="什么是死锁？"></a>什么是死锁？</h3><p><strong>死锁</strong> 是指两个或多个事务在执行过程中，因为相互竞争资源而造成的一种僵局。具体到数据库环境中，这通常发生在多个事务试图锁定彼此已持有的资源时。在 MySQL 中，这意味着如果一个事务持有资源 A 并请求资源 B，而另一个事务持有资源 B 并请求资源 A，那么死锁就发生了。</p>
+<p>在 MySQL 中，死锁通常表现为事务突然中止，并返回一个错误信息，指示中止的原因是由于锁定资源的冲突。例如，当两个事务都无法继续执行，因为它们都在等待对方释放锁时，MySQL 的 InnoDB 存储引擎会自动检测到这种情况并中断其中一个事务，以解锁并允许另一个事务继续执行。这种解决方案是必要的，因为如果不这样做，这些事务可能会无限期地等待下去，从而占用系统资源并影响数据库性能。</p>
+<h3 id="理解-MySQL-中的死锁特征"><a href="#理解-MySQL-中的死锁特征" class="headerlink" title="理解 MySQL 中的死锁特征"></a>理解 MySQL 中的死锁特征</h3><p>监控系统日志和使用适当的工具可以帮助识别和分析死锁，从而采取相应的预防措施。</p>
+<h2 id="死锁预防策略"><a href="#死锁预防策略" class="headerlink" title="死锁预防策略"></a>死锁预防策略</h2><h3 id="保持一致的加锁顺序"><a href="#保持一致的加锁顺序" class="headerlink" title="保持一致的加锁顺序"></a>保持一致的加锁顺序</h3><p>为了防止死锁的发生，一个有效的策略是在所有事务中采用一致的加锁顺序。当多个事务需要同时锁定多个资源时，应该确保每个事务请求锁的顺序相同。例如，如果有两个资源 R1 和 R2，事务 T1 和事务 T2 都需要访问，那么两个事务应该首先锁定 R1，然后锁定 R2。这样做可以减少死锁的可能性，因为避免了循环等待的情况。</p>
+<h3 id="使用索引避免全表扫描"><a href="#使用索引避免全表扫描" class="headerlink" title="使用索引避免全表扫描"></a>使用索引避免全表扫描</h3><p>在 SQL 查询中使用合适的索引可以显著减少锁的竞争。当查询不使用索引时，MySQL 可能需要执行全表扫描，这会锁定大量不必要的行。确保查询通过使用有效的索引来限制锁定的行的范围，可以减少锁冲突的发生，从而减少死锁的机会。创建和维护良好的索引策略不仅可以提高查询性能，也有助于避免资源竞争导致的死锁。</p>
+<h3 id="减少事务大小和持续时间"><a href="#减少事务大小和持续时间" class="headerlink" title="减少事务大小和持续时间"></a>减少事务大小和持续时间</h3><p>较小的事务和较短的事务持续时间可以减少死锁的机会。事务应该尽量做到简洁，只包含必要的操作，并尽快提交。长事务或大事务更可能与其他事务冲突，因为它们持有锁的时间更长。设计应用程序时，应考虑将大型操作拆分为多个小事务，以减少任何单个事务对资源的占用时间。</p>
+<h3 id="使用锁超时和重试机制"><a href="#使用锁超时和重试机制" class="headerlink" title="使用锁超时和重试机制"></a>使用锁超时和重试机制</h3><p>在 MySQL 中设置适当的锁超时时间可以帮助防止事务永久等待资源。当事务因为锁资源而等待超过指定时间时，它将自动中止并释放其持有的所有锁。此外，应用程序可以实现重试逻辑，当事务由于锁竞争而失败时，可以在延迟几秒后自动重试。这种策略可以使应用程序在高并发环境下更为健壮。</p>
+<h2 id="工具和技术"><a href="#工具和技术" class="headerlink" title="工具和技术"></a>工具和技术</h2><h3 id="死锁检测工具"><a href="#死锁检测工具" class="headerlink" title="死锁检测工具"></a>死锁检测工具</h3><p>在 MySQL 中管理和预防死锁的一个关键方面是能够有效地检测它们。以下是几种常用的死锁检测工具：</p>
+<ul>
+<li><p><strong>InnoDB 死锁日志</strong>：MySQL 的 InnoDB 存储引擎提供了内置的死锁日志功能，可以通过设置 <code>innodb_print_all_deadlocks</code> 到 <code>ON</code> 在错误日志中记录所有死锁事件。这使得管理员可以检查死锁发生的具体情况，分析导致死锁的查询和事务。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> innodb_print_all_deadlocks <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>SHOW ENGINE INNODB STATUS</strong>：这是一个强大的 SQL 命令，用于显示包括死锁信息在内的各种 InnoDB 的状态信息。它提供了关于最近的死锁，包括涉及的事务和等待的锁的详细信息，是日常检测和分析死锁的实用工具。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> ENGINE INNODB STATUS;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Percona Toolkit</strong>：Percona Toolkit 是一套开源的 MySQL 管理工具，其中包括 <code>pt-deadlock-logger</code> 工具。这个工具可以定期从 <code>SHOW ENGINE INNODB STATUS</code> 中提取死锁信息并记录到表中，方便历史死锁分析。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pt-deadlock-logger --user=root --password=your_password --host=localhost</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Performance Schema</strong>：MySQL 的性能模式（Performance Schema）可以配置来监控数据库操作，包括锁的使用情况。通过设置，它可以帮助识别频繁的锁冲突，这可能指示潜在的死锁风险。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> performance_schema <span class="operator">=</span> <span class="keyword">ON</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h3><p>性能监控是预防和解决死锁问题的另一个关键工具。以下是通过性能监控识别死锁模式的几种方式：</p>
+<ul>
+<li><strong>使用监控软件</strong>：工具如 Nagios、Zabbix 或 Prometheus 可以配置来监控 MySQL 的性能指标，如锁等待时间和事务持续时间。异常模式的检测可以帮助快速识别导致死锁的问题。</li>
+<li><strong>日志分析</strong>：通过分析 MySQL 的查询日志和错误日志，可以找到导致高锁等待时间的查询。这些日志可以帮助识别死锁发生前的操作和模式。</li>
+<li><strong>实时分析</strong>：一些高级的数据库性能监控工具（如 SolarWinds Database Performance Analyzer）提供实时分析和可视化，帮助快速识别并解决死锁问题。</li>
+</ul>
+<h2 id="死锁场景复现"><a href="#死锁场景复现" class="headerlink" title="死锁场景复现"></a>死锁场景复现</h2><p>我们可以使用两个简单的事务，它们互相持有对方需要的锁。这个例子中，我们假设有一个名为 <code>accounts</code> 的表，其中包含两列：<code>id</code> 和 <code>balance</code>。这个表用于存储账户信息，包括账户余额。</p>
+<p>首先，确保你的 <code>accounts</code> 表有至少两行数据，我们将使用这两行数据来模拟死锁。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> accounts (</span><br><span class="line">    id <span class="type">INT</span> AUTO_INCREMENT <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">    balance <span class="type">DECIMAL</span>(<span class="number">10</span>,<span class="number">2</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> accounts (balance) <span class="keyword">VALUES</span> (<span class="number">100.00</span>), (<span class="number">200.00</span>);</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们将启动两个事务。事务 A 和事务 B 将同时运行，每个事务都试图更新另一个事务已经锁定的行，从而导致死锁。</p>
+<p>打开两个 MySQL 客户端窗口，分别执行以下命令：</p>
+<p>在客户端 A 中执行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">+</span> <span class="number">50</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 暂停几秒钟，给客户端 B 时间执行其 UPDATE</span></span><br><span class="line"><span class="comment">-- 模拟操作延迟，以便观察死锁</span></span><br></pre></td></tr></table></figure>
+
+<p>在客户端 B 中执行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">-</span> <span class="number">30</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="comment">-- 暂停几秒钟，给客户端 A 时间执行其 UPDATE</span></span><br><span class="line"><span class="comment">-- 模拟操作延迟，以便观察死锁</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，在客户端 A 中继续：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">+</span> <span class="number">20</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="comment">-- 此时 A 正试图更新 B 已经锁定的行</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，在客户端 B 中继续：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">-</span> <span class="number">40</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 此时 B 正试图更新 A 已经锁定的行</span></span><br></pre></td></tr></table></figure>
+
+<p>在上述步骤中，如果两个事务几乎同时执行，MySQL 将检测到死锁并中止其中一个事务，允许另一个事务继续执行。你会在其中一个客户端看到一个错误消息，指出事务因死锁而被回滚。</p>
+<h2 id="如何解决死锁"><a href="#如何解决死锁" class="headerlink" title="如何解决死锁"></a>如何解决死锁</h2><p>当在 MySQL 中发生死锁时，及时且有效的处理是保证数据库稳定性和性能的关键。以下是一些解决死锁的策略：</p>
+<h3 id="1-自动死锁检测和处理"><a href="#1-自动死锁检测和处理" class="headerlink" title="1. 自动死锁检测和处理"></a>1. 自动死锁检测和处理</h3><p>MySQL 的 InnoDB 存储引擎具有自动死锁检测功能，它会定期检查死锁的发生，并自动回滚其中一个事务以解锁系统。这通常是最简单的处理方式，因为它无需用户干预。发生死锁时，InnoDB 会选择牺牲成本最小的事务进行回滚，通常是修改行数最少的那个事务。</p>
+<h3 id="2-增加锁等待超时"><a href="#2-增加锁等待超时" class="headerlink" title="2. 增加锁等待超时"></a>2. 增加锁等待超时</h3><p>通过设置合理的 <code>innodb_lock_wait_timeout</code> 参数，可以控制事务在被回滚前等待锁的最长时间。减小这个值可以减少死锁持续的时间，快速释放资源，尽管这可能会导致事务失败。例如，将超时时间设置为 15 秒：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> innodb_lock_wait_timeout <span class="operator">=</span> <span class="number">15</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-显示死锁信息"><a href="#3-显示死锁信息" class="headerlink" title="3. 显示死锁信息"></a>3. 显示死锁信息</h3><p>当检测到死锁后，通过 <code>SHOW ENGINE INNODB STATUS;</code> 命令可以获得有关最近死锁的详细信息，包括死锁发生的查询和涉及的表。这些信息对于分析死锁原因和采取预防措施非常有用。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> ENGINE INNODB STATUS;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-优化事务设计"><a href="#4-优化事务设计" class="headerlink" title="4. 优化事务设计"></a>4. 优化事务设计</h3><ul>
+<li><strong>减少事务大小</strong>：尽量避免大型事务操作，尤其是那些涉及多表或多行更新的。大型事务更容易与其他事务冲突。</li>
+<li><strong>事务分解</strong>：如果可能，将大事务分解成几个小事务，这样可以减少持有锁的时间，降低死锁的风险。</li>
+<li><strong>调整事务顺序</strong>：确保所有事务访问共享资源的顺序一致，从而避免循环等待的发生。</li>
+</ul>
+<h3 id="5-手动干预"><a href="#5-手动干预" class="headerlink" title="5. 手动干预"></a>5. 手动干预</h3><p>在一些情况下，自动处理可能不足以解决问题，或者需要更快地恢复系统。此时，数据库管理员可能需要手动干预：</p>
+<ul>
+<li><p><strong>杀死阻塞事务</strong>：使用 <code>SHOW PROCESSLIST</code> 命令查找长时间运行的事务，特别是那些阻塞其他事务的。然后使用 <code>KILL [process id]</code> 来终止事务。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> PROCESSLIST;</span><br><span class="line">KILL [process id];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>重新调整业务逻辑</strong>：如果某个事务模式经常导致死锁，考虑从业务逻辑层面进行调整，比如改变数据访问模式或修改应用逻辑。</p>
+</li>
+</ul>
+<h3 id="6-利用日志和监控"><a href="#6-利用日志和监控" class="headerlink" title="6. 利用日志和监控"></a>6. 利用日志和监控</h3><p>通过日志和监控工具追踪数据库操作，特别是在高负载情况下。这可以帮助识别可能导致死锁的操作，从而进行相应的调整。可以使用第三方工具如 Percona Monitoring and Management (PMM) 或 Oracle Enterprise Manager 来进行更深入的监控。</p>
+<h2 id="业务场景：OA-系统中的流程表"><a href="#业务场景：OA-系统中的流程表" class="headerlink" title="业务场景：OA 系统中的流程表"></a>业务场景：OA 系统中的流程表</h2><p>假设我们在开发一个 OA（办公自动化）系统，其中有一个 <code>process</code> 表，用于存储工作流程的状态。每个工作流程可能涉及多个步骤，每个步骤由不同的用户完成。我们希望记录每个步骤的状态和时间戳。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> process (</span><br><span class="line">    id <span class="type">INT</span> AUTO_INCREMENT <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">    process_id <span class="type">INT</span>,</span><br><span class="line">    step <span class="type">INT</span>,</span><br><span class="line">    status <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    updated_at <span class="type">TIMESTAMP</span> <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="built_in">CURRENT_TIMESTAMP</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># OA系统流程审批中的MySQL死锁问题实战</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 一、典型业务场景：多级流程审批</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 1. 流程审批表结构</span></span><br><span class="line"><span class="code">```sql</span></span><br><span class="line"><span class="code">CREATE TABLE workflow_approval (</span></span><br><span class="line"><span class="code">    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT &#x27;流程实例ID&#x27;,</span></span><br><span class="line"><span class="code">    current_step TINYINT NOT NULL DEFAULT 1 COMMENT &#x27;当前审批步骤&#x27;,</span></span><br><span class="line"><span class="code">    approver1_id INT COMMENT &#x27;一级审批人&#x27;,</span></span><br><span class="line"><span class="code">    approver2_id INT COMMENT &#x27;二级审批人&#x27;,</span></span><br><span class="line"><span class="code">    approver1_time DATETIME COMMENT &#x27;一级审批时间&#x27;,</span></span><br><span class="line"><span class="code">    approver2_time DATETIME COMMENT &#x27;二级审批时间&#x27;,</span></span><br><span class="line"><span class="code">    status TINYINT NOT NULL DEFAULT 0 COMMENT &#x27;0-待审批 1-已通过 2-已驳回&#x27;,</span></span><br><span class="line"><span class="code">    version INT NOT NULL DEFAULT 0 COMMENT &#x27;乐观锁版本号&#x27;</span></span><br><span class="line"><span class="code">) ENGINE=InnoDB;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">-- 审批日志表</span></span><br><span class="line"><span class="code">CREATE TABLE approval_log (</span></span><br><span class="line"><span class="code">    log_id BIGINT AUTO_INCREMENT PRIMARY KEY,</span></span><br><span class="line"><span class="code">    workflow_id BIGINT NOT NULL,</span></span><br><span class="line"><span class="code">    approver_id INT NOT NULL,</span></span><br><span class="line"><span class="code">    action TINYINT COMMENT &#x27;1-通过 2-驳回&#x27;,</span></span><br><span class="line"><span class="code">    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,</span></span><br><span class="line"><span class="code">    INDEX idx_workflow (workflow_id)</span></span><br><span class="line"><span class="code">);</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-死锁场景模拟"><a href="#2-死锁场景模拟" class="headerlink" title="2. 死锁场景模拟"></a>2. 死锁场景模拟</h3><p><strong>数据准备：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT INTO</span> workflow_approval (current_step, approver1_id, approver2_id) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1001</span>, <span class="number">1002</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>并发操作时序：</strong></p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>一级审批人（事务A）</th>
+<th>二级审批人（事务B）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T1</td>
+<td>BEGIN;</td>
+<td>BEGIN;</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>UPDATE workflow_approval SET current_step&#x3D;2, approver1_time&#x3D;NOW() WHERE id&#x3D;1;</td>
+<td>UPDATE workflow_approval SET current_step&#x3D;3, approver2_time&#x3D;NOW() WHERE id&#x3D;1;</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>INSERT INTO approval_log VALUES (null,1,1001,1,NOW());</td>
+<td>INSERT INTO approval_log VALUES (null,1,1002,1,NOW());</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>COMMIT;</td>
+<td>COMMIT;</td>
+</tr>
+</tbody></table>
+<p><strong>死锁现象：</strong></p>
+<ul>
+<li>事务A持有主表行锁，等待日志表的插入锁</li>
+<li>事务B同样持有主表行锁，等待日志表的插入锁</li>
+<li>形成交叉等待的死锁局面</li>
+</ul>
+<h2 id="二、死锁现场分析"><a href="#二、死锁现场分析" class="headerlink" title="二、死锁现场分析"></a>二、死锁现场分析</h2><h3 id="1-查看死锁日志"><a href="#1-查看死锁日志" class="headerlink" title="1. 查看死锁日志"></a>1. 查看死锁日志</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> ENGINE INNODB STATUS\G</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键日志片段：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">LATEST DETECTED DEADLOCK</span><br><span class="line">------------------------</span><br><span class="line">*** (1) TRANSACTION:</span><br><span class="line">TRANSACTION 2317, ACTIVE 5 sec inserting</span><br><span class="line">mysql tables in use 1, locked 1</span><br><span class="line">LOCK WAIT 2 lock struct(s), heap size 1136, 1 row lock(s)</span><br><span class="line">MySQL thread id 8, OS thread handle 140245463230208, query id 30 172.17.0.1 root update</span><br><span class="line">INSERT INTO approval_log VALUES (null,1,1001,1,NOW())</span><br><span class="line">*** (1) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space id 2 page no 4 n bits 72 index PRIMARY of table `oa`.`approval_log` trx id 2317 lock_mode X insert intention waiting</span><br><span class="line"></span><br><span class="line">*** (2) TRANSACTION:</span><br><span class="line">TRANSACTION 2318, ACTIVE 3 sec inserting</span><br><span class="line">mysql tables in use 1, locked 1</span><br><span class="line">LOCK WAIT 2 lock struct(s), heap size 1136, 1 row lock(s)</span><br><span class="line">MySQL thread id 9, OS thread handle 140245462951680, query id 31 172.17.0.1 root update</span><br><span class="line">INSERT INTO approval_log VALUES (null,1,1002,1,NOW())</span><br><span class="line">*** (2) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space id 2 page no 4 n bits 72 index PRIMARY of table `oa`.`approval_log` trx id 2318 lock_mode X insert intention waiting</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-问题诊断"><a href="#2-问题诊断" class="headerlink" title="2. 问题诊断"></a>2. 问题诊断</h3><ol>
+<li><strong>锁升级顺序不一致</strong>：主表更新与日志表插入的操作顺序导致锁竞争</li>
+<li><strong>索引缺失</strong>：approval_log表仅workflow_id有索引，主键自增存在间隙锁竞争</li>
+<li><strong>事务粒度过大</strong>：审批操作与日志记录放在同一事务中</li>
+</ol>
+<h2 id="三、解决方案实施"><a href="#三、解决方案实施" class="headerlink" title="三、解决方案实施"></a>三、解决方案实施</h2><h3 id="1-操作顺序标准化"><a href="#1-操作顺序标准化" class="headerlink" title="1. 操作顺序标准化"></a>1. 操作顺序标准化</h3><p><strong>改造前：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误示例</span></span><br><span class="line">beginTransaction();</span><br><span class="line">updateWorkflow();</span><br><span class="line">insertLog();</span><br><span class="line">commit();</span><br></pre></td></tr></table></figure>
+
+<p><strong>改造后：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正确顺序</span></span><br><span class="line">beginTransaction();</span><br><span class="line">insertLog();  <span class="comment">// 先操作日志表</span></span><br><span class="line">updateWorkflow(); <span class="comment">// 后操作主表</span></span><br><span class="line">commit();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-索引优化"><a href="#2-索引优化" class="headerlink" title="2. 索引优化"></a>2. 索引优化</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加组合索引</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> approval_log </span><br><span class="line"><span class="keyword">ADD</span> INDEX idx_workflow_approver (workflow_id, approver_id);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 主键改造</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> approval_log </span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PRIMARY KEY</span>, </span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">PRIMARY KEY</span> (workflow_id, log_id);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-事务拆分"><a href="#3-事务拆分" class="headerlink" title="3. 事务拆分"></a>3. 事务拆分</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 拆分事务</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">approveWorkflow</span><span class="params">(<span class="type">long</span> workflowId, <span class="type">int</span> approverId)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 先插入日志（独立事务）</span></span><br><span class="line">        jdbcTemplate.update(<span class="string">&quot;INSERT INTO approval_log(workflow_id,approver_id) VALUES (?,?)&quot;</span>, </span><br><span class="line">                          workflowId, approverId);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 再更新主表（带重试机制）</span></span><br><span class="line">        retryTemplate.execute(ctx -&gt; &#123;</span><br><span class="line">            <span class="type">Workflow</span> <span class="variable">wf</span> <span class="operator">=</span> workflowDao.getWithLock(workflowId);</span><br><span class="line">            wf.setCurrentStep(wf.getCurrentStep()+<span class="number">1</span>);</span><br><span class="line">            workflowDao.update(wf);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (DataAccessException e) &#123;</span><br><span class="line">        <span class="comment">// 异常处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-重试机制实现"><a href="#4-重试机制实现" class="headerlink" title="4. 重试机制实现"></a>4. 重试机制实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> RetryTemplate <span class="title function_">retryTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">RetryTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RetryTemplate</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 指数退避策略</span></span><br><span class="line">    <span class="type">ExponentialBackOffPolicy</span> <span class="variable">backOffPolicy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ExponentialBackOffPolicy</span>();</span><br><span class="line">    backOffPolicy.setInitialInterval(<span class="number">100</span>);</span><br><span class="line">    backOffPolicy.setMultiplier(<span class="number">2</span>);</span><br><span class="line">    backOffPolicy.setMaxInterval(<span class="number">3000</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 重试策略</span></span><br><span class="line">    <span class="type">SimpleRetryPolicy</span> <span class="variable">retryPolicy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleRetryPolicy</span>();</span><br><span class="line">    retryPolicy.setMaxAttempts(<span class="number">3</span>);</span><br><span class="line">    </span><br><span class="line">    template.setBackOffPolicy(backOffPolicy);</span><br><span class="line">    template.setRetryPolicy(retryPolicy);</span><br><span class="line">    <span class="keyword">return</span> template;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、预防措施体系"><a href="#四、预防措施体系" class="headerlink" title="四、预防措施体系"></a>四、预防措施体系</h2><h3 id="1-锁监控方案"><a href="#1-锁监控方案" class="headerlink" title="1. 锁监控方案"></a>1. 锁监控方案</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 实时锁监控</span></span><br><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    r.trx_id waiting_trx_id,</span><br><span class="line">    r.trx_mysql_thread_id waiting_thread,</span><br><span class="line">    b.trx_id blocking_trx_id,</span><br><span class="line">    b.trx_mysql_thread_id blocking_thread</span><br><span class="line"><span class="keyword">FROM</span> information_schema.innodb_lock_waits w</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> information_schema.innodb_trx b <span class="keyword">ON</span> b.trx_id <span class="operator">=</span> w.blocking_trx_id</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> information_schema.innodb_trx r <span class="keyword">ON</span> r.trx_id <span class="operator">=</span> w.requesting_trx_id;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-审批服务配置参数"><a href="#2-审批服务配置参数" class="headerlink" title="2. 审批服务配置参数"></a>2. 审批服务配置参数</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Spring配置示例</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">hikari:</span></span><br><span class="line">      <span class="attr">maximum-pool-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="attr">connection-timeout:</span> <span class="number">3000</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">hibernate:</span></span><br><span class="line">        <span class="attr">order_updates:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">order_inserts:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">jdbc:</span></span><br><span class="line">          <span class="attr">batch_size:</span> <span class="number">50</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="五、经验总结"><a href="#五、经验总结" class="headerlink" title="五、经验总结"></a>五、经验总结</h2><h3 id="1-OA系统死锁预防要点"><a href="#1-OA系统死锁预防要点" class="headerlink" title="1. OA系统死锁预防要点"></a>1. OA系统死锁预防要点</h3><ul>
+<li><strong>统一操作顺序</strong>：所有审批服务必须先写日志后更新主表</li>
+<li><strong>索引双刃剑</strong>：在<code>approval_log</code>表增加<code>(workflow_id,approver_id)</code>组合索引</li>
+<li><strong>事务最小化</strong>：将日志记录与业务操作拆分到不同事务</li>
+<li><strong>版本号控制</strong>：主表增加version字段实现乐观锁</li>
+</ul>
+<h3 id="3-可扩展"><a href="#3-可扩展" class="headerlink" title="3. 可扩展"></a>3. 可扩展</h3><ul>
+<li><strong>分布式锁应用</strong>：对于跨服务审批流程，采用Redis分布式锁协调</li>
+<li><strong>流程引擎选型</strong>：考虑Activiti等工作流引擎的锁管理机制</li>
+<li><strong>异步化改造</strong>：将审批日志写入Kafka，由消费者异步处理</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>choi
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/" title="数据库死锁问题">https://choi857.github.io/2024/10/26/数据库死锁问题/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%AD%BB%E9%94%81%E5%A4%84%E7%90%86/" rel="tag"># 死锁处理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/" rel="prev" title="mysql千万数据视图优化">
+                  <i class="fa fa-angle-left"></i> mysql千万数据视图优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/11/20/Object%E5%B7%A5%E5%85%B7%E7%B1%BB/" rel="next" title="Object工具类">
+                  Object工具类 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">choi</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/choi857" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

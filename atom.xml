@@ -6,7 +6,7 @@
   <link href="https://choi857.github.io/atom.xml" rel="self"/>
   
   <link href="https://choi857.github.io/"/>
-  <updated>2024-09-15T12:55:39.581Z</updated>
+  <updated>2025-03-16T12:47:59.513Z</updated>
   <id>https://choi857.github.io/</id>
   
   <author>
@@ -15,6 +15,305 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SerializationUtils序列化和HTTP 工具类</title>
+    <link href="https://choi857.github.io/2025/03/16/SerializationUtils%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8CHTTP-%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2025/03/16/SerializationUtils%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8CHTTP-%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2025-03-16T12:47:07.000Z</published>
+    <updated>2025-03-16T12:47:59.513Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;一-SerializationUtils&quot;&gt;&lt;a href=&quot;#一-SerializationUtils&quot; class=&quot;headerlink&quot; title=&quot;一. SerializationUtils&quot;&gt;&lt;/a&gt;一. SerializationUtils&lt;/h3</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>StandardCharsets 工具类</title>
+    <link href="https://choi857.github.io/2025/02/28/StandardCharsets-%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2025/02/28/StandardCharsets-%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2025-02-28T14:13:59.000Z</published>
+    <updated>2025-02-28T14:16:20.775Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;hr&gt;
+&lt;h3 id=&quot;一-StandardCharsets&quot;&gt;&lt;a href=&quot;#一-StandardCharsets&quot; class=&quot;headerlink&quot; title=&quot;一. StandardCharsets&quot;&gt;&lt;/a&gt;一. StandardCharsets&lt;/h3&gt;&lt;p</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ReflectionUtils 工具类</title>
+    <link href="https://choi857.github.io/2025/02/28/ReflectionUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2025/02/28/ReflectionUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2025-02-28T12:16:18.000Z</published>
+    <updated>2025-02-28T12:20:19.046Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;ReflectionUtils-工具类&quot;&gt;&lt;a href=&quot;#ReflectionUtils-工具类&quot; class=&quot;headerlink&quot; title=&quot;ReflectionUtils 工具类&quot;&gt;&lt;/a&gt;ReflectionUtils 工具类&lt;/h3&gt;&lt;h4 i</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Redis-接口限流</title>
+    <link href="https://choi857.github.io/2024/12/28/Redis-%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/"/>
+    <id>https://choi857.github.io/2024/12/28/Redis-%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/</id>
+    <published>2024-12-28T13:59:42.000Z</published>
+    <updated>2024-12-28T14:06:07.888Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h5 id=&quot;每天进步一点点！很久没在博客更这方面了，最近一直在不断地写接口写接口…&quot;&gt;&lt;a href=&quot;#每天进步一点点！很久没在博客更这方面了，最近一直在不断地写接口写接口…&quot; class=&quot;headerlink&quot; title=&quot;每天进步一点点！很久没在博客更这方面了，最近</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="https://choi857.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ClassUtils 工具类</title>
+    <link href="https://choi857.github.io/2024/12/14/ClassUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/12/14/ClassUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2024-12-14T09:41:22.000Z</published>
+    <updated>2024-12-14T09:42:44.709Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;ClassUtils-工具类&quot;&gt;&lt;a href=&quot;#ClassUtils-工具类&quot; class=&quot;headerlink&quot; title=&quot;ClassUtils 工具类&quot;&gt;&lt;/a&gt;ClassUtils 工具类&lt;/h3&gt;&lt;p&gt;&lt;code&gt;ClassUtils&lt;/code</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>日志追踪</title>
+    <link href="https://choi857.github.io/2024/12/14/%E6%97%A5%E5%BF%97%E8%BF%BD%E8%B8%AA/"/>
+    <id>https://choi857.github.io/2024/12/14/%E6%97%A5%E5%BF%97%E8%BF%BD%E8%B8%AA/</id>
+    <published>2024-12-14T07:05:53.000Z</published>
+    <updated>2024-12-14T07:07:28.494Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;1-RestTemplate-配置&quot;&gt;&lt;a href=&quot;#1-RestTemplate-配置&quot; class=&quot;headerlink&quot; title=&quot;1. RestTemplate 配置&quot;&gt;&lt;/a&gt;1. RestTemplate 配置&lt;/h3&gt;&lt;p&gt;定义一个 &lt;co</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>IOUtils 工具类</title>
+    <link href="https://choi857.github.io/2024/12/07/IOUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/12/07/IOUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2024-12-07T15:03:21.000Z</published>
+    <updated>2024-12-07T15:04:51.739Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;IOUtils-工具类&quot;&gt;&lt;a href=&quot;#IOUtils-工具类&quot; class=&quot;headerlink&quot; title=&quot;IOUtils 工具类&quot;&gt;&lt;/a&gt;IOUtils 工具类&lt;/h3&gt;&lt;p&gt;&lt;code&gt;IOUtils&lt;/code&gt; 是 Apache Comm</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Assert 断言工具类</title>
+    <link href="https://choi857.github.io/2024/12/07/Assert-%E6%96%AD%E8%A8%80%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/12/07/Assert-%E6%96%AD%E8%A8%80%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2024-12-07T12:55:55.000Z</published>
+    <updated>2024-12-07T12:58:45.735Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Assert-断言工具类&quot;&gt;&lt;a href=&quot;#Assert-断言工具类&quot; class=&quot;headerlink&quot; title=&quot;Assert 断言工具类&quot;&gt;&lt;/a&gt;Assert 断言工具类&lt;/h3&gt;&lt;p&gt;在开发过程中，我们经常需要在代码中进行条件判断，如果不满足条</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>StringUtils 工具类</title>
+    <link href="https://choi857.github.io/2024/11/30/StringUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/11/30/StringUtils-%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2024-11-30T07:57:52.000Z</published>
+    <updated>2024-11-30T07:58:52.850Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;六-StringUtils-工具类&quot;&gt;&lt;a href=&quot;#六-StringUtils-工具类&quot; class=&quot;headerlink&quot; title=&quot;六. StringUtils 工具类&quot;&gt;&lt;/a&gt;六. StringUtils 工具类&lt;/h3&gt;&lt;p&gt;&lt;code&gt;St</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BooleanUtils工具类</title>
+    <link href="https://choi857.github.io/2024/11/28/BooleanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/11/28/BooleanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2024-11-28T14:55:43.000Z</published>
+    <updated>2024-11-28T14:56:50.109Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;五-BooleanUtils工具类&quot;&gt;&lt;a href=&quot;#五-BooleanUtils工具类&quot; class=&quot;headerlink&quot; title=&quot;五. BooleanUtils工具类&quot;&gt;&lt;/a&gt;五. BooleanUtils工具类&lt;/h3&gt;&lt;p&gt;在 Java 中</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Object工具类</title>
+    <link href="https://choi857.github.io/2024/11/20/Object%E5%B7%A5%E5%85%B7%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/11/20/Object%E5%B7%A5%E5%85%B7%E7%B1%BB/</id>
+    <published>2024-11-20T12:37:28.000Z</published>
+    <updated>2024-11-20T12:42:11.202Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Objects工具类&quot;&gt;&lt;a href=&quot;#Objects工具类&quot; class=&quot;headerlink&quot; title=&quot;Objects工具类&quot;&gt;&lt;/a&gt;Objects工具类&lt;/h3&gt;&lt;p&gt;今天发现公司用的内部工具包的Objects类型转换都是基于Objects和阿</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据库死锁问题</title>
+    <link href="https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
+    <id>https://choi857.github.io/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/</id>
+    <published>2024-10-26T13:55:17.000Z</published>
+    <updated>2024-11-05T14:34:59.830Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;mysql数据库中的死锁问题：预防与解决&quot;&gt;&lt;a href=&quot;#mysql数据库中的死锁问题：预防与解决&quot; class=&quot;headerlink&quot; title=&quot;mysql数据库中的死锁问题：预防与解决&quot;&gt;&lt;/a&gt;mysql数据库中的死锁问题：预防与解决&lt;/h1&gt;&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="死锁处理" scheme="https://choi857.github.io/tags/%E6%AD%BB%E9%94%81%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql千万数据视图优化</title>
+    <link href="https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/"/>
+    <id>https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/</id>
+    <published>2024-10-12T12:28:35.000Z</published>
+    <updated>2024-10-12T12:52:52.047Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。&quot;&gt;&lt;a href=&quot;#收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。&quot; class=</summary>
+      
+    
+    
+    
+    <category term="sql优化" scheme="https://choi857.github.io/categories/sql%E4%BC%98%E5%8C%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mysql优化</title>
+    <link href="https://choi857.github.io/2024/10/08/mysql%E4%BC%98%E5%8C%96/"/>
+    <id>https://choi857.github.io/2024/10/08/mysql%E4%BC%98%E5%8C%96/</id>
+    <published>2024-10-08T13:21:37.000Z</published>
+    <updated>2024-10-08T13:25:43.251Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;MySQL-优化与实践&quot;&gt;&lt;a href=&quot;#MySQL-优化与实践&quot; class=&quot;headerlink&quot; title=&quot;MySQL 优化与实践&quot;&gt;&lt;/a&gt;MySQL 优化与实践&lt;/h1&gt;&lt;h2 id=&quot;如何定位慢-SQL&quot;&gt;&lt;a href=&quot;#如何定位慢-SQ</summary>
+      
+    
+    
+    
+    
+    <category term="面经" scheme="https://choi857.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql索引和事务</title>
+    <link href="https://choi857.github.io/2024/09/24/mysql%E7%B4%A2%E5%BC%95%E5%92%8C%E4%BA%8B%E5%8A%A1/"/>
+    <id>https://choi857.github.io/2024/09/24/mysql%E7%B4%A2%E5%BC%95%E5%92%8C%E4%BA%8B%E5%8A%A1/</id>
+    <published>2024-09-24T13:50:48.000Z</published>
+    <updated>2024-09-24T13:51:26.461Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;MySQL-基础&quot;&gt;&lt;a href=&quot;#MySQL-基础&quot; class=&quot;headerlink&quot; title=&quot;MySQL 基础&quot;&gt;&lt;/a&gt;MySQL 基础&lt;/h1&gt;&lt;h2 id=&quot;MySQL-的锁&quot;&gt;&lt;a href=&quot;#MySQL-的锁&quot; class=&quot;head</summary>
+      
+    
+    
+    
+    
+    <category term="面经" scheme="https://choi857.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>Kafka+乐观锁处理商品库存管理</title>
@@ -77,6 +376,26 @@
   </entry>
   
   <entry>
+    <title>java面经刚启动就拿下offer</title>
+    <link href="https://choi857.github.io/2024/08/20/java%E9%9D%A2%E7%BB%8F%E5%88%9A%E5%90%AF%E5%8A%A8%E5%B0%B1%E6%8B%BF%E4%B8%8Boffer/"/>
+    <id>https://choi857.github.io/2024/08/20/java%E9%9D%A2%E7%BB%8F%E5%88%9A%E5%90%AF%E5%8A%A8%E5%B0%B1%E6%8B%BF%E4%B8%8Boffer/</id>
+    <published>2024-08-20T12:57:22.000Z</published>
+    <updated>2024-08-20T13:38:06.214Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Java基础：线程与并发&quot;&gt;&lt;a href=&quot;#Java基础：线程与并发&quot; class=&quot;headerlink&quot; title=&quot;Java基础：线程与并发&quot;&gt;&lt;/a&gt;Java基础：线程与并发&lt;/h1&gt;&lt;h4 id=&quot;刚刚秋招就拿下了第一个offer，公司规模不错，后</summary>
+      
+    
+    
+    
+    
+    <category term="面经" scheme="https://choi857.github.io/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kafka消费者java客户端</title>
     <link href="https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
     <id>https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/</id>
@@ -93,253 +412,6 @@
     
     
     <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka初解</title>
-    <link href="https://choi857.github.io/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/"/>
-    <id>https://choi857.github.io/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/</id>
-    <published>2024-08-08T14:46:22.000Z</published>
-    <updated>2024-08-09T15:50:03.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Kafka-作为一个分布式的流平台&quot;&gt;&lt;a href=&quot;#Kafka-作为一个分布式的流平台&quot; class=&quot;headerlink&quot; title=&quot;Kafka 作为一个分布式的流平台&quot;&gt;&lt;/a&gt;Kafka 作为一个分布式的流平台&lt;/h3&gt;&lt;p&gt;Kafka 作为一个</summary>
-      
-    
-    
-    
-    
-    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RabbtiMQ一些总结</title>
-    <link href="https://choi857.github.io/2024/07/25/RabbtiMQ%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/"/>
-    <id>https://choi857.github.io/2024/07/25/RabbtiMQ%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</id>
-    <published>2024-07-25T14:30:07.000Z</published>
-    <updated>2024-07-25T14:34:26.746Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;本篇内容主要为消息发送&quot;&gt;&lt;a href=&quot;#本篇内容主要为消息发送&quot; class=&quot;headerlink&quot; title=&quot;本篇内容主要为消息发送&quot;&gt;&lt;/a&gt;本篇内容主要为消息发送&lt;/h3&gt;&lt;p&gt;本篇内容主要为RabbitMQ消息发送，包括以下几点：&lt;/p&gt;
-&lt;u</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Boot+RabbitMQ</title>
-    <link href="https://choi857.github.io/2024/07/07/Spring-Boot-RabbitMQ/"/>
-    <id>https://choi857.github.io/2024/07/07/Spring-Boot-RabbitMQ/</id>
-    <published>2024-07-07T08:53:31.000Z</published>
-    <updated>2024-07-07T11:50:03.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Spring-Boot-集成-RabbitMQ&quot;&gt;&lt;a href=&quot;#Spring-Boot-集成-RabbitMQ&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot 集成 RabbitMQ&quot;&gt;&lt;/a&gt;Spring Boot 集成 Ra</summary>
-      
-    
-    
-    
-    
-    <category term="RabbitMQ" scheme="https://choi857.github.io/tags/RabbitMQ/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CollectionUtils类操作集合</title>
-    <link href="https://choi857.github.io/2024/06/23/CollectionUtils%E7%B1%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88/"/>
-    <id>https://choi857.github.io/2024/06/23/CollectionUtils%E7%B1%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88/</id>
-    <published>2024-06-23T14:34:41.000Z</published>
-    <updated>2024-06-23T15:50:03.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。&quot;&gt;&lt;a href=&quot;#对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。&quot; class=&quot;headerlin</summary>
-      
-    
-    
-    
-    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>操作集合的Collections类</title>
-    <link href="https://choi857.github.io/2024/06/20/%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%9A%84Collections%E7%B1%BB/"/>
-    <id>https://choi857.github.io/2024/06/20/%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%9A%84Collections%E7%B1%BB/</id>
-    <published>2024-06-20T12:11:06.000Z</published>
-    <updated>2024-06-28T03:50:03.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;首先出场的是java-util包下的Collections类，该类主要用于操作集合或者返回集合，强推。&quot;&gt;&lt;a href=&quot;#首先出场的是java-util包下的Collections类，该类主要用于操作集合或者返回集合，强推。&quot; class=&quot;headerlin</summary>
-      
-    
-    
-    
-    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>难读的Lambda</title>
-    <link href="https://choi857.github.io/2024/06/15/%E9%9A%BE%E8%AF%BB%E7%9A%84Lambda/"/>
-    <id>https://choi857.github.io/2024/06/15/%E9%9A%BE%E8%AF%BB%E7%9A%84Lambda/</id>
-    <published>2024-06-15T14:08:03.000Z</published>
-    <updated>2024-06-16T08:53:49.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Lambda在集合当中的使用&quot;&gt;&lt;a href=&quot;#Lambda在集合当中的使用&quot; class=&quot;headerlink&quot; title=&quot;Lambda在集合当中的使用&quot;&gt;&lt;/a&gt;Lambda在集合当中的使用&lt;/h3&gt;&lt;p&gt;为了能够让 Lambda 和 Java 的集</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>横扫if-else</title>
-    <link href="https://choi857.github.io/2024/06/07/%E6%A8%AA%E6%89%ABif-else/"/>
-    <id>https://choi857.github.io/2024/06/07/%E6%A8%AA%E6%89%ABif-else/</id>
-    <published>2024-06-07T13:20:28.000Z</published>
-    <updated>2024-06-07T13:22:50.779Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;策略模式-工厂方法&quot;&gt;&lt;a href=&quot;#策略模式-工厂方法&quot; class=&quot;headerlink&quot; title=&quot;策略模式 + 工厂方法&quot;&gt;&lt;/a&gt;策略模式 + 工厂方法&lt;/h1&gt;&lt;h3 id=&quot;策略模式-工厂方法是解决-if…else-用得非常多的方案，它和表</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>java的异常处理</title>
-    <link href="https://choi857.github.io/2024/05/28/java%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
-    <id>https://choi857.github.io/2024/05/28/java%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</id>
-    <published>2024-05-28T12:45:24.000Z</published>
-    <updated>2024-05-29T08:53:49.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;以下是整理为Markdown格式的内容：&lt;/p&gt;
-&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;今天来一起学习一下Spring Boot中的异常处理，在日常web开发中发生了异常，</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>java的常见异常</title>
-    <link href="https://choi857.github.io/2024/05/23/java%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/"/>
-    <id>https://choi857.github.io/2024/05/23/java%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</id>
-    <published>2024-05-23T14:44:59.000Z</published>
-    <updated>2024-05-23T15:10:00.242Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;今天记录一下常见的异常，摸索一下全局异常处理&quot;&gt;&lt;a href=&quot;#今天记录一下常见的异常，摸索一下全局异常处理&quot; class=&quot;headerlink&quot; title=&quot;今天记录一下常见的异常，摸索一下全局异常处理&quot;&gt;&lt;/a&gt;今天记录一下常见的异常，摸索一下全局异常</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>mysql左右连接踩坑</title>
-    <link href="https://choi857.github.io/2024/05/16/mysql%E5%B7%A6%E5%8F%B3%E8%BF%9E%E6%8E%A5%E8%B8%A9%E5%9D%91/"/>
-    <id>https://choi857.github.io/2024/05/16/mysql%E5%B7%A6%E5%8F%B3%E8%BF%9E%E6%8E%A5%E8%B8%A9%E5%9D%91/</id>
-    <published>2024-05-16T07:21:18.000Z</published>
-    <updated>2024-05-16T07:22:28.918Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;hr&gt;
-&lt;h1 id=&quot;LEFT-JOIN-遇到了结果集重复问题，小小探究一下&quot;&gt;&lt;a href=&quot;#LEFT-JOIN-遇到了结果集重复问题，小小探究一下&quot; class=&quot;headerlink&quot; title=&quot;LEFT JOIN 遇到了结果集重复问题，小小探究一下&quot;&gt;&lt;/a&gt;</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>spring 3.4的改变，依赖冲突</title>
-    <link href="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/"/>
-    <id>https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</id>
-    <published>2024-05-02T10:02:50.000Z</published>
-    <updated>2024-05-02T10:03:35.069Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;JDK17-Spring-Boot-3-4-0-项目开发中的那些坑&quot;&gt;&lt;a href=&quot;#JDK17-Spring-Boot-3-4-0-项目开发中的那些坑&quot; class=</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>spring再次踩坑之前的依赖问题</title>
-    <link href="https://choi857.github.io/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/"/>
-    <id>https://choi857.github.io/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/</id>
-    <published>2024-04-16T08:53:49.000Z</published>
-    <updated>2024-07-25T14:35:11.333Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Spring-Boot-和-MySQL-相关&quot;&gt;&lt;a href=&quot;#Spring-Boot-和-MySQL-相关&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot 和 MySQL 相关&quot;&gt;&lt;/a&gt;Spring Boot 和 MySQL </summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 索引</title>
-    <link href="https://choi857.github.io/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/"/>
-    <id>https://choi857.github.io/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/</id>
-    <published>2024-04-04T01:08:44.000Z</published>
-    <updated>2024-04-04T04:29:28.383Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;MySQL-索引&quot;&gt;&lt;a href=&quot;#MySQL-索引&quot; class=&quot;headerlink&quot; title=&quot;MySQL 索引&quot;&gt;&lt;/a&gt;MySQL 索引&lt;/h1&gt;&lt;h2 id=&quot;索引概述&quot;&gt;&lt;a href=&quot;#索引概述&quot; class=&quot;headerlink&quot; </summary>
-      
-    
-    
-    
     
   </entry>
   

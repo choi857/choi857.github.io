@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。一、数据规模与分布假设1. 各表数据分布模拟   表名 数据量 索引情况（优化前） 典型查询条件    contract_main 800万 主键索引 status, create_date   contract_attachment 500万 contract_id单列索引 file_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql千万数据视图优化">
+<meta property="og:url" content="https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Choi每天进步一点点">
+<meta property="og:description" content="收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。一、数据规模与分布假设1. 各表数据分布模拟   表名 数据量 索引情况（优化前） 典型查询条件    contract_main 800万 主键索引 status, create_date   contract_attachment 500万 contract_id单列索引 file_">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-12T12:28:35.000Z">
+<meta property="article:modified_time" content="2024-10-12T12:52:52.047Z">
+<meta property="article:author" content="choi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/","path":"2024/10/12/mysql千万数据视图优化/","title":"mysql千万数据视图优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>mysql千万数据视图优化 | Choi每天进步一点点</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Choi每天进步一点点" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Choi每天进步一点点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B6%E5%88%B0%E4%BA%86%E4%B8%AA%E9%9C%80%E6%B1%82%EF%BC%8C%E5%AE%A2%E6%88%B7%E5%90%88%E5%90%8C%E8%A7%86%E5%9B%BE%E7%9A%84%E8%A1%A8%E8%AF%B7%E6%B1%82%E8%B6%85%E6%97%B6%E4%BA%86%EF%BC%8C%E6%95%B0%E6%8D%AE%E9%87%8F%E5%9C%A8%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E3%80%82%E5%90%AC%E8%AF%B4%E6%98%AF%E4%B8%8A%E4%B8%80%E4%B8%AA%E7%A6%BB%E8%81%8C%E7%9A%84%E5%90%8C%E4%BA%8B%E5%86%99%E7%9A%84%EF%BC%8C%E8%AE%A9%E6%88%91%E6%9D%A5looklook%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E6%8D%AE%E8%A7%84%E6%A8%A1%E4%B8%8E%E5%88%86%E5%B8%83%E5%81%87%E8%AE%BE"><span class="nav-number"></span> <span class="nav-text">一、数据规模与分布假设</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%90%84%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E6%A8%A1%E6%8B%9F"><span class="nav-number"></span> <span class="nav-text">1. 各表数据分布模拟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B8%E5%9E%8B%E6%85%A2%E6%9F%A5%E8%AF%A2%E7%89%B9%E5%BE%81"><span class="nav-number"></span> <span class="nav-text">2. 典型慢查询特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%92%88%E5%AF%B9%E6%80%A7%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-number"></span> <span class="nav-text">二、针对性优化方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5%EF%BC%88%E5%85%88%E6%A3%80%E6%9F%A5%E5%A4%B1%E6%95%88%E7%9A%84%E7%B4%A2%E5%BC%95%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">1. 索引优化策略（先检查失效的索引）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%85%B3%E9%94%AE%E6%8C%87%E6%A0%87%E5%8F%98%E5%8C%96%E5%AF%B9%E6%AF%94"><span class="nav-number"></span> <span class="nav-text">2. 执行计划关键指标变化对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AD%90%E6%9F%A5%E8%AF%A2%E6%94%B9%E9%80%A0%E6%96%B9%E6%A1%88"><span class="nav-number"></span> <span class="nav-text">3. 子查询改造方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">4. 分页查询优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%B7%E7%83%AD%E6%95%B0%E6%8D%AE%E5%88%86%E7%A6%BB"><span class="nav-number"></span> <span class="nav-text">5. 冷热数据分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%A7%E8%83%BD%E5%8E%8B%E6%B5%8B%E6%95%B0%E6%8D%AE"><span class="nav-number"></span> <span class="nav-text">三、性能压测数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E5%90%8C%E5%B9%B6%E5%8F%91%E4%B8%8B%E7%9A%84QPS%E5%AF%B9%E6%AF%94"><span class="nav-number"></span> <span class="nav-text">1. 不同并发下的QPS对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%B5%84%E6%BA%90%E6%B6%88%E8%80%97%E5%AF%B9%E6%AF%94"><span class="nav-number"></span> <span class="nav-text">2. 资源消耗对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">四、经验总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96%E8%A6%81%E7%82%B9"><span class="nav-number"></span> <span class="nav-text">1. 千万级数据优化要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-number"></span> <span class="nav-text">2. 避坑指南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%9B%91%E6%8E%A7%E5%BB%BA%E8%AE%AE"><span class="nav-number"></span> <span class="nav-text">3. 监控建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%A1%AC%E4%BB%B6%E9%85%8D%E7%BD%AE%E5%BB%BA%E8%AE%AE%EF%BC%88%E5%9F%BA%E4%BA%8E1800%E4%B8%87%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">4. 硬件配置建议（基于1800万数据量）</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">choi</p>
+  <div class="site-description" itemprop="description">自强不息的猿</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="mysql千万数据视图优化 | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql千万数据视图优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-10-12 20:28:35 / 修改时间：20:52:52" itemprop="dateCreated datePublished" datetime="2024-10-12T20:28:35+08:00">2024-10-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/sql%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">sql优化</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h4 id="收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。"><a href="#收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。" class="headerlink" title="收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。"></a>收到了个需求，客户合同视图的表请求超时了，数据量在千万级别。听说是上一个离职的同事写的，让我来looklook。</h4><h2 id="一、数据规模与分布假设"><a href="#一、数据规模与分布假设" class="headerlink" title="一、数据规模与分布假设"></a>一、数据规模与分布假设</h2><h3 id="1-各表数据分布模拟"><a href="#1-各表数据分布模拟" class="headerlink" title="1. 各表数据分布模拟"></a>1. 各表数据分布模拟</h3><table>
+<thead>
+<tr>
+<th>表名</th>
+<th>数据量</th>
+<th>索引情况（优化前）</th>
+<th>典型查询条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>contract_main</td>
+<td>800万</td>
+<td>主键索引</td>
+<td>status, create_date</td>
+</tr>
+<tr>
+<td>contract_attachment</td>
+<td>500万</td>
+<td>contract_id单列索引</td>
+<td>file_size, upload_time</td>
+</tr>
+<tr>
+<td>contract_approve</td>
+<td>300万</td>
+<td>无索引</td>
+<td>approve_status</td>
+</tr>
+<tr>
+<td>contract_payment</td>
+<td>100万</td>
+<td>contract_id单列索引</td>
+<td>payment_date</td>
+</tr>
+<tr>
+<td>contract_log</td>
+<td>80万</td>
+<td>无索引</td>
+<td>operate_type</td>
+</tr>
+<tr>
+<td>contract_relation</td>
+<td>20万</td>
+<td>联合索引(src_id,dest_id)</td>
+<td>relation_type</td>
+</tr>
+</tbody></table>
+<h3 id="2-典型慢查询特征"><a href="#2-典型慢查询特征" class="headerlink" title="2. 典型慢查询特征"></a>2. 典型慢查询特征</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 原始问题SQL（简化版）</span></span><br><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    c.id,</span><br><span class="line">    (<span class="keyword">SELECT</span> name <span class="keyword">FROM</span> contract_detail <span class="keyword">WHERE</span> contract_id <span class="operator">=</span> c.id) <span class="keyword">AS</span> detail_name,</span><br><span class="line">    a.sign_date,</span><br><span class="line">    p.total_amount,</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">FROM</span> contract_main c</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> contract_attachment a <span class="keyword">ON</span> c.id <span class="operator">=</span> a.contract_id</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> contract_payment p <span class="keyword">ON</span> c.id <span class="operator">=</span> p.contract_id</span><br><span class="line"><span class="keyword">WHERE</span> c.status <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">3</span>)</span><br><span class="line">  <span class="keyword">AND</span> a.file_size <span class="operator">&gt;</span> <span class="number">1048576</span>  <span class="comment">-- 1MB</span></span><br><span class="line">  <span class="keyword">AND</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> contract_approve <span class="keyword">WHERE</span> contract_id <span class="operator">=</span> c.id) <span class="operator">&gt;</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">AND</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> contract_relation <span class="keyword">WHERE</span> src_id <span class="operator">=</span> c.id)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> c.create_date <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">20</span> <span class="keyword">OFFSET</span> <span class="number">10000</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、针对性优化方案"><a href="#二、针对性优化方案" class="headerlink" title="二、针对性优化方案"></a>二、针对性优化方案</h2><h3 id="1-索引优化策略（先检查失效的索引）"><a href="#1-索引优化策略（先检查失效的索引）" class="headerlink" title="1. 索引优化策略（先检查失效的索引）"></a>1. 索引优化策略（先检查失效的索引）</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 复合索引优化</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> contract_main <span class="keyword">ADD</span> INDEX idx_status_created(status, create_date);</span><br><span class="line"><span class="keyword">ALTER TABLE</span> contract_attachment <span class="keyword">ADD</span> INDEX idx_contractid_filesize(contract_id, file_size);</span><br><span class="line"><span class="keyword">ALTER TABLE</span> contract_approve <span class="keyword">ADD</span> INDEX idx_contractid(contract_id);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 覆盖索引示例</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_cover_main <span class="keyword">ON</span> contract_main(id, status, create_date);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-执行计划关键指标变化对比"><a href="#2-执行计划关键指标变化对比" class="headerlink" title="2. 执行计划关键指标变化对比"></a>2. 执行计划关键指标变化对比</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>优化前</th>
+<th>优化后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扫描行数</td>
+<td>800万+500万+300万</td>
+<td>5万+1.2万+0.3万</td>
+</tr>
+<tr>
+<td>执行时间</td>
+<td>18.7秒</td>
+<td>0.3秒</td>
+</tr>
+<tr>
+<td>临时表使用</td>
+<td>3次</td>
+<td>0次</td>
+</tr>
+<tr>
+<td>文件排序</td>
+<td>Using filesort</td>
+<td>Using index</td>
+</tr>
+</tbody></table>
+<h3 id="3-子查询改造方案"><a href="#3-子查询改造方案" class="headerlink" title="3. 子查询改造方案"></a>3. 子查询改造方案</h3><p><strong>问题点</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WHERE</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> contract_approve <span class="keyword">WHERE</span> contract_id <span class="operator">=</span> c.id) <span class="operator">&gt;</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>优化步骤</strong>：</p>
+<ol>
+<li>转换为JOIN查询</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> contract_id </span><br><span class="line">    <span class="keyword">FROM</span> contract_approve </span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> contract_id</span><br><span class="line">    <span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">0</span></span><br><span class="line">) ca <span class="keyword">ON</span> c.id <span class="operator">=</span> ca.contract_id</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>添加物化视图（适合高频查询）</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> MATERIALIZED <span class="keyword">VIEW</span> mv_approve_count </span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> contract_id, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> cnt</span><br><span class="line"><span class="keyword">FROM</span> contract_approve</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> contract_id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_mv_approve <span class="keyword">ON</span> mv_approve_count(contract_id);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-分页查询优化"><a href="#4-分页查询优化" class="headerlink" title="4. 分页查询优化"></a>4. 分页查询优化</h3><p><strong>问题点</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LIMIT <span class="number">20</span> <span class="keyword">OFFSET</span> <span class="number">10000</span>  <span class="comment">-- 深度分页性能差</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>优化方案</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 基于游标的分页（假设create_date是唯一排序字段）</span></span><br><span class="line"><span class="keyword">SELECT</span> ... </span><br><span class="line"><span class="keyword">WHERE</span> create_date <span class="operator">&lt;</span> <span class="string">&#x27;2023-06-01&#x27;</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> create_date <span class="keyword">DESC</span> </span><br><span class="line">LIMIT <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-冷热数据分离"><a href="#5-冷热数据分离" class="headerlink" title="5. 冷热数据分离"></a>5. 冷热数据分离</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 历史数据归档（按时间分区）</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> contract_main </span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span> (<span class="keyword">YEAR</span>(create_date)) (</span><br><span class="line">    <span class="keyword">PARTITION</span> p2023 <span class="keyword">VALUES</span> LESS THAN (<span class="number">2024</span>),</span><br><span class="line">    <span class="keyword">PARTITION</span> p2022 <span class="keyword">VALUES</span> LESS THAN (<span class="number">2023</span>),</span><br><span class="line">    <span class="keyword">PARTITION</span> p_hist <span class="keyword">VALUES</span> LESS THAN MAXVALUE</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 热点数据单独处理</span></span><br><span class="line"><span class="keyword">CREATE TABLE</span> contract_main_hot <span class="keyword">LIKE</span> contract_main;</span><br><span class="line"><span class="keyword">INSERT INTO</span> contract_main_hot </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> contract_main </span><br><span class="line"><span class="keyword">WHERE</span> create_date <span class="operator">&gt;</span> <span class="string">&#x27;2023-01-01&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、性能压测数据"><a href="#三、性能压测数据" class="headerlink" title="三、性能压测数据"></a>三、性能压测数据</h2><h3 id="1-不同并发下的QPS对比"><a href="#1-不同并发下的QPS对比" class="headerlink" title="1. 不同并发下的QPS对比"></a>1. 不同并发下的QPS对比</h3><table>
+<thead>
+<tr>
+<th>并发数</th>
+<th>优化前QPS</th>
+<th>优化后QPS</th>
+<th>提升倍数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50</td>
+<td>12</td>
+<td>83</td>
+<td>6.9x</td>
+</tr>
+<tr>
+<td>100</td>
+<td>5</td>
+<td>67</td>
+<td>13.4x</td>
+</tr>
+<tr>
+<td>200</td>
+<td>2（超时）</td>
+<td>51</td>
+<td>25.5x</td>
+</tr>
+</tbody></table>
+<h3 id="2-资源消耗对比"><a href="#2-资源消耗对比" class="headerlink" title="2. 资源消耗对比"></a>2. 资源消耗对比</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>优化前</th>
+<th>优化后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU使用率</td>
+<td>89%</td>
+<td>32%</td>
+</tr>
+<tr>
+<td>内存消耗</td>
+<td>8.7GB</td>
+<td>2.1GB</td>
+</tr>
+<tr>
+<td>磁盘IOPS</td>
+<td>4500</td>
+<td>780</td>
+</tr>
+</tbody></table>
+<h2 id="四、经验总结"><a href="#四、经验总结" class="headerlink" title="四、经验总结"></a>四、经验总结</h2><h3 id="1-千万级数据优化要点"><a href="#1-千万级数据优化要点" class="headerlink" title="1. 千万级数据优化要点"></a>1. 千万级数据优化要点</h3><ul>
+<li><strong>索引设计</strong>：复合索引字段顺序遵循”高筛选度字段在前”原则</li>
+<li><strong>查询改造</strong>：将WHERE中的子查询转换为JOIN操作</li>
+<li><strong>数据分区</strong>：按时间维度进行分区，结合业务特点设计冷热分离</li>
+<li><strong>分页策略</strong>：避免OFFSET分页，采用游标分页或seek method</li>
+</ul>
+<h3 id="2-避坑指南"><a href="#2-避坑指南" class="headerlink" title="2. 避坑指南"></a>2. 避坑指南</h3><ul>
+<li><strong>隐式类型转换</strong>：确保WHERE条件字段类型与索引字段类型一致</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 错误示例（status是INT类型）</span></span><br><span class="line"><span class="keyword">WHERE</span> status <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span>  <span class="comment">-- 导致索引失效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确写法</span></span><br><span class="line"><span class="keyword">WHERE</span> status <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>索引失效场景</strong>：避免在索引列上使用函数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 错误示例</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(create_date) <span class="operator">=</span> <span class="number">2023</span>  <span class="comment">-- 索引失效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确写法</span></span><br><span class="line"><span class="keyword">WHERE</span> create_date <span class="keyword">BETWEEN</span> <span class="string">&#x27;2023-01-01&#x27;</span> <span class="keyword">AND</span> <span class="string">&#x27;2023-12-31&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-监控建议"><a href="#3-监控建议" class="headerlink" title="3. 监控建议"></a>3. 监控建议</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 长期开启慢查询日志（保留7天）</span></span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log <span class="operator">=</span> <span class="keyword">ON</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> long_query_time <span class="operator">=</span> <span class="number">0.5</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> log_queries_not_using_indexes <span class="operator">=</span> <span class="keyword">ON</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 定期分析执行计划</span></span><br><span class="line">EXPLAIN FORMAT<span class="operator">=</span>JSON </span><br><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*+ 实际业务SQL */</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-硬件配置建议（基于1800万数据量）"><a href="#4-硬件配置建议（基于1800万数据量）" class="headerlink" title="4. 硬件配置建议（基于1800万数据量）"></a>4. 硬件配置建议（基于1800万数据量）</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>最低配置</th>
+<th>推荐配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>8核</td>
+<td>16核</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>16GB</td>
+<td>64GB</td>
+</tr>
+<tr>
+<td>存储</td>
+<td>SSD 500GB</td>
+<td>NVMe SSD 1TB</td>
+</tr>
+<tr>
+<td>连接数</td>
+<td>max_connections&#x3D;500</td>
+<td>max_connections&#x3D;2000</td>
+</tr>
+<tr>
+<td>&#96;&#96;&#96;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>choi
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://choi857.github.io/2024/10/12/mysql%E5%8D%83%E4%B8%87%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96/" title="mysql千万数据视图优化">https://choi857.github.io/2024/10/12/mysql千万数据视图优化/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/08/mysql%E4%BC%98%E5%8C%96/" rel="prev" title="mysql优化">
+                  <i class="fa fa-angle-left"></i> mysql优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/" rel="next" title="数据库死锁问题">
+                  数据库死锁问题 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">choi</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/choi857" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
