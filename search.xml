@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>博客名称</title>
-    <url>/2025/05/04/%E5%8D%9A%E5%AE%A2%E5%90%8D%E7%A7%B0/</url>
-    <content><![CDATA[]]></content>
+    <title>MySQL 索引</title>
+    <url>/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。</p>
+<p>简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。</p>
+<p>索引就像字典上的目录，能够帮助我们快速定位到需要的信息。</p>
+<h2 id="索引的重要性"><a href="#索引的重要性" class="headerlink" title="索引的重要性"></a>索引的重要性</h2><p>如果查询的数据表没有索引，SQL 语句将从第一条记录开始逐条匹配判断，直到找到匹配项。而数据库查询数据是从磁盘进行的，每一次匹配都是一次 IO 流操作，这样的查询方式称为全表扫描，性能极低。</p>
+<h2 id="MySQL-索引的最左前缀匹配原则"><a href="#MySQL-索引的最左前缀匹配原则" class="headerlink" title="MySQL 索引的最左前缀匹配原则"></a>MySQL 索引的最左前缀匹配原则</h2><p>在复合索引中，查询条件必须从索引的最左边的列开始匹配，才能有效利用索引。换句话说，只有当查询条件包含了索引列的最左前缀时，MySQL 才能利用该复合索引进行优化查询。</p>
+<h3 id="复合索引的结构"><a href="#复合索引的结构" class="headerlink" title="复合索引的结构"></a>复合索引的结构</h3><p>假设有一个复合索引 <code>(column1, column2, column3)</code>，以下查询条件可以利用该索引：</p>
+<ul>
+<li><code>WHERE column1 = ?</code></li>
+<li><code>WHERE column1 = ? AND column2 = ?</code></li>
+<li><code>WHERE column1 = ? AND column2 = ? AND column3 = ?</code></li>
+</ul>
+<p>但是，以下查询条件不能有效利用该复合索引：</p>
+<ul>
+<li><code>WHERE column2 = ?</code>（没有包含最左列 <code>column1</code>）</li>
+<li><code>WHERE column3 = ?</code>（没有包含最左列 <code>column1</code> 和 <code>column2</code>）</li>
+<li><code>WHERE column2 = ? AND column3 = ?</code>（没有包含最左列 <code>column1</code>）</li>
+</ul>
+<h2 id="什么情况下需要建立索引"><a href="#什么情况下需要建立索引" class="headerlink" title="什么情况下需要建立索引"></a>什么情况下需要建立索引</h2><ol>
+<li>主键会自动创建唯一索引。</li>
+<li>频繁作为查询条件的字段。</li>
+<li>查询中用于排序、统计或分组的字段。</li>
+</ol>
+<h2 id="聚簇索引与非聚簇索引的区别"><a href="#聚簇索引与非聚簇索引的区别" class="headerlink" title="聚簇索引与非聚簇索引的区别"></a>聚簇索引与非聚簇索引的区别</h2><p>聚簇索引和非聚簇索引都基于 B+ 树数据结构。</p>
+<ul>
+<li><strong>聚簇索引</strong>：将数据存储与索引放在一起，并按一定顺序组织。找到索引即找到数据。</li>
+<li><strong>非聚簇索引</strong>：叶子节点不存储数据，而是存储数据行的地址。根据索引查找数据行的位置后再读取磁盘查找数据。类似于书籍的目录，需先查找目录获取页码，再跳转到对应页面查看内容。</li>
+</ul>
+<h2 id="MySQL-索引失效的情况"><a href="#MySQL-索引失效的情况" class="headerlink" title="MySQL 索引失效的情况"></a>MySQL 索引失效的情况</h2><ol>
+<li><strong>不遵循最左前缀法则</strong>：使用联合索引时，未遵循最左前缀法则，索引可能失效。</li>
+<li><strong>主键插入顺序问题</strong>：插入数据的顺序与主键索引顺序不一致可能导致索引失效。</li>
+<li><strong>计算、函数或类型转换</strong>：对索引列进行计算、使用函数或进行类型转换可能导致索引失效。</li>
+<li><strong>范围查询右边的列索引失效</strong>：范围查询时，右边的列索引可能不生效。</li>
+<li><strong>使用不等于操作符</strong>：使用 <code>!=</code> 或 <code>&lt;&gt;</code> 操作符可能导致索引失效。</li>
+<li><strong>使用 <code>IS NOT NULL</code></strong>：<code>IS NOT NULL</code> 可能无法使用索引。</li>
+<li><strong>LIKE 查询以通配符开头</strong>：LIKE 查询以 <code>%</code> 开头可能导致索引失效。</li>
+<li><strong>OR 语句中存在非索引列</strong>：OR 前后存在非索引列时，索引可能失效。</li>
+<li><strong>字符集不统一</strong>：数据库和表字符集不统一（如未使用 utf8mb4）可能导致索引失效。</li>
+<li><strong>隐式类型转换</strong>：字符串与数字比较时，MySQL 自动转换类型可能导致索引失效。</li>
+<li><strong>联合索引非最左匹配</strong>：查询条件不符合联合索引的最左匹配原则，索引可能失效。</li>
+<li><strong>索引列上有计算</strong>：对索引列进行计算（如 <code>id + 1 = 2</code>）会导致索引失效。</li>
+<li><strong>索引列使用了函数</strong>：对索引列使用函数（如 <code>SUBSTR(id_no, 1, 3)</code>）会导致索引失效。</li>
+</ol>
+<h2 id="MySQL-事务基本要素（ACID-特性）"><a href="#MySQL-事务基本要素（ACID-特性）" class="headerlink" title="MySQL 事务基本要素（ACID 特性）"></a>MySQL 事务基本要素（ACID 特性）</h2><p>事务是数据库操作的一个单元，可以包含一个或多个数据库操作（如插入、更新、删除）。</p>
+<ol>
+<li><strong>原子性（Atomicity）</strong>：事务的所有操作要么全部完成，要么全部不完成。事务执行过程中出错会回滚到开始前的状态，所有操作就像未发生一样。事务是不可分割的整体，如同原子是物质的基本单位。</li>
+<li><strong>一致性（Consistency）</strong>：事务开始前和结束后，数据库的完整性约束未被破坏。例如，A 向 B 转账时，不可能出现 A 被扣款而 B 未收款的情况。</li>
+<li><strong>隔离性（Isolation）</strong>：同一时间只允许一个事务请求同一数据，不同事务之间互不干扰。例如，A 正在从银行卡取钱时，B 不能同时向该卡转账。</li>
+<li><strong>持久性（Durability）</strong>：事务完成后，对数据库的所有更新将被永久保存，无法回滚。</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>Hello World</title>

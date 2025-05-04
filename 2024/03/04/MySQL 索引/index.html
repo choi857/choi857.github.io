@@ -19,24 +19,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="自强不息的猿">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Choi每天进步一点点">
-<meta property="og:url" content="https://choi857.github.io/index.html">
+    <meta name="description" content="MySQL 索引索引概述MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。 简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。 索引就像字典上的目录，能够帮助我们快速定位到需要的信息。 索引的重要性如果查询的数据表没有索引，SQL 语句将从第一条记录开始逐条匹配判断，直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 索引">
+<meta property="og:url" content="https://choi857.github.io/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/index.html">
 <meta property="og:site_name" content="Choi每天进步一点点">
-<meta property="og:description" content="自强不息的猿">
+<meta property="og:description" content="MySQL 索引索引概述MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。 简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。 索引就像字典上的目录，能够帮助我们快速定位到需要的信息。 索引的重要性如果查询的数据表没有索引，SQL 语句将从第一条记录开始逐条匹配判断，直">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-04T15:08:44.000Z">
+<meta property="article:modified_time" content="2025-05-04T16:18:52.054Z">
 <meta property="article:author" content="choi">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://choi857.github.io/">
+<link rel="canonical" href="https://choi857.github.io/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/","path":"2024/03/04/MySQL 索引/","title":"MySQL 索引"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Choi每天进步一点点</title>
+<title>MySQL 索引 | Choi每天进步一点点</title>
   
 
 
@@ -86,7 +88,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Choi每天进步一点点</h1>
+      <p class="site-title">Choi每天进步一点点</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
@@ -140,7 +142,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -153,6 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">MySQL 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">索引概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">索引的重要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">MySQL 索引的最左前缀匹配原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B4%A2%E5%BC%95%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">复合索引的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95"><span class="nav-number">1.4.</span> <span class="nav-text">什么情况下需要建立索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E4%B8%8E%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.5.</span> <span class="nav-text">聚簇索引与非聚簇索引的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.6.</span> <span class="nav-text">MySQL 索引失效的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E4%BA%8B%E5%8A%A1%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0%EF%BC%88ACID-%E7%89%B9%E6%80%A7%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">MySQL 事务基本要素（ACID 特性）</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -185,97 +188,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2025/05/04/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/05/04/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-05-04 22:49:41" itemprop="dateCreated datePublished" datetime="2025-05-04T22:49:41+08:00">2025-05-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -289,13 +212,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="name" content="MySQL 索引 | Choi每天进步一点点">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">MySQL 索引</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          MySQL 索引
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -324,8 +247,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。</p>
 <p>简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。</p>
 <p>索引就像字典上的目录，能够帮助我们快速定位到需要的信息。</p>
 <h2 id="索引的重要性"><a href="#索引的重要性" class="headerlink" title="索引的重要性"></a>索引的重要性</h2><p>如果查询的数据表没有索引，SQL 语句将从第一条记录开始逐条匹配判断，直到找到匹配项。而数据库查询数据是从磁盘进行的，每一次匹配都是一次 IO 流操作，这样的查询方式称为全表扫描，性能极低。</p>
@@ -375,7 +297,6 @@
 <li><strong>持久性（Durability）</strong>：事务完成后，对数据库的所有更新将被永久保存，无法回滚。</li>
 </ol>
 
-      
     </div>
 
     
@@ -383,11 +304,39 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>choi
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://choi857.github.io/2024/03/04/MySQL%20%E7%B4%A2%E5%BC%95/" title="MySQL 索引">https://choi857.github.io/2024/03/04/MySQL 索引/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/05/04/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
+
 
 
 
