@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="记录一下当菜鸡遇上高并发一、从血泪史说起八月初我开发的商品库存模块在压测下直接躺平,线程池无界队列直接内存泄漏OOM,CPU疯狂飙高直接躺平。加了悲观锁又发现并发不高的情况下接口都很慢。事后发现：事务锁在高并发下就是个战五渣。查阅了网上的资料最终摸索出这套组合方案，核心就两板斧——乐观锁管库存，消息队列扛流量。 二、给数据库加点料123456CREATE TABLE t_goods (    id">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka+乐观锁处理商品库存管理">
+<meta property="og:url" content="https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Choi每天进步一点点">
+<meta property="og:description" content="记录一下当菜鸡遇上高并发一、从血泪史说起八月初我开发的商品库存模块在压测下直接躺平,线程池无界队列直接内存泄漏OOM,CPU疯狂飙高直接躺平。加了悲观锁又发现并发不高的情况下接口都很慢。事后发现：事务锁在高并发下就是个战五渣。查阅了网上的资料最终摸索出这套组合方案，核心就两板斧——乐观锁管库存，消息队列扛流量。 二、给数据库加点料123456CREATE TABLE t_goods (    id">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-15T12:45:10.000Z">
+<meta property="article:modified_time" content="2024-09-15T12:55:39.581Z">
+<meta property="article:author" content="choi">
+<meta property="article:tag" content="Kafka">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/","path":"2024/09/15/Kafka-乐观锁处理商品库存管理/","title":"Kafka+乐观锁处理商品库存管理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kafka+乐观锁处理商品库存管理 | Choi每天进步一点点</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Choi每天进步一点点" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Choi每天进步一点点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E5%BD%93%E8%8F%9C%E9%B8%A1%E9%81%87%E4%B8%8A%E9%AB%98%E5%B9%B6%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">记录一下当菜鸡遇上高并发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%8E%E8%A1%80%E6%B3%AA%E5%8F%B2%E8%AF%B4%E8%B5%B7"><span class="nav-number">1.1.</span> <span class="nav-text">一、从血泪史说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BB%99%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8A%A0%E7%82%B9%E6%96%99"><span class="nav-number">1.2.</span> <span class="nav-text">二、给数据库加点料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%8B%E5%8D%95%E5%B0%B1%E5%83%8F%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="nav-number">1.3.</span> <span class="nav-text">三、下单就像流水线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E7%94%A8%E6%88%B7%E5%8F%91%E8%B5%B7%E5%86%B2%E9%94%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">第一步：用户发起冲锋</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%BA%93%E5%AD%98%E9%A2%84%E6%A3%80"><span class="nav-number">1.3.2.</span> <span class="nav-text">第二步：库存预检</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E6%8A%8A%E8%AE%A2%E5%8D%95%E6%89%94%E8%BF%9B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.3.3.</span> <span class="nav-text">第三步：把订单扔进消息队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BA%93%E5%AD%98%E6%89%A3%E5%87%8F%E7%9A%84%E6%94%BB%E9%98%B2%E6%88%98"><span class="nav-number">1.4.</span> <span class="nav-text">四、库存扣减的攻防战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E5%B9%B2%E6%B4%BB%E6%8C%87%E5%8D%97"><span class="nav-number">1.4.1.</span> <span class="nav-text">消费者干活指南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-number">1.4.2.</span> <span class="nav-text">避坑指南</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%AE%A2%E5%8D%95%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC"><span class="nav-number">1.5.</span> <span class="nav-text">五、订单状态流转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E5%88%B0%E7%9A%84%E5%A6%96%E9%AD%94%E9%AC%BC%E6%80%AA"><span class="nav-number">1.6.</span> <span class="nav-text">六、那些年遇到的妖魔鬼怪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%9A%E6%B6%88%E6%81%AF%E7%AA%81%E7%84%B6%E6%B6%88%E5%A4%B1"><span class="nav-number">1.6.1.</span> <span class="nav-text">1：消息突然消失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%9A%E5%90%8C%E4%B8%AA%E8%AE%A2%E5%8D%95%E8%A2%AB%E5%A4%84%E7%90%86%E4%B8%A4%E6%AC%A1"><span class="nav-number">1.6.2.</span> <span class="nav-text">2：同个订单被处理两次</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E4%B8%89%E6%9D%BF%E6%96%A7"><span class="nav-number">1.7.</span> <span class="nav-text">七、性能调优三板斧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%96%A7%EF%BC%9A%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.1.</span> <span class="nav-text">第一斧：缓存策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%96%A7%EF%BC%9AKafka%E8%B0%83%E4%BC%98"><span class="nav-number">1.7.2.</span> <span class="nav-text">第二斧：Kafka调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%A7%EF%BC%9AMySQL%E4%BC%98%E5%8C%96"><span class="nav-number">1.7.3.</span> <span class="nav-text">第三斧：MySQL优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E9%87%8D%E8%AF%95%E6%98%AF%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%B4%BB"><span class="nav-number">1.8.</span> <span class="nav-text">八、重试是个技术活</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E6%9C%AA%E8%A7%A3%E5%86%B3"><span class="nav-number">1.9.</span> <span class="nav-text">九、未解决</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">choi</p>
+  <div class="site-description" itemprop="description">自强不息的猿</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kafka+乐观锁处理商品库存管理 | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kafka+乐观锁处理商品库存管理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-09-15 20:45:10 / 修改时间：20:55:39" itemprop="dateCreated datePublished" datetime="2024-09-15T20:45:10+08:00">2024-09-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="记录一下当菜鸡遇上高并发"><a href="#记录一下当菜鸡遇上高并发" class="headerlink" title="记录一下当菜鸡遇上高并发"></a>记录一下当菜鸡遇上高并发</h1><h2 id="一、从血泪史说起"><a href="#一、从血泪史说起" class="headerlink" title="一、从血泪史说起"></a>一、从血泪史说起</h2><p>八月初我开发的商品库存模块在压测下直接躺平,线程池无界队列直接内存泄漏OOM,CPU疯狂飙高直接躺平。加了悲观锁又发现并发不高的情况下接口都很慢。<br>事后发现：<strong>事务锁在高并发下就是个战五渣</strong>。查阅了网上的资料最终摸索出这套组合方案，核心就两板斧——<strong>乐观锁管库存，消息队列扛流量</strong>。</p>
+<h2 id="二、给数据库加点料"><a href="#二、给数据库加点料" class="headerlink" title="二、给数据库加点料"></a>二、给数据库加点料</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_goods (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">    stock <span class="type">INT</span> COMMENT <span class="string">&#x27;防止超卖的命根子&#x27;</span>,</span><br><span class="line">    version <span class="type">INT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span> COMMENT <span class="string">&#x27;乐观锁的灵魂&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><strong>设计小心机：</strong></p>
+<ul>
+<li>版本号用自增整数，比时间戳靠谱</li>
+<li>库存字段加个非负约束（别问为什么，都是教训）</li>
+<li>别留字段默认值坑（比如突然冒出的null值）</li>
+</ul>
+<h2 id="三、下单就像流水线"><a href="#三、下单就像流水线" class="headerlink" title="三、下单就像流水线"></a>三、下单就像流水线</h2><h3 id="第一步：用户发起冲锋"><a href="#第一步：用户发起冲锋" class="headerlink" title="第一步：用户发起冲锋"></a>第一步：用户发起冲锋</h3><ol>
+<li>查库存先找Redis缓存（就像先去小卖部看货架）</li>
+<li>缓存没有就找数据库（得去仓库翻箱倒柜）</li>
+<li>把库存数量写回Redis（贴个即时更新的便利贴）</li>
+</ol>
+<h3 id="第二步：库存预检"><a href="#第二步：库存预检" class="headerlink" title="第二步：库存预检"></a>第二步：库存预检</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 伪代码，真实情况得加try-catch</span></span><br><span class="line"><span class="keyword">if</span>(redisStock &lt; 购买量)&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;兄弟，手速慢了啊&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三步：把订单扔进消息队列"><a href="#第三步：把订单扔进消息队列" class="headerlink" title="第三步：把订单扔进消息队列"></a>第三步：把订单扔进消息队列</h3><ul>
+<li>生成订单号（雪花算法YYDS）</li>
+<li>往Kafka的订单主题扔消息（像快递员往传送带放包裹）</li>
+<li>Redis里标记订单状态为”处理中”（设置1分钟失效，防止僵尸订单）</li>
+</ul>
+<h2 id="四、库存扣减的攻防战"><a href="#四、库存扣减的攻防战" class="headerlink" title="四、库存扣减的攻防战"></a>四、库存扣减的攻防战</h2><h3 id="消费者干活指南"><a href="#消费者干活指南" class="headerlink" title="消费者干活指南"></a>消费者干活指南</h3><ol>
+<li>从Kafka捞订单消息</li>
+<li>带着版本号去扣库存：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_goods </span><br><span class="line"><span class="keyword">SET</span> stock <span class="operator">=</span> stock <span class="operator">-</span> #&#123;数量&#125;, version <span class="operator">=</span> version <span class="operator">+</span><span class="number">1</span> </span><br><span class="line"><span class="keyword">WHERE</span> id<span class="operator">=</span>#&#123;商品ID&#125; <span class="keyword">AND</span> version<span class="operator">=</span>#&#123;当前版本&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>更新成功：刷新Redis缓存（记得用管道命令）</li>
+<li>更新失败：启动重试小分队</li>
+</ol>
+<h3 id="避坑指南"><a href="#避坑指南" class="headerlink" title="避坑指南"></a>避坑指南</h3><ul>
+<li>先更新数据库再删缓存（顺序错了会出鬼故事）</li>
+<li>用延迟双删防止缓存击穿（先删一次，500ms后再删一次）</li>
+<li>别在Kafka里堆积太多消息（小心把队列撑爆）</li>
+</ul>
+<h2 id="五、订单状态流转"><a href="#五、订单状态流转" class="headerlink" title="五、订单状态流转"></a>五、订单状态流转</h2><ol>
+<li>库存服务干完活往Kafka发确认消息</li>
+<li>订单系统监听确认主题</li>
+<li>把Redis里的订单状态改成”成功”（就像快递签收）</li>
+</ol>
+<h2 id="六、那些年遇到的妖魔鬼怪"><a href="#六、那些年遇到的妖魔鬼怪" class="headerlink" title="六、那些年遇到的妖魔鬼怪"></a>六、那些年遇到的妖魔鬼怪</h2><h3 id="1：消息突然消失"><a href="#1：消息突然消失" class="headerlink" title="1：消息突然消失"></a>1：消息突然消失</h3><ul>
+<li>解决方案：给Kafka配置持久化存储</li>
+<li>备胎方案：用MySQL存消息发送记录</li>
+</ul>
+<h3 id="2：同个订单被处理两次"><a href="#2：同个订单被处理两次" class="headerlink" title="2：同个订单被处理两次"></a>2：同个订单被处理两次</h3><ul>
+<li>妙招1：给消息加唯一ID</li>
+<li>妙招2：数据库加唯一索引</li>
+<li>妙招3：Redis里setnx锁一下</li>
+</ul>
+<h2 id="七、性能调优三板斧"><a href="#七、性能调优三板斧" class="headerlink" title="七、性能调优三板斧"></a>七、性能调优三板斧</h2><h3 id="第一斧：缓存策略"><a href="#第一斧：缓存策略" class="headerlink" title="第一斧：缓存策略"></a>第一斧：缓存策略</h3><ul>
+<li>热点商品提前加载到Redis（就像双11前把货堆到前线仓库）</li>
+<li>用二级缓存：本地缓存+Redis（远近搭配，干活不累）</li>
+</ul>
+<h3 id="第二斧：Kafka调优"><a href="#第二斧：Kafka调优" class="headerlink" title="第二斧：Kafka调优"></a>第二斧：Kafka调优</h3><ul>
+<li>分区数&#x3D;消费者数量*3（黄金法则）</li>
+<li>消费者用批量拉取模式（一车多拉省油钱）</li>
+</ul>
+<h3 id="第三斧：MySQL优化"><a href="#第三斧：MySQL优化" class="headerlink" title="第三斧：MySQL优化"></a>第三斧：MySQL优化</h3><ul>
+<li>给version字段加联合索引</li>
+<li>事务隔离级别用Read Committed（别用Serializable，会卡成PPT）</li>
+</ul>
+<h2 id="八、重试是个技术活"><a href="#八、重试是个技术活" class="headerlink" title="八、重试是个技术活"></a>八、重试是个技术活</h2><p><strong>我们的重试策略：</strong></p>
+<ol>
+<li>首次失败：等50ms再试</li>
+<li>二次失败：等200ms再试</li>
+<li>三次失败：等1s后尝试</li>
+<li>超过三次：记入死信队列人工处理</li>
+</ol>
+<p><strong>避坑提示：</strong></p>
+<ul>
+<li>重试次数别超过3次（防止雪崩）</li>
+<li>用指数退避算法（越来越佛系）</li>
+<li>同步重试改异步（别堵住主线程）</li>
+</ul>
+<h2 id="九、未解决"><a href="#九、未解决" class="headerlink" title="九、未解决"></a>九、未解决</h2><p>这套方案依然有暗坑：</p>
+<ol>
+<li>极端情况可能出现库存不一致（查了资料，得靠得靠对账系统补救或者简单点用定时任务）</li>
+<li>消息延迟会导致短暂显示异常（加个”库存计算中”的提示）</li>
+<li>突发流量可能冲垮Redis（网上的解决方法是熔断降级）</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>choi
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/" title="Kafka+乐观锁处理商品库存管理">https://choi857.github.io/2024/09/15/Kafka-乐观锁处理商品库存管理/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Kafka/" rel="tag"># Kafka</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="prev" title="Kafka Streams 客户端">
+                  <i class="fa fa-angle-left"></i> Kafka Streams 客户端
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">choi</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/choi857" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

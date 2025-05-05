@@ -6,7 +6,7 @@
   <link href="https://choi857.github.io/atom.xml" rel="self"/>
   
   <link href="https://choi857.github.io/"/>
-  <updated>2024-08-09T15:50:03.000Z</updated>
+  <updated>2024-09-15T12:55:39.581Z</updated>
   <id>https://choi857.github.io/</id>
   
   <author>
@@ -15,6 +15,86 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka+乐观锁处理商品库存管理</title>
+    <link href="https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <id>https://choi857.github.io/2024/09/15/Kafka-%E4%B9%90%E8%A7%82%E9%94%81%E5%A4%84%E7%90%86%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86/</id>
+    <published>2024-09-15T12:45:10.000Z</published>
+    <updated>2024-09-15T12:55:39.581Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;记录一下当菜鸡遇上高并发&quot;&gt;&lt;a href=&quot;#记录一下当菜鸡遇上高并发&quot; class=&quot;headerlink&quot; title=&quot;记录一下当菜鸡遇上高并发&quot;&gt;&lt;/a&gt;记录一下当菜鸡遇上高并发&lt;/h1&gt;&lt;h2 id=&quot;一、从血泪史说起&quot;&gt;&lt;a href=&quot;#一、从血泪</summary>
+      
+    
+    
+    
+    
+    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka Streams 客户端</title>
+    <link href="https://choi857.github.io/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+    <id>https://choi857.github.io/2024/09/03/Kafka-Streams-%E5%AE%A2%E6%88%B7%E7%AB%AF/</id>
+    <published>2024-09-03T13:28:26.000Z</published>
+    <updated>2024-09-03T13:29:05.421Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Kafka-Streams-客户端&quot;&gt;&lt;a href=&quot;#Kafka-Streams-客户端&quot; class=&quot;headerlink&quot; title=&quot;Kafka Streams 客户端&quot;&gt;&lt;/a&gt;Kafka Streams 客户端&lt;/h3&gt;&lt;p&gt;Kafka Stre</summary>
+      
+    
+    
+    
+    
+    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka外存储偏移量</title>
+    <link href="https://choi857.github.io/2024/08/22/Kafka%E5%A4%96%E5%AD%98%E5%82%A8%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
+    <id>https://choi857.github.io/2024/08/22/Kafka%E5%A4%96%E5%AD%98%E5%82%A8%E5%81%8F%E7%A7%BB%E9%87%8F/</id>
+    <published>2024-08-22T11:26:15.000Z</published>
+    <updated>2024-08-23T14:23:24.823Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;在-Kafka-之外存储偏移量&quot;&gt;&lt;a href=&quot;#在-Kafka-之外存储偏移量&quot; class=&quot;headerlink&quot; title=&quot;在 Kafka 之外存储偏移量&quot;&gt;&lt;/a&gt;在 Kafka 之外存储偏移量&lt;/h3&gt;&lt;p&gt;参考大佬：&lt;a href=&quot;http</summary>
+      
+    
+    
+    
+    
+    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka消费者java客户端</title>
+    <link href="https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+    <id>https://choi857.github.io/2024/08/17/Kafka%E6%B6%88%E8%B4%B9%E8%80%85java%E5%AE%A2%E6%88%B7%E7%AB%AF/</id>
+    <published>2024-08-17T07:16:06.000Z</published>
+    <updated>2024-08-18T12:24:59.724Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Kafka-消费者-Java-客户端&quot;&gt;&lt;a href=&quot;#Kafka-消费者-Java-客户端&quot; class=&quot;headerlink&quot; title=&quot;Kafka 消费者 Java 客户端&quot;&gt;&lt;/a&gt;Kafka 消费者 Java 客户端&lt;/h3&gt;&lt;p&gt;Kafka </summary>
+      
+    
+    
+    
+    
+    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>Kafka初解</title>
