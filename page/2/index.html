@@ -19,26 +19,24 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"choi857.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：  JDK17 + Spring Boot 3.4.0 项目开发中的那些坑一、集成 MyBatis Plus 3.5.9 的问题1.1 依赖引入问题不能只引入 mybatis-plus-spring-boot3-starter 依赖了，还需要配合 mybatis-plus-jsqlparser。 123456789&lt;depen">
-<meta property="og:type" content="article">
-<meta property="og:title" content="spring 3.4的改变，依赖冲突">
-<meta property="og:url" content="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/index.html">
+    <meta name="description" content="自强不息的猿">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Choi每天进步一点点">
+<meta property="og:url" content="https://choi857.github.io/page/2/index.html">
 <meta property="og:site_name" content="Choi每天进步一点点">
-<meta property="og:description" content="以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：  JDK17 + Spring Boot 3.4.0 项目开发中的那些坑一、集成 MyBatis Plus 3.5.9 的问题1.1 依赖引入问题不能只引入 mybatis-plus-spring-boot3-starter 依赖了，还需要配合 mybatis-plus-jsqlparser。 123456789&lt;depen">
+<meta property="og:description" content="自强不息的猿">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-02T10:02:50.000Z">
-<meta property="article:modified_time" content="2024-05-02T10:03:35.069Z">
 <meta property="article:author" content="choi">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
+<link rel="canonical" href="https://choi857.github.io/page/2/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/","path":"2024/05/02/spring-3-4的改变，依赖冲突/","title":"spring 3.4的改变，依赖冲突"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>spring 3.4的改变，依赖冲突 | Choi每天进步一点点</title>
+<title>Choi每天进步一点点</title>
   
 
 
@@ -88,7 +86,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">Choi每天进步一点点</p>
+      <h1 class="site-title">Choi每天进步一点点</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">CXD的个人博客</p>
@@ -142,7 +140,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -155,7 +153,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK17-Spring-Boot-3-4-0-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91"><span class="nav-number">1.</span> <span class="nav-text">JDK17 + Spring Boot 3.4.0 项目开发中的那些坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%9B%86%E6%88%90-MyBatis-Plus-3-5-9-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">一、集成 MyBatis Plus 3.5.9 的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%BE%9D%E8%B5%96%E5%BC%95%E5%85%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 依赖引入问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%89%88%E6%9C%AC%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 版本统一管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%9B%86%E6%88%90-Knife4j-OpenApi3"><span class="nav-number">1.2.</span> <span class="nav-text">二、集成 Knife4j-OpenApi3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BE%9D%E8%B5%96%E5%BC%95%E5%85%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 依赖引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%86%99%E6%B3%95%E5%8F%98%E5%8A%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 实体类写法变动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%86%99%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 接口类写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8E%A5%E5%8F%A3%E5%86%99%E6%B3%95%E5%8F%98%E5%8A%A8"><span class="nav-number">1.3.</span> <span class="nav-text">三、接口写法变动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 解决方案</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -198,17 +195,16 @@
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner index posts-expand">
 
-
-  
+    
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -222,13 +218,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="spring 3.4的改变，依赖冲突 | Choi每天进步一点点">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          spring 3.4的改变，依赖冲突
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" class="post-title-link" itemprop="url">spring 3.4的改变，依赖冲突</a>
+        </h2>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -251,7 +247,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：</p>
+    <div class="post-body" itemprop="articleBody">
+          <p>以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：</p>
 <hr>
 <h1 id="JDK17-Spring-Boot-3-4-0-项目开发中的那些坑"><a href="#JDK17-Spring-Boot-3-4-0-项目开发中的那些坑" class="headerlink" title="JDK17 + Spring Boot 3.4.0 项目开发中的那些坑"></a>JDK17 + Spring Boot 3.4.0 项目开发中的那些坑</h1><h2 id="一、集成-MyBatis-Plus-3-5-9-的问题"><a href="#一、集成-MyBatis-Plus-3-5-9-的问题" class="headerlink" title="一、集成 MyBatis Plus 3.5.9 的问题"></a>一、集成 MyBatis Plus 3.5.9 的问题</h2><h3 id="1-1-依赖引入问题"><a href="#1-1-依赖引入问题" class="headerlink" title="1.1 依赖引入问题"></a>1.1 依赖引入问题</h3><p>不能只引入 <code>mybatis-plus-spring-boot3-starter</code> 依赖了，还需要配合 <code>mybatis-plus-jsqlparser</code>。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-spring-boot3-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-jsqlparser<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -278,6 +275,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;查询数据明细&quot;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result&lt;OaRoleVO&gt; <span class="title function_">detail</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Result.ok(oaRoleAppService.detail(id));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+      
     </div>
 
     
@@ -285,38 +283,8 @@
     
 
     <footer class="post-footer">
-          
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>choi
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" title="spring 3.4的改变，依赖冲突">https://choi857.github.io/2024/05/02/spring-3-4的改变，依赖冲突/</a>
-  </li>
-  <li class="post-copyright-license">
-      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/" rel="prev" title="spring再次踩坑之前的依赖问题">
-                  <i class="fa fa-angle-left"></i> spring再次踩坑之前的依赖问题
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2024/05/16/mysql%E5%B7%A6%E5%8F%B3%E8%BF%9E%E6%8E%A5%E8%B8%A9%E5%9D%91/" rel="next" title="mysql左右连接踩坑">
-                  mysql左右连接踩坑 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
+        <div class="post-eof"></div>
+      
     </footer>
   </article>
 </div>
@@ -324,7 +292,225 @@
 
 
 
+    
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">spring再次踩坑之前的依赖问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-16 16:53:49" itemprop="dateCreated datePublished" datetime="2024-04-16T16:53:49+08:00">2024-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-25 22:35:11" itemprop="dateModified" datetime="2024-07-25T22:35:11+08:00">2024-07-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Spring-Boot-和-MySQL-相关"><a href="#Spring-Boot-和-MySQL-相关" class="headerlink" title="Spring Boot 和 MySQL 相关"></a>Spring Boot 和 MySQL 相关</h1><p>在使用 Spring Boot 和 MySQL 等技术开发项目时，又又遇到了依赖问题。</p>
+<h2 id="1-Spring-Boot-Starter-Web-的作用"><a href="#1-Spring-Boot-Starter-Web-的作用" class="headerlink" title="1. Spring Boot Starter Web 的作用"></a>1. Spring Boot Starter Web 的作用</h2><p>在使用 IDEA 创建 Spring Boot 项目时，<code>spring-boot-starter-web</code> 依赖会被自动添加。咋会这样呢？今天，让我们一探究竟。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-1-加或不加-Spring-Boot-Starter-Web-的区别"><a href="#1-1-加或不加-Spring-Boot-Starter-Web-的区别" class="headerlink" title="1.1 加或不加 Spring Boot Starter Web 的区别"></a>1.1 加或不加 Spring Boot Starter Web 的区别</h3><p>答案是肯定的，有区别！在 Spring Boot 出现之前，开发 Web 项目需要大量的 XML 配置，手动导入依赖，配置 <code>web.xml</code> 来拦截请求，还需要在外部配置 Tomcat 容器，每次启动项目都要执行 <code>tomcat:run</code>，才能访问项目资源。</p>
+<p>而 Spring Boot 的出现极大地简化了这一切。它支持容器的自动配置，默认使用 Tomcat 容器。如果没有添加 <code>spring-boot-starter-web</code> 依赖，项目将无法启动，因为 Spring Boot 项目需要在容器中运行。这个依赖已经为我们配置好了 Tomcat 容器，无需再手动配置。</p>
+<h3 id="1-2-如何排除-Spring-Boot-Starter-Web-依赖中的-Tomcat，添加其他容器"><a href="#1-2-如何排除-Spring-Boot-Starter-Web-依赖中的-Tomcat，添加其他容器" class="headerlink" title="1.2 如何排除 Spring Boot Starter Web 依赖中的 Tomcat，添加其他容器"></a>1.2 如何排除 Spring Boot Starter Web 依赖中的 Tomcat，添加其他容器</h3><p>有时，我们可能需要使用其他容器，如 Jetty。可以通过排除默认的 Tomcat 容器并添加新的容器依赖来实现。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-MySQL-驱动的区别"><a href="#2-MySQL-驱动的区别" class="headerlink" title="2. MySQL 驱动的区别"></a>2. MySQL 驱动的区别</h2><p>在连接 MySQL 数据库时，我们经常使用 <code>com.mysql.jdbc.Driver</code> 和 <code>com.mysql.cj.jdbc.Driver</code>。它们有什么区别呢？</p>
+<h3 id="2-1-JDBC-连接-MySQL-5-需用-com-mysql-jdbc-Driver"><a href="#2-1-JDBC-连接-MySQL-5-需用-com-mysql-jdbc-Driver" class="headerlink" title="2.1 JDBC 连接 MySQL 5 需用 com.mysql.jdbc.Driver"></a>2.1 JDBC 连接 MySQL 5 需用 <code>com.mysql.jdbc.Driver</code></h3><p>对于 MySQL 5，使用以下配置即可：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-JDBC-连接-MySQL-6-需用-com-mysql-cj-jdbc-Driver，同时需要指定时区-serverTimezone"><a href="#2-2-JDBC-连接-MySQL-6-需用-com-mysql-cj-jdbc-Driver，同时需要指定时区-serverTimezone" class="headerlink" title="2.2 JDBC 连接 MySQL 6 需用 com.mysql.cj.jdbc.Driver，同时需要指定时区 serverTimezone"></a>2.2 JDBC 连接 MySQL 6 需用 <code>com.mysql.cj.jdbc.Driver</code>，同时需要指定时区 <code>serverTimezone</code></h3><p>对于 MySQL 6，需要指定时区 <code>serverTimezone</code>，并且驱动类名也有所不同：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/test?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-设定时区时，serverTimezone-UTC-比中国时间早-8-个小时，若在中国，可设置-serverTimezone-Shanghai-或者-serverTimezone-Hongkong"><a href="#2-3-设定时区时，serverTimezone-UTC-比中国时间早-8-个小时，若在中国，可设置-serverTimezone-Shanghai-或者-serverTimezone-Hongkong" class="headerlink" title="2.3 设定时区时，serverTimezone=UTC 比中国时间早 8 个小时，若在中国，可设置 serverTimezone=Shanghai 或者 serverTimezone=Hongkong"></a>2.3 设定时区时，<code>serverTimezone=UTC</code> 比中国时间早 8 个小时，若在中国，可设置 <code>serverTimezone=Shanghai</code> 或者 <code>serverTimezone=Hongkong</code></h3><p>在中国，建议设置为 <code>Shanghai</code> 或 <code>Hongkong</code>：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/test?serverTimezone=Shanghai&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-总结"><a href="#2-4-总结" class="headerlink" title="2.4 总结"></a>2.4 总结</h3><p>如果使用 <code>mysql-connector-java</code> 6.0 以上版本，依赖如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.0.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时，必须使用 <code>com.mysql.cj.jdbc.Driver</code>，否则会报错。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">MySQL 索引</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-04 09:08:44 / 修改时间：12:29:28" itemprop="dateCreated datePublished" datetime="2024-04-04T09:08:44+08:00">2024-04-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。</p>
+<p>简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。</p>
+<p>索引就像字典上的目录，能够帮助我们快速定位到需要的信息。</p>
+<h2 id="索引的重要性"><a href="#索引的重要性" class="headerlink" title="索引的重要性"></a>索引的重要性</h2><p>如果查询的数据表没有索引，SQL 语句将从第一条记录开始逐条匹配判断，直到找到匹配项。而数据库查询数据是从磁盘进行的，每一次匹配都是一次 IO 流操作，这样的查询方式称为全表扫描，性能极低。</p>
+<h2 id="MySQL-索引的最左前缀匹配原则"><a href="#MySQL-索引的最左前缀匹配原则" class="headerlink" title="MySQL 索引的最左前缀匹配原则"></a>MySQL 索引的最左前缀匹配原则</h2><p>在复合索引中，查询条件必须从索引的最左边的列开始匹配，才能有效利用索引。换句话说，只有当查询条件包含了索引列的最左前缀时，MySQL 才能利用该复合索引进行优化查询。</p>
+<h3 id="复合索引的结构"><a href="#复合索引的结构" class="headerlink" title="复合索引的结构"></a>复合索引的结构</h3><p>假设有一个复合索引 <code>(column1, column2, column3)</code>，以下查询条件可以利用该索引：</p>
+<ul>
+<li><code>WHERE column1 = ?</code></li>
+<li><code>WHERE column1 = ? AND column2 = ?</code></li>
+<li><code>WHERE column1 = ? AND column2 = ? AND column3 = ?</code></li>
+</ul>
+<p>但是，以下查询条件不能有效利用该复合索引：</p>
+<ul>
+<li><code>WHERE column2 = ?</code>（没有包含最左列 <code>column1</code>）</li>
+<li><code>WHERE column3 = ?</code>（没有包含最左列 <code>column1</code> 和 <code>column2</code>）</li>
+<li><code>WHERE column2 = ? AND column3 = ?</code>（没有包含最左列 <code>column1</code>）</li>
+</ul>
+<h2 id="什么情况下需要建立索引"><a href="#什么情况下需要建立索引" class="headerlink" title="什么情况下需要建立索引"></a>什么情况下需要建立索引</h2><ol>
+<li>主键会自动创建唯一索引。</li>
+<li>频繁作为查询条件的字段。</li>
+<li>查询中用于排序、统计或分组的字段。</li>
+</ol>
+<h2 id="聚簇索引与非聚簇索引的区别"><a href="#聚簇索引与非聚簇索引的区别" class="headerlink" title="聚簇索引与非聚簇索引的区别"></a>聚簇索引与非聚簇索引的区别</h2><p>聚簇索引和非聚簇索引都基于 B+ 树数据结构。</p>
+<ul>
+<li><strong>聚簇索引</strong>：将数据存储与索引放在一起，并按一定顺序组织。找到索引即找到数据。</li>
+<li><strong>非聚簇索引</strong>：叶子节点不存储数据，而是存储数据行的地址。根据索引查找数据行的位置后再读取磁盘查找数据。类似于书籍的目录，需先查找目录获取页码，再跳转到对应页面查看内容。</li>
+</ul>
+<h2 id="MySQL-索引失效的情况"><a href="#MySQL-索引失效的情况" class="headerlink" title="MySQL 索引失效的情况"></a>MySQL 索引失效的情况</h2><ol>
+<li><strong>不遵循最左前缀法则</strong>：使用联合索引时，未遵循最左前缀法则，索引可能失效。</li>
+<li><strong>主键插入顺序问题</strong>：插入数据的顺序与主键索引顺序不一致可能导致索引失效。</li>
+<li><strong>计算、函数或类型转换</strong>：对索引列进行计算、使用函数或进行类型转换可能导致索引失效。</li>
+<li><strong>范围查询右边的列索引失效</strong>：范围查询时，右边的列索引可能不生效。</li>
+<li><strong>使用不等于操作符</strong>：使用 <code>!=</code> 或 <code>&lt;&gt;</code> 操作符可能导致索引失效。</li>
+<li><strong>使用 <code>IS NOT NULL</code></strong>：<code>IS NOT NULL</code> 可能无法使用索引。</li>
+<li><strong>LIKE 查询以通配符开头</strong>：LIKE 查询以 <code>%</code> 开头可能导致索引失效。</li>
+<li><strong>OR 语句中存在非索引列</strong>：OR 前后存在非索引列时，索引可能失效。</li>
+<li><strong>字符集不统一</strong>：数据库和表字符集不统一（如未使用 utf8mb4）可能导致索引失效。</li>
+<li><strong>隐式类型转换</strong>：字符串与数字比较时，MySQL 自动转换类型可能导致索引失效。</li>
+<li><strong>联合索引非最左匹配</strong>：查询条件不符合联合索引的最左匹配原则，索引可能失效。</li>
+<li><strong>索引列上有计算</strong>：对索引列进行计算（如 <code>id + 1 = 2</code>）会导致索引失效。</li>
+<li><strong>索引列使用了函数</strong>：对索引列使用函数（如 <code>SUBSTR(id_no, 1, 3)</code>）会导致索引失效。</li>
+</ol>
+<h2 id="MySQL-事务基本要素（ACID-特性）"><a href="#MySQL-事务基本要素（ACID-特性）" class="headerlink" title="MySQL 事务基本要素（ACID 特性）"></a>MySQL 事务基本要素（ACID 特性）</h2><p>事务是数据库操作的一个单元，可以包含一个或多个数据库操作（如插入、更新、删除）。</p>
+<ol>
+<li><strong>原子性（Atomicity）</strong>：事务的所有操作要么全部完成，要么全部不完成。事务执行过程中出错会回滚到开始前的状态，所有操作就像未发生一样。事务是不可分割的整体，如同原子是物质的基本单位。</li>
+<li><strong>一致性（Consistency）</strong>：事务开始前和结束后，数据库的完整性约束未被破坏。例如，A 向 B 转账时，不可能出现 A 被扣款而 B 未收款的情况。</li>
+<li><strong>隔离性（Isolation）</strong>：同一时间只允许一个事务请求同一数据，不同事务之间互不干扰。例如，A 正在从银行卡取钱时，B 不能同时向该卡转账。</li>
+<li><strong>持久性（Durability）</strong>：事务完成后，对数据库的所有更新将被永久保存，无法回滚。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 </div>
   </main>

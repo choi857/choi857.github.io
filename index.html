@@ -165,9 +165,19 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -186,6 +196,175 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/" class="post-title-link" itemprop="url">Kafka初解</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-08-08 22:46:22" itemprop="dateCreated datePublished" datetime="2024-08-08T22:46:22+08:00">2024-08-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-08-09 23:50:03" itemprop="dateModified" datetime="2024-08-09T23:50:03+08:00">2024-08-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Kafka-作为一个分布式的流平台"><a href="#Kafka-作为一个分布式的流平台" class="headerlink" title="Kafka 作为一个分布式的流平台"></a>Kafka 作为一个分布式的流平台</h3><p>Kafka 作为一个分布式的流平台，具有以下三个关键能力：</p>
+<ol>
+<li><strong>发布和订阅消息（流）</strong>：在这方面，它类似于一个消息队列。</li>
+<li><strong>以容错（故障转移）的方式存储消息（流）</strong>。</li>
+<li><strong>在消息流发生时处理它们</strong>。</li>
+</ol>
+<p>所有这些功能都是以分布式、高度可扩展、弹性、容错和安全的方式提供的。Kafka 可以部署在裸机硬件、虚拟机和容器上，也可以部署在本地和云端。您可以选择自行管理 Kafka 环境，也可以选择使用各种供应商提供的完全托管服务。</p>
+<h3 id="Kafka-的优势："><a href="#Kafka-的优势：" class="headerlink" title="Kafka 的优势："></a>Kafka 的优势：</h3><p>Kafka 主要应用于以下两大类应用：</p>
+<ol>
+<li><strong>构建实时的流数据管道</strong>：可靠地获取系统和应用程序之间的数据。</li>
+<li><strong>构建实时流的应用程序</strong>：对数据流进行转换或反应。</li>
+</ol>
+<p>要了解 Kafka 是如何实现这些功能的，让我们从下到上深入探讨 Kafka 的能力。</p>
+<h3 id="Kafka-的基本概念"><a href="#Kafka-的基本概念" class="headerlink" title="Kafka 的基本概念"></a>Kafka 的基本概念</h3><h4 id="Kafka-集群"><a href="#Kafka-集群" class="headerlink" title="Kafka 集群"></a>Kafka 集群</h4><p>Kafka 作为一个集群运行在一个或多个服务器上。每个服务器称为一个 <strong>Broker</strong>，一个或多个 Broker 可以组成一个 Kafka 集群。</p>
+<h4 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h4><p>Kafka 集群存储的消息是以 <strong>Topic</strong> 为类别记录的。每个消息（也叫记录，record）由一个 <strong>key</strong>、一个 <strong>value</strong> 和一个 <strong>时间戳</strong> 构成。</p>
+<h4 id="Kafka-的五个核心-API"><a href="#Kafka-的五个核心-API" class="headerlink" title="Kafka 的五个核心 API"></a>Kafka 的五个核心 API</h4><ol>
+<li><strong>管理 API</strong>：用于管理和检查主题、代理和其他 Kafka 对象。</li>
+<li><strong>Producer API</strong>：用于将事件流发布（写入）到一个或多个 Kafka 主题。</li>
+<li><strong>Consumer API</strong>：用于订阅（读取）一个或多个主题并处理为其生成的事件流。</li>
+<li><strong>Kafka Streams API</strong>：用于实现流处理应用程序和微服务。它提供了更高级别的函数来处理事件流，包括转换、有状态操作（例如聚合和连接）、窗口、基于事件时间的处理等。从一个或多个主题读取输入，以便生成一个或多个主题的输出，从而有效地将输入流转换为输出流。</li>
+<li><strong>Kafka Connect API</strong>：用于构建和运行可重用的数据导入&#x2F;导出连接器，这些连接器消耗（读取）或生成（写入）来自外部系统和应用程序的事件流，以便它们可以与 Kafka 集成。例如，关系数据库（如 PostgreSQL）的连接器可能会捕获对一组表的每个更改。然而，在实践中，您通常不需要实现自己的连接器，因为 Kafka 社区已经提供了数百个现成的连接器。</li>
+</ol>
+<h3 id="Kafka-的基本术语"><a href="#Kafka-的基本术语" class="headerlink" title="Kafka 的基本术语"></a>Kafka 的基本术语</h3><p>Kafka 是一个分布式的、分区的消息（官方称之为 <strong>commit log</strong>）服务。它提供一个消息系统应该具备的功能，但有着独特的设计。Kafka 借鉴了 JMS 规范的思想，但并没有完全遵循 JMS 规范。以下是一些基础的消息相关术语：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Broker</td>
+<td>一个 Kafka 节点就是一个 Broker，一个或多个 Broker 可以组成一个 Kafka 集群。消费者可以订阅一个或多个主题（topic），并从 Broker 拉数据，从而消费这些已发布的消息。</td>
+</tr>
+<tr>
+<td>Topic</td>
+<td>Kafka 根据 topic 对消息进行归类，发布到 Kafka 集群的每条消息都需要指定一个 topic。</td>
+</tr>
+<tr>
+<td>Producer</td>
+<td>消息生产者，向 Broker 发送消息的客户端。</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td>消息消费者，从 Broker 读取消息的客户端。</td>
+</tr>
+<tr>
+<td>ConsumerGroup</td>
+<td>每个 Consumer 属于一个特定的 Consumer Group，一条消息可以被多个不同的 Consumer Group 消费，但一个 Consumer Group 中只能有一个 Consumer 能够消费该消息。</td>
+</tr>
+<tr>
+<td>Partition</td>
+<td>物理上的概念，一个 topic 可以分为多个 partition，每个 partition 内部消息是有序的。每个分区的数据是不同的，分区有主从备份的，主负责读写，从仅负责备份。消息生产者在发送消息到 Kafka Topic 时，会根据分区策略将消息分配到不同的 Partition 中。</td>
+</tr>
+</tbody></table>
+<p><img src="/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/image-1.png" alt="image-1"></p>
+<h3 id="主题和日志（Topic-和-Log）"><a href="#主题和日志（Topic-和-Log）" class="headerlink" title="主题和日志（Topic 和 Log）"></a>主题和日志（Topic 和 Log）</h3><p>让我们更深入地了解 Kafka 中的 Topic。</p>
+<p><strong>Topic</strong> 是发布的消息的类别名，一个 topic 可以有零个、一个或多个消费者订阅该主题的消息。</p>
+<p>对于每个 topic，Kafka 集群都会维护一个分区 log，如下图所示：</p>
+<p><img src="/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/image-2.png" alt="image-2"></p>
+<p>每一个分区都是一个顺序的、不可变的消息队列，并且可以持续地添加。分区中的消息都被分配了一个序列号，称之为 <strong>偏移量（offset）</strong>，在每个分区中此偏移量都是唯一的。</p>
+<p>每个 partition 都对应一个 commit log 文件。一个 partition 中的 message 的 offset 都是唯一的，但不同 partition 中的 message 的 offset 可能是相同的。</p>
+<p>Kafka 集群保持所有的消息，直到它们过期（无论消息是否被消费），只会根据配置的日志保留时间（<code>log.retention.hours</code>）确认消息多久被删除，默认保留最近一周的日志消息。Kafka 的性能与保留的消息数据量大小没有关系，因此保存大量的数据消息日志信息不会有什么影响。</p>
+<p>实际上，消费者所持有的唯一元数据就是这个 <strong>offset（偏移量）</strong>，也就是说 offset 由消费者来控制。正常情况下，当消费者消费消息时，偏移量也会线性增加。但实际偏移量由消费者控制，消费者可以将偏移量重置为更早的位置，重新读取消息。这种设计对消费者来说操作自如，一个消费者的操作不会影响其他消费者对 log 的处理。</p>
+<p>每个 consumer 是基于自己在 commit log 中的消费进度（offset）来进行工作的。在 Kafka 中，消费 offset 由 consumer 自己来维护。一般情况下，我们按照顺序逐条消费 commit log 中的消息，当然也可以通过指定 offset 来重复消费某些消息，或者跳过某些消息。</p>
+<p>这意味着 Kafka 中的 consumer 对集群的影响是非常小的。添加一个或减少一个 consumer，对于集群或其他 consumer 来说，都是没有影响的，因为每个 consumer 维护各自的消费 offset。</p>
+<p><img src="/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/image-3.png" alt="image-3"></p>
+<h3 id="分区（Partition）"><a href="#分区（Partition）" class="headerlink" title="分区（Partition）"></a>分区（Partition）</h3><p>Kafka 中采用分区的设计有几个目的：</p>
+<ol>
+<li><strong>处理更多的消息</strong>：不受单台服务器的限制。Topic 拥有多个分区意味着它可以不受限地处理更多的数据。</li>
+<li><strong>分区可以作为并行处理的单元</strong>：稍后会谈到这一点。</li>
+</ol>
+<p>可以这样理解 <strong>Topic</strong>、<strong>Partition</strong> 和 <strong>Broker</strong>：</p>
+<p>一个 <strong>topic</strong>，代表逻辑上的一个业务数据集，比如按数据库里不同表的数据操作消息区分放入不同 topic，订单相关操作消息放入订单 topic，用户相关操作消息放入用户 topic。对于大型网站来说，后端数据都是海量的，订单消息很可能是非常巨量的，比如有几百个 G 甚至达到 TB 级别。如果把这么多数据都放在一台机器上，肯定会有容量限制问题。那么就可以在 topic 内部划分多个 partition 来分片存储数据，不同的 partition 可以位于不同的机器上，每台机器上都运行一个 Kafka 的进程 <strong>Broker</strong>。</p>
+<h3 id="分布式（Distribution）"><a href="#分布式（Distribution）" class="headerlink" title="分布式（Distribution）"></a>分布式（Distribution）</h3><p>Log 的分区被分布到集群中的多个服务器上。每个服务器处理它分到的分区。根据配置，每个分区还可以复制到其他服务器作为备份容错。每个分区有一个 <strong>leader</strong>，零或多个 <strong>follower</strong>。Leader 处理此分区的所有读写请求，而 follower 被动地复制数据。如果 leader 宕机，其中一个 follower 会被推举为新的 leader。一台服务器可能同时是一个分区的 leader，另一个分区的 follower。这样可以平衡负载，避免所有的请求都只让一台或者某几台服务器处理。</p>
+<h3 id="生产者（Producers）"><a href="#生产者（Producers）" class="headerlink" title="生产者（Producers）"></a>生产者（Producers）</h3><p>生产者往某个 Topic 上发布消息。生产者也负责选择发布到 Topic 上的哪一个分区。最简单的方式是从分区列表中轮流选择。也可以根据某种算法依照权重选择分区。开发者负责如何选择分区的算法。</p>
+<h3 id="消费者（Consumers）"><a href="#消费者（Consumers）" class="headerlink" title="消费者（Consumers）"></a>消费者（Consumers）</h3><p>传统的消息传递模式有 2 种：</p>
+<ol>
+<li><strong>Queue 模式</strong>：多个 consumer 从服务器中读取数据，消息只会到达一个 consumer。</li>
+<li><strong>Publish-Subscribe 模式</strong>：消息会被广播给所有的 consumer。</li>
+</ol>
+<p>Kafka 基于这两种模式提供了一种 consumer 的抽象概念：<strong>Consumer Group</strong>。</p>
+<ul>
+<li><strong>Queue 模式</strong>：所有的 consumer 都位于同一个 consumer group 下。</li>
+<li><strong>Publish-Subscribe 模式</strong>：所有的 consumer 都有着自己唯一的 consumer group。</li>
+</ul>
+<p><img src="/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/image-4.png" alt="image-4"></p>
+<p>以下是一个示例：</p>
+<p>2 个 Kafka 集群托管 4 个分区（P0-P3），2 个消费者组，消费组 A 有 2 个消费者实例，消费组 B 有 4 个。</p>
+<p><img src="/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/image-2.png" alt="image-2"></p>
+<p>这个集群由 2 个 Consumer Group 消费，A 有 2 个 consumer instances，B 有 4 个。</p>
+<p>通常一个 topic 会有几个 consumer group，每个 consumer group 都是一个逻辑上的订阅者（logical subscriber）。每个 consumer group 由多个 consumer instance 组成，从而达到可扩展和容灾的功能。</p>
+<p>正如传统的消息系统一样，Kafka 保证消息的顺序不变。传统的队列模型保持消息，并且保证它们的先后顺序不变。但是，尽管服务器保证了消息的顺序，消息还是异步地发送给各个消费者，消费者收到消息的先后顺序不能保证。这也意味着并行消费将不能保证消息的先后顺序。用过传统的消息系统的同学肯定清楚，消息的顺序处理很让人头痛。如果只让一个消费者处理消息，又违背了并行处理的初衷。</p>
+<p>在这一点上，Kafka 做得更好，尽管并没有完全解决上述问题。Kafka 采用了一种分而治之的策略：分区。因为 Topic 分区中消息只能由消费者组中的唯一一个消费者处理，所以消息肯定是按照先后顺序进行处理的。但是它也仅仅是保证 Topic 的一个分区顺序处理，不能保证跨分区的消息先后处理顺序。所以，如果你想要顺序地处理 Topic 的所有消息，那就只提供一个分区。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -318,6 +497,327 @@
 <li>默认的消息封装类为 <code>SimpleMessageConverter</code>，只支持分发 byte 数组、字符串和可序列化的对象；不满足上面三个条件的方法调用会抛异常。</li>
 <li>我们可以通过实现 <code>MessageConverter</code> 接口，来定义自己的消息封装类，解决上面的问题。</li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/07/07/Spring-Boot-RabbitMQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/07/Spring-Boot-RabbitMQ/" class="post-title-link" itemprop="url">Spring Boot+RabbitMQ</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-07-07 16:53:31 / 修改时间：19:50:03" itemprop="dateCreated datePublished" datetime="2024-07-07T16:53:31+08:00">2024-07-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Spring-Boot-集成-RabbitMQ"><a href="#Spring-Boot-集成-RabbitMQ" class="headerlink" title="Spring Boot 集成 RabbitMQ"></a>Spring Boot 集成 RabbitMQ</h3><p>门店信息同步需要用到消息队列，最近在学习RabbitMQ和Kafka。Spring Boot 集成 RabbitMQ 也是比较方便，通过 <code>spring-boot-starter-amqp</code> 提供了对 RabbitMQ 的全面支持。</p>
+<h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><h5 id="1-配置-pom-xml"><a href="#1-配置-pom-xml" class="headerlink" title="1. 配置 pom.xml"></a>1. 配置 <code>pom.xml</code></h5><p>首先，需要在项目的 <code>pom.xml</code> 文件中添加 <code>spring-boot-starter-amqp</code> 的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h5><p>在 <code>application.properties</code> 或 <code>application.yml</code> 文件中配置 RabbitMQ 的连接信息：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RabbitMQ 配置</span></span><br><span class="line"><span class="attr">spring.rabbitmq.host</span>=<span class="string">localhost</span></span><br><span class="line"><span class="attr">spring.rabbitmq.port</span>=<span class="string">5672</span></span><br><span class="line"><span class="attr">spring.rabbitmq.username</span>=<span class="string">admin</span></span><br><span class="line"><span class="attr">spring.rabbitmq.password</span>=<span class="string">123456</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-队列配置"><a href="#3-队列配置" class="headerlink" title="3. 队列配置"></a>3. 队列配置</h5><p>创建一个配置类来定义队列：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RabbitConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">helloQueue</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-发送者"><a href="#4-发送者" class="headerlink" title="4. 发送者"></a>4. 发送者</h5><p>创建一个发送者类，使用 <code>RabbitTemplate</code> 发送消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloSender</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AmqpTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">send</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">context</span> <span class="operator">=</span> <span class="string">&quot;hello &quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;Sender : &quot;</span> + context);</span><br><span class="line">        <span class="built_in">this</span>.rabbitTemplate.convertAndSend(<span class="string">&quot;hello&quot;</span>, context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-接收者"><a href="#5-接收者" class="headerlink" title="5. 接收者"></a>5. 接收者</h5><p>创建一个接收者类，使用 <code>@RabbitListener</code> 和 <code>@RabbitHandler</code> 注解来接收消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RabbitListener(queues = &quot;hello&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloReceiver</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RabbitHandler</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(String hello)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Receiver  : &quot;</span> + hello);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-测试"><a href="#6-测试" class="headerlink" title="6. 测试"></a>6. 测试</h5><p>创建一个测试类来测试消息发送和接收：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RabbitMqHelloTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HelloSender helloSender;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">hello</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        helloSender.send();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> 发送者和接收者的队列名称必须一致，否则接收者无法接收到消息。</p>
+<h4 id="高级使用"><a href="#高级使用" class="headerlink" title="高级使用"></a>高级使用</h4><h5 id="对象的支持"><a href="#对象的支持" class="headerlink" title="对象的支持"></a>对象的支持</h5><p>Spring Boot 支持对象的发送和接收，无需额外配置。以下是一个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送者</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">send</span><span class="params">(User user)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Sender object: &quot;</span> + user.toString());</span><br><span class="line">    <span class="built_in">this</span>.rabbitTemplate.convertAndSend(<span class="string">&quot;object&quot;</span>, user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接收者</span></span><br><span class="line"><span class="meta">@RabbitHandler</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(User user)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Receiver object : &quot;</span> + user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sender object: User&#123;name=&#x27;neo&#x27;, pass=&#x27;123456&#x27;&#125;</span><br><span class="line">Receiver object : User&#123;name=&#x27;neo&#x27;, pass=&#x27;123456&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Topic-Exchange"><a href="#Topic-Exchange" class="headerlink" title="Topic Exchange"></a>Topic Exchange</h5><p>Topic 是 RabbitMQ 中最灵活的一种方式，可以根据 <code>routing_key</code> 自由地绑定不同的队列。以下是一个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TopicRabbitConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">TOPIC_ONE</span> <span class="operator">=</span> <span class="string">&quot;topic.one&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">TOPIC_TWO</span> <span class="operator">=</span> <span class="string">&quot;topic.two&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">TOPIC_EXCHANGE</span> <span class="operator">=</span> <span class="string">&quot;topicExchange&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">queue_one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(TOPIC_ONE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">queue_two</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(TOPIC_TWO);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    TopicExchange <span class="title function_">exchange</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TopicExchange</span>(TOPIC_EXCHANGE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    Binding <span class="title function_">bindingExchangeOne</span><span class="params">(Queue queue_one, TopicExchange exchange)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(queue_one).to(exchange).with(<span class="string">&quot;topic.one&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    Binding <span class="title function_">bindingExchangeTwo</span><span class="params">(Queue queue_two, TopicExchange exchange)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(queue_two).to(exchange).with(<span class="string">&quot;topic.#&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TopicSender</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AmqpTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">send_one</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">context</span> <span class="operator">=</span> <span class="string">&quot;Hi, I am message one&quot;</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;Sender : &quot;</span> + context);</span><br><span class="line">        <span class="built_in">this</span>.rabbitTemplate.convertAndSend(TopicRabbitConfig.TOPIC_EXCHANGE, <span class="string">&quot;topic.one&quot;</span>, context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">send_two</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">context</span> <span class="operator">=</span> <span class="string">&quot;Hi, I am message two&quot;</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;Sender : &quot;</span> + context);</span><br><span class="line">        <span class="built_in">this</span>.rabbitTemplate.convertAndSend(TopicRabbitConfig.TOPIC_EXCHANGE, <span class="string">&quot;topic.two&quot;</span>, context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果：</strong></p>
+<ul>
+<li>发送 <code>send_one</code> 时，<code>topic.one</code> 和 <code>topic.two</code> 队列都能接收到消息。</li>
+<li>发送 <code>send_two</code> 时，只有 <code>topic.two</code> 队列能接收到消息。</li>
+</ul>
+<h5 id="Fanout-Exchange"><a href="#Fanout-Exchange" class="headerlink" title="Fanout Exchange"></a>Fanout Exchange</h5><p>Fanout 是一种广播模式，所有绑定到 Fanout 交换机的队列都能接收到消息。以下是一个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FanoutRabbitConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">AMessage</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;fanout.A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">BMessage</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;fanout.B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">CMessage</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;fanout.C&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    FanoutExchange <span class="title function_">fanoutExchange</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FanoutExchange</span>(<span class="string">&quot;fanoutExchange&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    Binding <span class="title function_">bindingExchangeA</span><span class="params">(Queue AMessage, FanoutExchange fanoutExchange)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(AMessage).to(fanoutExchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    Binding <span class="title function_">bindingExchangeB</span><span class="params">(Queue BMessage, FanoutExchange fanoutExchange)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(BMessage).to(fanoutExchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    Binding <span class="title function_">bindingExchangeC</span><span class="params">(Queue CMessage, FanoutExchange fanoutExchange)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(CMessage).to(fanoutExchange);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">send</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">context</span> <span class="operator">=</span> <span class="string">&quot;hi, fanout msg &quot;</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;Sender : &quot;</span> + context);</span><br><span class="line">    <span class="built_in">this</span>.rabbitTemplate.convertAndSend(<span class="string">&quot;fanoutExchange&quot;</span>, <span class="string">&quot;&quot;</span>, context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sender : hi, fanout msg </span><br><span class="line">...</span><br><span class="line">fanout Receiver B: hi, fanout msg </span><br><span class="line">fanout Receiver A  : hi, fanout msg </span><br><span class="line">fanout Receiver C: hi, fanout msg</span><br></pre></td></tr></table></figure>
+
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><ol>
+<li><p><strong>新建用户权限问题</strong></p>
+<ul>
+<li>新建用户时，必须给该用户设置 <code>vhost</code> 的访问权限。可以通过命令行或管理界面设置，推荐使用命令行。</li>
+<li>命令行：<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p / your_user <span class="string">&quot;.*&quot;</span> <span class="string">&quot;.*&quot;</span> <span class="string">&quot;.*&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>对象传输问题</strong></p>
+<ul>
+<li>使用对象传输时，对象必须实现 <code>Serializable</code> 接口，否则无法传输。</li>
+</ul>
+</li>
+<li><p><strong>队列处理问题</strong></p>
+<ul>
+<li>如果任何一个队列中出现了不能处理的消息，整个 <code>vhost</code> 就会不可用。建议将不同的队列和交换机放在不同的 <code>vhost</code> 下，以避免互相干扰。</li>
+</ul>
+</li>
+</ol>
+<h4 id="详细的可以参考社区大佬的详细教程：https-cloud-tencent-com-developer-article-1775294"><a href="#详细的可以参考社区大佬的详细教程：https-cloud-tencent-com-developer-article-1775294" class="headerlink" title="详细的可以参考社区大佬的详细教程：https://cloud.tencent.com/developer/article/1775294"></a>详细的可以参考社区大佬的详细教程：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1775294">https://cloud.tencent.com/developer/article/1775294</a></h4>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/06/23/CollectionUtils%E7%B1%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/23/CollectionUtils%E7%B1%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">CollectionUtils类操作集合</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-23 22:34:41 / 修改时间：23:50:03" itemprop="dateCreated datePublished" datetime="2024-06-23T22:34:41+08:00">2024-06-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">提升效率的轮子</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。"><a href="#对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。" class="headerlink" title="对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。"></a>对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。</h2><p>目前比较主流的是spring的org.springframework.util包下的CollectionUtils工具类。很多大佬更推荐使用apache的包下的CollectionUtils工具类。</p>
+<p>比如spring的CollectionUtils工具类没有判断集合不为空的方法。而apache的CollectionUtils工具类却有。</p>
+<h3 id="apache的CollectionUtils工具类为例，介绍一下常用方法。"><a href="#apache的CollectionUtils工具类为例，介绍一下常用方法。" class="headerlink" title="apache的CollectionUtils工具类为例，介绍一下常用方法。"></a>apache的CollectionUtils工具类为例，介绍一下常用方法。</h3><p>1.1 集合判空<br>通过CollectionUtils工具类的isEmpty方法可以轻松判断集合是否为空，isNotEmpty方法判断集合不为空。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (CollectionUtils.isEmpty(list)) &#123;</span><br><span class="line">System.out.println(<span class="string">&quot;集合为空&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (CollectionUtils.isNotEmpty(list)) &#123;</span><br><span class="line">System.out.println(<span class="string">&quot;集合不为空&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.2 对两个集合进行操作<br>有时候我们需要对已有的两个集合进行操作，比如取交集或者并集等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; list2 = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list2.add(<span class="number">2</span>);</span><br><span class="line">list2.add(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取并集</span></span><br><span class="line">Collection&lt;Integer&gt; unionList = CollectionUtils.union(list, list2);</span><br><span class="line">System.out.println(unionList);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取交集</span></span><br><span class="line">Collection&lt;Integer&gt; intersectionList = CollectionUtils.intersection(list, list2);</span><br><span class="line">System.out.println(intersectionList);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取交集的补集</span></span><br><span class="line">Collection&lt;Integer&gt; disjunctionList = CollectionUtils.disjunction(list, list2);</span><br><span class="line">System.out.println(disjunctionList);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取差集</span></span><br><span class="line">Collection&lt;Integer&gt; subtractList = CollectionUtils.subtract(list, list2);</span><br><span class="line">System.out.println(subtractList);</span><br></pre></td></tr></table></figure>
+<p>执行结果：<br>[1, 2, 3, 4]<br>[2]<br>[1, 3, 4]<br>[1, 3]<br>说句实话，对两个集合的操作，在实际工作中用得挺多的，特别是很多批量的场景中。以前我们需要写一堆代码，但没想到有现成的轮子。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/06/20/%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%9A%84Collections%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="choi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Choi每天进步一点点">
+      <meta itemprop="description" content="自强不息的猿">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Choi每天进步一点点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/20/%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%9A%84Collections%E7%B1%BB/" class="post-title-link" itemprop="url">操作集合的Collections类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-20 20:11:06" itemprop="dateCreated datePublished" datetime="2024-06-20T20:11:06+08:00">2024-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-28 11:50:03" itemprop="dateModified" datetime="2024-06-28T11:50:03+08:00">2024-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">提升效率的轮子</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="首先出场的是java-util包下的Collections类，该类主要用于操作集合或者返回集合，强推。"><a href="#首先出场的是java-util包下的Collections类，该类主要用于操作集合或者返回集合，强推。" class="headerlink" title="首先出场的是java.util包下的Collections类，该类主要用于操作集合或者返回集合，强推。"></a>首先出场的是java.util包下的Collections类，该类主要用于操作集合或者返回集合，强推。</h1><h2 id="1-1-排序"><a href="#1-1-排序" class="headerlink" title="1.1 排序"></a>1.1 排序</h2><p>在工作中经常有对集合排序的需求。<br>看看使用Collections工具是如何实现升序和降序的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line">Collections.sort(list);<span class="comment">//升序</span></span><br><span class="line">System.out.println(list);</span><br><span class="line">Collections.reverse(list);<span class="comment">//降序</span></span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+<p>执行结果：<br>[1, 2, 3]<br>[3, 2, 1]</p>
+<h2 id="1-2-获取最大或最小值"><a href="#1-2-获取最大或最小值" class="headerlink" title="1.2 获取最大或最小值"></a>1.2 获取最大或最小值</h2><p>有时候需要找出集合中的最大值或者最小值，这时可以使用Collections的max和min方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">max</span> <span class="operator">=</span> Collections.max(list);<span class="comment">//获取最大值</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">min</span> <span class="operator">=</span> Collections.min(list);<span class="comment">//获取最小值</span></span><br><span class="line">System.out.println(max);</span><br><span class="line">System.out.println(min);</span><br></pre></td></tr></table></figure>
+<p>执行结果：<br>3<br>1</p>
+<h2 id="1-3-转换线程安全集合"><a href="#1-3-转换线程安全集合" class="headerlink" title="1.3 转换线程安全集合"></a>1.3 转换线程安全集合</h2><p>我们都知道，java中的很多集合，比如：ArrayList、LinkedList、HashMap、HashSet等，都是线程不安全的。<br>换句话说，这些集合在多线程的环境中，添加数据会出现异常。<br>这时，可以用Collections的synchronizedxxx方法，将这些线程不安全的集合，直接转换成线程安全集合。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; integers = Collections.synchronizedList(list);<span class="comment">//将ArrayList转换成线程安全集合</span></span><br><span class="line">System.out.println(integers);</span><br></pre></td></tr></table></figure>
+<p>它的底层会创建SynchronizedRandomAccessList或者SynchronizedList类，这两个类的很多方法都会用synchronized加锁。</p>
+<h2 id="1-4-返回空集合"><a href="#1-4-返回空集合" class="headerlink" title="1.4 返回空集合"></a>1.4 返回空集合</h2><p>有时，我们在判空之后，需要返回空集合，就可以使用emptyList方法，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title function_">fun</span><span class="params">(List&lt;Integer&gt; list)</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (list == <span class="literal">null</span> || list.size() == <span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//业务处理</span></span><br><span class="line"><span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.5 二分查找<br>binarySearch方法提供了一个非常好用的二分查找功能，只用传入指定集合和需要找到的key即可。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> Collections.binarySearch(list, <span class="number">3</span>);<span class="comment">//二分查找</span></span><br><span class="line">System.out.println(i );</span><br></pre></td></tr></table></figure>
+<p>执行结果：<br>2</p>
+<h2 id="1-6-转换成不可修改集合"><a href="#1-6-转换成不可修改集合" class="headerlink" title="1.6 转换成不可修改集合"></a>1.6 转换成不可修改集合</h2><p>为了防止后续的程序把某个集合的结果修改了，有时候我们需要把某个集合定义成不可修改的，使用Collections的unmodifiablexxx方法就能轻松实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; integers = Collections.unmodifiableList(list);</span><br><span class="line">integers.add(<span class="number">4</span>);</span><br><span class="line">System.out.println(integers);</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">at java.util.Collections$UnmodifiableCollection.add(Collections.java:<span class="number">1055</span>)</span><br><span class="line">at com.sue.jump.service.test1.UtilTest.main(UtilTest.java:<span class="number">19</span>)</span><br></pre></td></tr></table></figure>
+<p>Collections工具类中还有很多常用的方法，用上再更新。</p>
 
       
     </div>
@@ -1015,317 +1515,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" class="post-title-link" itemprop="url">spring 3.4的改变，依赖冲突</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-02 18:02:50 / 修改时间：18:03:35" itemprop="dateCreated datePublished" datetime="2024-05-02T18:02:50+08:00">2024-05-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：</p>
-<hr>
-<h1 id="JDK17-Spring-Boot-3-4-0-项目开发中的那些坑"><a href="#JDK17-Spring-Boot-3-4-0-项目开发中的那些坑" class="headerlink" title="JDK17 + Spring Boot 3.4.0 项目开发中的那些坑"></a>JDK17 + Spring Boot 3.4.0 项目开发中的那些坑</h1><h2 id="一、集成-MyBatis-Plus-3-5-9-的问题"><a href="#一、集成-MyBatis-Plus-3-5-9-的问题" class="headerlink" title="一、集成 MyBatis Plus 3.5.9 的问题"></a>一、集成 MyBatis Plus 3.5.9 的问题</h2><h3 id="1-1-依赖引入问题"><a href="#1-1-依赖引入问题" class="headerlink" title="1.1 依赖引入问题"></a>1.1 依赖引入问题</h3><p>不能只引入 <code>mybatis-plus-spring-boot3-starter</code> 依赖了，还需要配合 <code>mybatis-plus-jsqlparser</code>。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-spring-boot3-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-jsqlparser<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-版本统一管理"><a href="#1-2-版本统一管理" class="headerlink" title="1.2 版本统一管理"></a>1.2 版本统一管理</h3><p>使用 <code>mybatis-plus-bom</code> 来统一管理版本。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>详情请见：<a target="_blank" rel="noopener" href="https://baomidou.com/getting-started/install/">MyBatis-Plus 安装指南</a>。</p>
-<h2 id="二、集成-Knife4j-OpenApi3"><a href="#二、集成-Knife4j-OpenApi3" class="headerlink" title="二、集成 Knife4j-OpenApi3"></a>二、集成 Knife4j-OpenApi3</h2><h3 id="2-1-依赖引入"><a href="#2-1-依赖引入" class="headerlink" title="2.1 依赖引入"></a>2.1 依赖引入</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-openapi3-jakarta-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-实体类写法变动"><a href="#2-2-实体类写法变动" class="headerlink" title="2.2 实体类写法变动"></a>2.2 实体类写法变动</h3><p>不再使用 <code>@ApiModel</code> 和 <code>@ApiModelProperty</code>，而是使用 <code>@Schema</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Schema(name = &quot;OaDeptDTO对象&quot;, description = &quot;部门表&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OaDeptDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Serial</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;主键&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;父部门id&quot;, defaultValue = &quot;0&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long parentId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;部门名称&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String deptName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;部门编码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String deptCode;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;状态（0正常 1停用）&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-接口类写法"><a href="#2-3-接口类写法" class="headerlink" title="2.3 接口类写法"></a>2.3 接口类写法</h3><p>不再使用 <code>@Api</code> 和 <code>@ApiOperation</code>，而是使用 <code>@Tag</code> 和 <code>@Operation</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Tag(name = &quot;部门表&quot;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/oa/dept&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OaDeptController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OaDeptAppService oaDeptAppService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;新增部门&quot;)</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/add&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;Boolean&gt; <span class="title function_">add</span><span class="params">(<span class="meta">@RequestBody</span> OaDeptDTO oaDept)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Result.ok(oaDeptAppService.add(oaDept));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4-注意事项"><a href="#2-4-注意事项" class="headerlink" title="2.4 注意事项"></a>2.4 注意事项</h3><p>如果项目中存在全局异常拦截类（<code>@RestControllerAdvice</code> 或 <code>@ControllerAdvice</code>），访问接口文档会报错。这是版本的 bug。解决方案是升级 <code>springdoc-openapi-starter-webmvc-ui</code> 到 2.7.0。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-openapi3-jakarta-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;knife4j.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="三、接口写法变动"><a href="#三、接口写法变动" class="headerlink" title="三、接口写法变动"></a>三、接口写法变动</h2><h3 id="3-1-问题描述"><a href="#3-1-问题描述" class="headerlink" title="3.1 问题描述"></a>3.1 问题描述</h3><p>之前的写法在 Spring Boot 3.4.0 中不再适用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;查询数据明细&quot;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result&lt;OaRoleVO&gt; <span class="title function_">detail</span><span class="params">(<span class="meta">@PathVariable</span> Long id)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Result.ok(oaRoleAppService.detail(id));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-2-解决方案"><a href="#3-2-解决方案" class="headerlink" title="3.2 解决方案"></a>3.2 解决方案</h3><p>明确指定 <code>@PathVariable</code> 的参数名。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;查询数据明细&quot;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result&lt;OaRoleVO&gt; <span class="title function_">detail</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Result.ok(oaRoleAppService.detail(id));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">spring再次踩坑之前的依赖问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-04-16 16:53:49" itemprop="dateCreated datePublished" datetime="2024-04-16T16:53:49+08:00">2024-04-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-25 22:35:11" itemprop="dateModified" datetime="2024-07-25T22:35:11+08:00">2024-07-25</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Spring-Boot-和-MySQL-相关"><a href="#Spring-Boot-和-MySQL-相关" class="headerlink" title="Spring Boot 和 MySQL 相关"></a>Spring Boot 和 MySQL 相关</h1><p>在使用 Spring Boot 和 MySQL 等技术开发项目时，又又遇到了依赖问题。</p>
-<h2 id="1-Spring-Boot-Starter-Web-的作用"><a href="#1-Spring-Boot-Starter-Web-的作用" class="headerlink" title="1. Spring Boot Starter Web 的作用"></a>1. Spring Boot Starter Web 的作用</h2><p>在使用 IDEA 创建 Spring Boot 项目时，<code>spring-boot-starter-web</code> 依赖会被自动添加。咋会这样呢？今天，让我们一探究竟。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-1-加或不加-Spring-Boot-Starter-Web-的区别"><a href="#1-1-加或不加-Spring-Boot-Starter-Web-的区别" class="headerlink" title="1.1 加或不加 Spring Boot Starter Web 的区别"></a>1.1 加或不加 Spring Boot Starter Web 的区别</h3><p>答案是肯定的，有区别！在 Spring Boot 出现之前，开发 Web 项目需要大量的 XML 配置，手动导入依赖，配置 <code>web.xml</code> 来拦截请求，还需要在外部配置 Tomcat 容器，每次启动项目都要执行 <code>tomcat:run</code>，才能访问项目资源。</p>
-<p>而 Spring Boot 的出现极大地简化了这一切。它支持容器的自动配置，默认使用 Tomcat 容器。如果没有添加 <code>spring-boot-starter-web</code> 依赖，项目将无法启动，因为 Spring Boot 项目需要在容器中运行。这个依赖已经为我们配置好了 Tomcat 容器，无需再手动配置。</p>
-<h3 id="1-2-如何排除-Spring-Boot-Starter-Web-依赖中的-Tomcat，添加其他容器"><a href="#1-2-如何排除-Spring-Boot-Starter-Web-依赖中的-Tomcat，添加其他容器" class="headerlink" title="1.2 如何排除 Spring Boot Starter Web 依赖中的 Tomcat，添加其他容器"></a>1.2 如何排除 Spring Boot Starter Web 依赖中的 Tomcat，添加其他容器</h3><p>有时，我们可能需要使用其他容器，如 Jetty。可以通过排除默认的 Tomcat 容器并添加新的容器依赖来实现。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-MySQL-驱动的区别"><a href="#2-MySQL-驱动的区别" class="headerlink" title="2. MySQL 驱动的区别"></a>2. MySQL 驱动的区别</h2><p>在连接 MySQL 数据库时，我们经常使用 <code>com.mysql.jdbc.Driver</code> 和 <code>com.mysql.cj.jdbc.Driver</code>。它们有什么区别呢？</p>
-<h3 id="2-1-JDBC-连接-MySQL-5-需用-com-mysql-jdbc-Driver"><a href="#2-1-JDBC-连接-MySQL-5-需用-com-mysql-jdbc-Driver" class="headerlink" title="2.1 JDBC 连接 MySQL 5 需用 com.mysql.jdbc.Driver"></a>2.1 JDBC 连接 MySQL 5 需用 <code>com.mysql.jdbc.Driver</code></h3><p>对于 MySQL 5，使用以下配置即可：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-JDBC-连接-MySQL-6-需用-com-mysql-cj-jdbc-Driver，同时需要指定时区-serverTimezone"><a href="#2-2-JDBC-连接-MySQL-6-需用-com-mysql-cj-jdbc-Driver，同时需要指定时区-serverTimezone" class="headerlink" title="2.2 JDBC 连接 MySQL 6 需用 com.mysql.cj.jdbc.Driver，同时需要指定时区 serverTimezone"></a>2.2 JDBC 连接 MySQL 6 需用 <code>com.mysql.cj.jdbc.Driver</code>，同时需要指定时区 <code>serverTimezone</code></h3><p>对于 MySQL 6，需要指定时区 <code>serverTimezone</code>，并且驱动类名也有所不同：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/test?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-设定时区时，serverTimezone-UTC-比中国时间早-8-个小时，若在中国，可设置-serverTimezone-Shanghai-或者-serverTimezone-Hongkong"><a href="#2-3-设定时区时，serverTimezone-UTC-比中国时间早-8-个小时，若在中国，可设置-serverTimezone-Shanghai-或者-serverTimezone-Hongkong" class="headerlink" title="2.3 设定时区时，serverTimezone=UTC 比中国时间早 8 个小时，若在中国，可设置 serverTimezone=Shanghai 或者 serverTimezone=Hongkong"></a>2.3 设定时区时，<code>serverTimezone=UTC</code> 比中国时间早 8 个小时，若在中国，可设置 <code>serverTimezone=Shanghai</code> 或者 <code>serverTimezone=Hongkong</code></h3><p>在中国，建议设置为 <code>Shanghai</code> 或 <code>Hongkong</code>：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">driverClassName</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">url</span>=<span class="string">jdbc:mysql://localhost:3306/test?serverTimezone=Shanghai&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</span></span><br><span class="line"><span class="attr">username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4-总结"><a href="#2-4-总结" class="headerlink" title="2.4 总结"></a>2.4 总结</h3><p>如果使用 <code>mysql-connector-java</code> 6.0 以上版本，依赖如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.0.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>此时，必须使用 <code>com.mysql.cj.jdbc.Driver</code>，否则会报错。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://choi857.github.io/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="choi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Choi每天进步一点点">
-      <meta itemprop="description" content="自强不息的猿">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Choi每天进步一点点">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/04/MySQL%20%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">MySQL 索引</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-04-04 09:08:44 / 修改时间：12:29:28" itemprop="dateCreated datePublished" datetime="2024-04-04T09:08:44+08:00">2024-04-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>MySQL 在存储数据之外，还维护着满足特定查找算法的数据结构。这些数据结构以某种方式引用（指向）表中的数据，通过这些高级算法可以快速找到所需数据，这些数据结构称为索引。</p>
-<p>简单来说，索引是一种“排好序的可以快速查找数据的数据结构”。</p>
-<p>索引就像字典上的目录，能够帮助我们快速定位到需要的信息。</p>
-<h2 id="索引的重要性"><a href="#索引的重要性" class="headerlink" title="索引的重要性"></a>索引的重要性</h2><p>如果查询的数据表没有索引，SQL 语句将从第一条记录开始逐条匹配判断，直到找到匹配项。而数据库查询数据是从磁盘进行的，每一次匹配都是一次 IO 流操作，这样的查询方式称为全表扫描，性能极低。</p>
-<h2 id="MySQL-索引的最左前缀匹配原则"><a href="#MySQL-索引的最左前缀匹配原则" class="headerlink" title="MySQL 索引的最左前缀匹配原则"></a>MySQL 索引的最左前缀匹配原则</h2><p>在复合索引中，查询条件必须从索引的最左边的列开始匹配，才能有效利用索引。换句话说，只有当查询条件包含了索引列的最左前缀时，MySQL 才能利用该复合索引进行优化查询。</p>
-<h3 id="复合索引的结构"><a href="#复合索引的结构" class="headerlink" title="复合索引的结构"></a>复合索引的结构</h3><p>假设有一个复合索引 <code>(column1, column2, column3)</code>，以下查询条件可以利用该索引：</p>
-<ul>
-<li><code>WHERE column1 = ?</code></li>
-<li><code>WHERE column1 = ? AND column2 = ?</code></li>
-<li><code>WHERE column1 = ? AND column2 = ? AND column3 = ?</code></li>
-</ul>
-<p>但是，以下查询条件不能有效利用该复合索引：</p>
-<ul>
-<li><code>WHERE column2 = ?</code>（没有包含最左列 <code>column1</code>）</li>
-<li><code>WHERE column3 = ?</code>（没有包含最左列 <code>column1</code> 和 <code>column2</code>）</li>
-<li><code>WHERE column2 = ? AND column3 = ?</code>（没有包含最左列 <code>column1</code>）</li>
-</ul>
-<h2 id="什么情况下需要建立索引"><a href="#什么情况下需要建立索引" class="headerlink" title="什么情况下需要建立索引"></a>什么情况下需要建立索引</h2><ol>
-<li>主键会自动创建唯一索引。</li>
-<li>频繁作为查询条件的字段。</li>
-<li>查询中用于排序、统计或分组的字段。</li>
-</ol>
-<h2 id="聚簇索引与非聚簇索引的区别"><a href="#聚簇索引与非聚簇索引的区别" class="headerlink" title="聚簇索引与非聚簇索引的区别"></a>聚簇索引与非聚簇索引的区别</h2><p>聚簇索引和非聚簇索引都基于 B+ 树数据结构。</p>
-<ul>
-<li><strong>聚簇索引</strong>：将数据存储与索引放在一起，并按一定顺序组织。找到索引即找到数据。</li>
-<li><strong>非聚簇索引</strong>：叶子节点不存储数据，而是存储数据行的地址。根据索引查找数据行的位置后再读取磁盘查找数据。类似于书籍的目录，需先查找目录获取页码，再跳转到对应页面查看内容。</li>
-</ul>
-<h2 id="MySQL-索引失效的情况"><a href="#MySQL-索引失效的情况" class="headerlink" title="MySQL 索引失效的情况"></a>MySQL 索引失效的情况</h2><ol>
-<li><strong>不遵循最左前缀法则</strong>：使用联合索引时，未遵循最左前缀法则，索引可能失效。</li>
-<li><strong>主键插入顺序问题</strong>：插入数据的顺序与主键索引顺序不一致可能导致索引失效。</li>
-<li><strong>计算、函数或类型转换</strong>：对索引列进行计算、使用函数或进行类型转换可能导致索引失效。</li>
-<li><strong>范围查询右边的列索引失效</strong>：范围查询时，右边的列索引可能不生效。</li>
-<li><strong>使用不等于操作符</strong>：使用 <code>!=</code> 或 <code>&lt;&gt;</code> 操作符可能导致索引失效。</li>
-<li><strong>使用 <code>IS NOT NULL</code></strong>：<code>IS NOT NULL</code> 可能无法使用索引。</li>
-<li><strong>LIKE 查询以通配符开头</strong>：LIKE 查询以 <code>%</code> 开头可能导致索引失效。</li>
-<li><strong>OR 语句中存在非索引列</strong>：OR 前后存在非索引列时，索引可能失效。</li>
-<li><strong>字符集不统一</strong>：数据库和表字符集不统一（如未使用 utf8mb4）可能导致索引失效。</li>
-<li><strong>隐式类型转换</strong>：字符串与数字比较时，MySQL 自动转换类型可能导致索引失效。</li>
-<li><strong>联合索引非最左匹配</strong>：查询条件不符合联合索引的最左匹配原则，索引可能失效。</li>
-<li><strong>索引列上有计算</strong>：对索引列进行计算（如 <code>id + 1 = 2</code>）会导致索引失效。</li>
-<li><strong>索引列使用了函数</strong>：对索引列使用函数（如 <code>SUBSTR(id_no, 1, 3)</code>）会导致索引失效。</li>
-</ol>
-<h2 id="MySQL-事务基本要素（ACID-特性）"><a href="#MySQL-事务基本要素（ACID-特性）" class="headerlink" title="MySQL 事务基本要素（ACID 特性）"></a>MySQL 事务基本要素（ACID 特性）</h2><p>事务是数据库操作的一个单元，可以包含一个或多个数据库操作（如插入、更新、删除）。</p>
-<ol>
-<li><strong>原子性（Atomicity）</strong>：事务的所有操作要么全部完成，要么全部不完成。事务执行过程中出错会回滚到开始前的状态，所有操作就像未发生一样。事务是不可分割的整体，如同原子是物质的基本单位。</li>
-<li><strong>一致性（Consistency）</strong>：事务开始前和结束后，数据库的完整性约束未被破坏。例如，A 向 B 转账时，不可能出现 A 被扣款而 B 未收款的情况。</li>
-<li><strong>隔离性（Isolation）</strong>：同一时间只允许一个事务请求同一数据，不同事务之间互不干扰。例如，A 正在从银行卡取钱时，B 不能同时向该卡转账。</li>
-<li><strong>持久性（Durability）</strong>：事务完成后，对数据库的所有更新将被永久保存，无法回滚。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
 </div>
   </main>

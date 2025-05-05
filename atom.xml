@@ -6,7 +6,7 @@
   <link href="https://choi857.github.io/atom.xml" rel="self"/>
   
   <link href="https://choi857.github.io/"/>
-  <updated>2024-07-25T14:34:26.746Z</updated>
+  <updated>2024-08-09T15:50:03.000Z</updated>
   <id>https://choi857.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka初解</title>
+    <link href="https://choi857.github.io/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/"/>
+    <id>https://choi857.github.io/2024/08/08/Kafka%E5%88%9D%E8%A7%A3/</id>
+    <published>2024-08-08T14:46:22.000Z</published>
+    <updated>2024-08-09T15:50:03.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Kafka-作为一个分布式的流平台&quot;&gt;&lt;a href=&quot;#Kafka-作为一个分布式的流平台&quot; class=&quot;headerlink&quot; title=&quot;Kafka 作为一个分布式的流平台&quot;&gt;&lt;/a&gt;Kafka 作为一个分布式的流平台&lt;/h3&gt;&lt;p&gt;Kafka 作为一个</summary>
+      
+    
+    
+    
+    
+    <category term="Kafka" scheme="https://choi857.github.io/tags/Kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>RabbtiMQ一些总结</title>
@@ -31,6 +51,66 @@
       
     
     
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Boot+RabbitMQ</title>
+    <link href="https://choi857.github.io/2024/07/07/Spring-Boot-RabbitMQ/"/>
+    <id>https://choi857.github.io/2024/07/07/Spring-Boot-RabbitMQ/</id>
+    <published>2024-07-07T08:53:31.000Z</published>
+    <updated>2024-07-07T11:50:03.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Spring-Boot-集成-RabbitMQ&quot;&gt;&lt;a href=&quot;#Spring-Boot-集成-RabbitMQ&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot 集成 RabbitMQ&quot;&gt;&lt;/a&gt;Spring Boot 集成 Ra</summary>
+      
+    
+    
+    
+    
+    <category term="RabbitMQ" scheme="https://choi857.github.io/tags/RabbitMQ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CollectionUtils类操作集合</title>
+    <link href="https://choi857.github.io/2024/06/23/CollectionUtils%E7%B1%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88/"/>
+    <id>https://choi857.github.io/2024/06/23/CollectionUtils%E7%B1%BB%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88/</id>
+    <published>2024-06-23T14:34:41.000Z</published>
+    <updated>2024-06-23T15:50:03.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。&quot;&gt;&lt;a href=&quot;#对集合操作，除了前面说的Collections工具类，CollectionUtils工具类也非常常用。&quot; class=&quot;headerlin</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>操作集合的Collections类</title>
+    <link href="https://choi857.github.io/2024/06/20/%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%9A%84Collections%E7%B1%BB/"/>
+    <id>https://choi857.github.io/2024/06/20/%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E7%9A%84Collections%E7%B1%BB/</id>
+    <published>2024-06-20T12:11:06.000Z</published>
+    <updated>2024-06-28T03:50:03.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;首先出场的是java-util包下的Collections类，该类主要用于操作集合或者返回集合，强推。&quot;&gt;&lt;a href=&quot;#首先出场的是java-util包下的Collections类，该类主要用于操作集合或者返回集合，强推。&quot; class=&quot;headerlin</summary>
+      
+    
+    
+    
+    <category term="提升效率的轮子" scheme="https://choi857.github.io/categories/%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E8%BD%AE%E5%AD%90/"/>
     
     
   </entry>
