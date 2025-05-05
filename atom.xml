@@ -6,7 +6,7 @@
   <link href="https://choi857.github.io/atom.xml" rel="self"/>
   
   <link href="https://choi857.github.io/"/>
-  <updated>2024-04-04T04:29:28.383Z</updated>
+  <updated>2024-07-25T14:34:26.746Z</updated>
   <id>https://choi857.github.io/</id>
   
   <author>
@@ -15,6 +15,155 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RabbtiMQ一些总结</title>
+    <link href="https://choi857.github.io/2024/07/25/RabbtiMQ%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/"/>
+    <id>https://choi857.github.io/2024/07/25/RabbtiMQ%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</id>
+    <published>2024-07-25T14:30:07.000Z</published>
+    <updated>2024-07-25T14:34:26.746Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;本篇内容主要为消息发送&quot;&gt;&lt;a href=&quot;#本篇内容主要为消息发送&quot; class=&quot;headerlink&quot; title=&quot;本篇内容主要为消息发送&quot;&gt;&lt;/a&gt;本篇内容主要为消息发送&lt;/h3&gt;&lt;p&gt;本篇内容主要为RabbitMQ消息发送，包括以下几点：&lt;/p&gt;
+&lt;u</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>难读的Lambda</title>
+    <link href="https://choi857.github.io/2024/06/15/%E9%9A%BE%E8%AF%BB%E7%9A%84Lambda/"/>
+    <id>https://choi857.github.io/2024/06/15/%E9%9A%BE%E8%AF%BB%E7%9A%84Lambda/</id>
+    <published>2024-06-15T14:08:03.000Z</published>
+    <updated>2024-06-16T08:53:49.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Lambda在集合当中的使用&quot;&gt;&lt;a href=&quot;#Lambda在集合当中的使用&quot; class=&quot;headerlink&quot; title=&quot;Lambda在集合当中的使用&quot;&gt;&lt;/a&gt;Lambda在集合当中的使用&lt;/h3&gt;&lt;p&gt;为了能够让 Lambda 和 Java 的集</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>横扫if-else</title>
+    <link href="https://choi857.github.io/2024/06/07/%E6%A8%AA%E6%89%ABif-else/"/>
+    <id>https://choi857.github.io/2024/06/07/%E6%A8%AA%E6%89%ABif-else/</id>
+    <published>2024-06-07T13:20:28.000Z</published>
+    <updated>2024-06-07T13:22:50.779Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;策略模式-工厂方法&quot;&gt;&lt;a href=&quot;#策略模式-工厂方法&quot; class=&quot;headerlink&quot; title=&quot;策略模式 + 工厂方法&quot;&gt;&lt;/a&gt;策略模式 + 工厂方法&lt;/h1&gt;&lt;h3 id=&quot;策略模式-工厂方法是解决-if…else-用得非常多的方案，它和表</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>java的异常处理</title>
+    <link href="https://choi857.github.io/2024/05/28/java%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
+    <id>https://choi857.github.io/2024/05/28/java%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</id>
+    <published>2024-05-28T12:45:24.000Z</published>
+    <updated>2024-05-29T08:53:49.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;以下是整理为Markdown格式的内容：&lt;/p&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;今天来一起学习一下Spring Boot中的异常处理，在日常web开发中发生了异常，</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>java的常见异常</title>
+    <link href="https://choi857.github.io/2024/05/23/java%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/"/>
+    <id>https://choi857.github.io/2024/05/23/java%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</id>
+    <published>2024-05-23T14:44:59.000Z</published>
+    <updated>2024-05-23T15:10:00.242Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;今天记录一下常见的异常，摸索一下全局异常处理&quot;&gt;&lt;a href=&quot;#今天记录一下常见的异常，摸索一下全局异常处理&quot; class=&quot;headerlink&quot; title=&quot;今天记录一下常见的异常，摸索一下全局异常处理&quot;&gt;&lt;/a&gt;今天记录一下常见的异常，摸索一下全局异常</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mysql左右连接踩坑</title>
+    <link href="https://choi857.github.io/2024/05/16/mysql%E5%B7%A6%E5%8F%B3%E8%BF%9E%E6%8E%A5%E8%B8%A9%E5%9D%91/"/>
+    <id>https://choi857.github.io/2024/05/16/mysql%E5%B7%A6%E5%8F%B3%E8%BF%9E%E6%8E%A5%E8%B8%A9%E5%9D%91/</id>
+    <published>2024-05-16T07:21:18.000Z</published>
+    <updated>2024-05-16T07:22:28.918Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;hr&gt;
+&lt;h1 id=&quot;LEFT-JOIN-遇到了结果集重复问题，小小探究一下&quot;&gt;&lt;a href=&quot;#LEFT-JOIN-遇到了结果集重复问题，小小探究一下&quot; class=&quot;headerlink&quot; title=&quot;LEFT JOIN 遇到了结果集重复问题，小小探究一下&quot;&gt;&lt;/a&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>spring 3.4的改变，依赖冲突</title>
+    <link href="https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/"/>
+    <id>https://choi857.github.io/2024/05/02/spring-3-4%E7%9A%84%E6%94%B9%E5%8F%98%EF%BC%8C%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</id>
+    <published>2024-05-02T10:02:50.000Z</published>
+    <updated>2024-05-02T10:03:35.069Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;以下是将您提供的内容转换为优雅的 Markdown 格式后的版本：&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;JDK17-Spring-Boot-3-4-0-项目开发中的那些坑&quot;&gt;&lt;a href=&quot;#JDK17-Spring-Boot-3-4-0-项目开发中的那些坑&quot; class=</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>spring再次踩坑之前的依赖问题</title>
+    <link href="https://choi857.github.io/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/"/>
+    <id>https://choi857.github.io/2024/04/16/spring%E5%86%8D%E6%AC%A1%E8%B8%A9%E5%9D%91%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98/</id>
+    <published>2024-04-16T08:53:49.000Z</published>
+    <updated>2024-07-25T14:35:11.333Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Spring-Boot-和-MySQL-相关&quot;&gt;&lt;a href=&quot;#Spring-Boot-和-MySQL-相关&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot 和 MySQL 相关&quot;&gt;&lt;/a&gt;Spring Boot 和 MySQL </summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>MySQL 索引</title>
